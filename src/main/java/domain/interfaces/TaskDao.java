@@ -26,7 +26,7 @@ public interface TaskDao {
 	 * @param id
 	 * @return the TaskItem
 	 */
-	public TaskItem updateTaskItem(String id, boolean isComplete);
+	public TaskItem editTaskItem(String id, boolean isComplete);
 	
 	/**
 	 * @param id

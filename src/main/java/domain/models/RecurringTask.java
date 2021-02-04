@@ -20,10 +20,12 @@ public class RecurringTask extends TaskItem implements iTaskService {
 	}
 	
 	public String getCount() {
+		
 		return count;
 	}
 	
 	public void setCount(String count) {
+		
 		this.count = count;
 	}
 	

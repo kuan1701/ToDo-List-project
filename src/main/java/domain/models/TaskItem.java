@@ -36,58 +36,72 @@ abstract public class TaskItem implements iTaskService {
 	
 	
 	public String getName() {
+		
 		return name;
 	}
 	
 	public void setName(String name) {
+		
 		this.name = name;
 	}
 	
 	public String getId() {
+		
 		return id;
 	}
 	
 	public void setId(String id) {
+		
 		this.id = id;
 	}
 	
 	public Date getDate() {
+		
 		return date;
 	}
 	
 	public void setDate(Date date) {
+		
 		this.date = date;
 	}
 	
 	public TaskCategories getTaskCategories() {
+		
 		return taskCategories;
 	}
 	
 	public void setTaskCategories(TaskCategories taskCategories) {
+		
 		this.taskCategories = taskCategories;
 	}
 	
 	public TaskTypes getTaskTypes() {
+		
 		return taskTypes;
 	}
 	
 	public void setTaskTypes(TaskTypes taskTypes) {
+		
 		this.taskTypes = taskTypes;
 	}
 	
 	public boolean isComplete() {
+		
 		return complete;
 	}
 	
 	public void setComplete(boolean complete) {
+		
 		this.complete = complete;
 	}
 	
 	public String getExpirationDate() {
+		
 		return expirationDate;
 	}
 	
 	public void setExpirationDate(String expirationDate) {
+		
 		this.expirationDate = expirationDate;
 	}
 }

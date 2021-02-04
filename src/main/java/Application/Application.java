@@ -2,11 +2,7 @@ package Application;
 
 import domain.enums.TaskCategories;
 import domain.enums.TaskTypes;
-import domain.models.OneTimeTask;
-import domain.models.RecurringTask;
-import domain.models.TaskItem;
-import domain.users.BuildUser;
-import domain.users.User;
+import domain.models.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,20 +32,24 @@ public class Application {
 		(recurringTasksList.get(0)).createTask();
 		
 		System.out.println("User");
-		User firstUser = new User.Builder()
+		
+		User<String> user = new User.Builder<String>()
 				.withFirstName("Kuan")
 				.withLastName("Chin")
 				.withUserName("kuan1701")
 				.withPassword("17011993")
+				.withID("id1701")
 				.build();
 		
-		System.out.println(firstUser);
+		user.setId("id1601");
+		System.out.println(user.getId());
 		
-		BuildUser<User> A = new BuildUser<>(new User.Builder()
-				.withFirstName("Kuan")
-				.withLastName("Chin")
-				.withPassword("17011993")
-				.withUserName("kuan1701"), "id 3232432");
-
+		User<Integer> admin = new User.Builder<Integer>()
+				.withUserName("Admin")
+				.withPassword("123456")
+				.withID(1234567)
+				.build();
+		System.out.println(admin.getId());
+		
 	}
 }
