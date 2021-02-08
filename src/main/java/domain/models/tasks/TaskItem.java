@@ -1,4 +1,4 @@
-package domain.models;
+package domain.models.tasks;
 
 import domain.enums.TaskCategories;
 import domain.enums.TaskTypes;
@@ -9,58 +9,45 @@ import java.util.Date;
 abstract public class TaskItem implements iTaskService {
 	
 	//Fields
-	private String name;
-	private String id;
-	private Date date;
+	private String description;
+	private String date;
 	private TaskCategories taskCategories;
 	private TaskTypes taskTypes;
 	private boolean complete;
 	private String expirationDate;
+	private static int numberOfTask = 0;
 	
 	//Constructors
-	
 	public TaskItem() {
 	}
 	
-	public TaskItem(String name, String id, Date date, TaskCategories taskCategories, TaskTypes taskTypes, boolean complete, String expirationDate) {
-		this.name = name;
-		this.id = id;
+	public TaskItem(String description, String date, TaskCategories taskCategories, TaskTypes taskTypes, boolean complete, String expirationDate) {
+		this.description = description;
 		this.date = date;
 		this.taskCategories = taskCategories;
 		this.taskTypes = taskTypes;
 		this.complete = complete;
 		this.expirationDate = expirationDate;
+		numberOfTask++;
 	}
 	
 //Getters and setters
-	
-	
-	public String getName() {
+	public String getDescription() {
 		
-		return name;
+		return description;
 	}
 	
-	public void setName(String name) {
+	public void setDescription(String description) {
 		
-		this.name = name;
+		this.description = description;
 	}
 	
-	public String getId() {
-		
-		return id;
-	}
-	
-	public void setId(String id) {
-		
-		this.id = id;
-	}
-	
-	public Date getDate() {
+	public String getDate() {
 		
 		return date;
 	}
 	
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		
 		this.date = date;
 	}
@@ -103,5 +90,9 @@ abstract public class TaskItem implements iTaskService {
 	public void setExpirationDate(String expirationDate) {
 		
 		this.expirationDate = expirationDate;
+	}
+	
+	public int getNumberOfTask() {
+		return numberOfTask;
 	}
 }
