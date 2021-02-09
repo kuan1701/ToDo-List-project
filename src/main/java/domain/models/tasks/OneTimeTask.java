@@ -41,8 +41,7 @@ public class OneTimeTask extends TaskItem implements iTaskService, Comparable<On
 	//Methods
 	@Override
 	public void createTask() {
-		System.out.println("Task " + getId() + ".\n" +
-							"Description: " + getDescription() + ".\n" +
+		System.out.println(	"Description: " + getDescription() + ".\n" +
 							"Creation date: " + getCreationDate() + ".\n" +
 							"Type: " + getTaskType() + ".\n" +
 							"Category: " + getTaskCategory() + ".\n" +
@@ -63,8 +62,8 @@ public class OneTimeTask extends TaskItem implements iTaskService, Comparable<On
 	//Method toString
 	@Override
 	public String toString() {
-		final StringBuffer sb = new StringBuffer("Task " + id);
-		sb.append(". Description: ").append(getDescription());
+		final StringBuffer sb = new StringBuffer();
+		sb.append(" Description: ").append(getDescription());
 		sb.append(". Creation date: ").append(getCreationDate());
 		sb.append(". Type: ").append(getTaskType());
 		sb.append(". Category: ").append(getTaskCategory());

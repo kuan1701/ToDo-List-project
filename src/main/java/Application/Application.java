@@ -15,7 +15,7 @@ public class Application {
 
 		//Create a one-time task
 		OneTimeTask oneTimeTask = new OneTimeTask(
-				"buy products",
+				"1buy products",
 				"02.02.2021 11:20",
 				TaskCategory.SHOPPING,
 				TaskType.IMPORTANT,
@@ -23,16 +23,25 @@ public class Application {
 				"08.02.2021");
 		
 		OneTimeTask oneTimeTask2 = new OneTimeTask(
-				"buy cat food",
+				"2buy cat food",
 				"04.02.2021 16:48",
 				TaskCategory.SHOPPING,
 				TaskType.URGENTLY,
 				false,
 				"10.02.2021");
 		
+		OneTimeTask oneTimeTask3 = new OneTimeTask(
+				"3buy cat food",
+				"04.02.2021 16:48",
+				TaskCategory.PERSONAL,
+				TaskType.URGENTLY,
+				false,
+				"10.02.2021");
+		
+		
 		//Create a recurring task
 		TaskItem recurringTask = new RecurringTask(
-				"pay utility bills",
+				"1pay utility bills",
 				"20.02.2021 14:38",
 				TaskCategory.HOUSEWORK,
 				TaskType.IMPORTANT,
@@ -41,7 +50,7 @@ public class Application {
 				"every month");
 		
 		RecurringTask recurringTask2 = new RecurringTask(
-				"go to the car diagnostics",
+				"2go to the car diagnostics",
 				"02.02.2021 13:27",
 				TaskCategory.PERSONAL,
 				TaskType.IMPORTANT,
@@ -49,7 +58,6 @@ public class Application {
 				"20.02.2021",
 				"every month");
 		
-		//------------------------------------------------------------------------------------------
 		
 		//Displaying all and creating one-time tasks
 		System.out.println("One-time task list");
@@ -58,17 +66,18 @@ public class Application {
 		//List of one-time tasks
 		Collections.sort(OneTimeTask.getOneTimeTaskList());
 		
+		int numOfOneTimeTask = 1;
 		//Displaying one-time tasks
 		for (TaskItem oTT: OneTimeTask.getTasks()) {
-
-			//oTT.createTask();
+			
+			int idOneTimeTask = numOfOneTimeTask++;
+			System.out.println("Task " + idOneTimeTask + ".");
+			oTT.createTask();
 			//The second way to display task
-			System.out.println(oTT);
+			//System.out.println("Task " + idOneTimeTask + "." + oTT);
 		}
-		
 		System.out.println("");
 		
-		//--------------------------------------------------------------------------------------------
 		
 		//Displaying and creating all recurring tasks
 		System.out.println("Recurring task list");
@@ -77,19 +86,21 @@ public class Application {
 		//List of recurring tasks
 		Collections.sort(RecurringTask.getRecurringTaskList());
 		
+		int numOfRecurringTask = 1;
 		//Displaying recurring tasks
 		for (TaskItem rT : RecurringTask.getTasks()) {
 			
-			rT.createTask();
+			int idRecurringTask = numOfRecurringTask++;
+			//System.out.println("Task " + idRecurringTask + ".");
+			//rT.createTask();
 			//The second way to display task
-			//System.out.println(rT);
+			System.out.println("Task " + idRecurringTask + "." + rT);
 		}
 		
 		//Total numbers of tasks
 		System.out.println("-------------------");
 		System.out.println("In total, you have " + TaskItem.getNumberOfTask() + " tasks.\n");
 		
-		//-----------------------------------------------------------------------------------------------
 		
 		//Displaying and creating users
 		System.out.println("       Users       ");

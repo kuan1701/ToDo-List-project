@@ -45,8 +45,7 @@ public class RecurringTask extends TaskItem implements iTaskService, Comparable<
 	@Override
 	public void createTask() {
 		
-		System.out.println("Task " + getId() + ".\n" +
-							"Name: " + getDescription() + ".\n" +
+		System.out.println(	"Description: " + getDescription() + ".\n" +
 							"Creation date: " + getCreationDate() + ".\n" +
 							"Repeat: " + getCount() + ".\n" +
 							"Type: " + getTaskType() + ".\n" +
@@ -97,8 +96,8 @@ public class RecurringTask extends TaskItem implements iTaskService, Comparable<
 	//Method toString
 	@Override
 	public String toString() {
-		final StringBuffer sb = new StringBuffer("Task " + id);
-		sb.append(". Description: ").append(getDescription());
+		final StringBuffer sb = new StringBuffer();
+		sb.append(" Description: ").append(getDescription());
 		sb.append(". Creation date: ").append(getCreationDate());
 		sb.append(". Repeat: ").append(getCount());
 		sb.append(". Type: ").append(getTaskType());
