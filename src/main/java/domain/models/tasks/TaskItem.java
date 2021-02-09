@@ -1,37 +1,50 @@
 package domain.models.tasks;
 
-import domain.enums.TaskCategories;
-import domain.enums.TaskTypes;
+import domain.enums.TaskCategory;
+import domain.enums.TaskType;
 import domain.interfaces.iTaskService;
-
-import java.util.Date;
 
 abstract public class TaskItem implements iTaskService {
 	
 	//Fields
 	private String description;
 	private String date;
-	private TaskCategories taskCategories;
-	private TaskTypes taskTypes;
+	private TaskCategory taskCategory;
+	private TaskType taskType;
 	private boolean complete;
 	private String expirationDate;
 	private static int numberOfTask = 0;
 	
-	//Constructors
+	/**
+	 * Constructs an TaskItem with no specified parameters
+	 */
 	public TaskItem() {
 	}
 	
-	public TaskItem(String description, String date, TaskCategories taskCategories, TaskTypes taskTypes, boolean complete, String expirationDate) {
+	/**
+	 * Constructs an TaskItem of a given description, creationDate,
+	 * taskCategory, taskType, complete, expirationDate
+	 * @param description TaskItem description
+	 * @param creationDate TaskItem creationDate
+	 * @param taskCategory TaskItem taskCategory
+	 * @param taskType TaskItem taskType
+	 * @param complete TaskItem complete
+	 * @param expirationDate TaskItem expirationDate
+	 */
+	public TaskItem(String description, String creationDate, TaskCategory taskCategory, TaskType taskType, boolean complete, String expirationDate) {
 		this.description = description;
-		this.date = date;
-		this.taskCategories = taskCategories;
-		this.taskTypes = taskTypes;
+		this.date = creationDate;
+		this.taskCategory = taskCategory;
+		this.taskType = taskType;
 		this.complete = complete;
 		this.expirationDate = expirationDate;
 		numberOfTask++;
 	}
 	
-//Getters and setters
+	//Getters and setters
+	/**
+	 * @return TaskItem description
+	 */
 	public String getDescription() {
 		
 		return description;
@@ -42,7 +55,10 @@ abstract public class TaskItem implements iTaskService {
 		this.description = description;
 	}
 	
-	public String getDate() {
+	/**
+	 * @return TaskItem creationDate
+	 */
+	public String getCreationDate() {
 		
 		return date;
 	}
@@ -52,26 +68,35 @@ abstract public class TaskItem implements iTaskService {
 		this.date = date;
 	}
 	
-	public TaskCategories getTaskCategories() {
+	/**
+	 * @return TaskItem category
+	 */
+	public TaskCategory getTaskCategory() {
 		
-		return taskCategories;
+		return taskCategory;
 	}
 	
-	public void setTaskCategories(TaskCategories taskCategories) {
+	public void setTaskCategory(TaskCategory taskCategory) {
 		
-		this.taskCategories = taskCategories;
+		this.taskCategory = taskCategory;
 	}
 	
-	public TaskTypes getTaskTypes() {
+	/**
+	 * @return TaskItem type
+	 */
+	public TaskType getTaskType() {
 		
-		return taskTypes;
+		return taskType;
 	}
 	
-	public void setTaskTypes(TaskTypes taskTypes) {
+	public void setTaskType(TaskType taskType) {
 		
-		this.taskTypes = taskTypes;
+		this.taskType = taskType;
 	}
 	
+	/**
+	 * @return TaskItem complete
+	 */
 	public boolean isComplete() {
 		
 		return complete;
@@ -82,6 +107,9 @@ abstract public class TaskItem implements iTaskService {
 		this.complete = complete;
 	}
 	
+	/**
+	 * @return TaskItem expirationDate
+	 */
 	public String getExpirationDate() {
 		
 		return expirationDate;
@@ -92,7 +120,10 @@ abstract public class TaskItem implements iTaskService {
 		this.expirationDate = expirationDate;
 	}
 	
-	public int getNumberOfTask() {
+	/**
+	 * @return TaskItem number
+	 */
+	public static int getNumberOfTask() {
 		return numberOfTask;
 	}
 }

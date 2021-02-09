@@ -1,9 +1,10 @@
 package domain.models.tasks;
 
-import domain.enums.TaskCategories;
-import domain.enums.TaskTypes;
+import domain.enums.TaskCategory;
+import domain.enums.TaskType;
 import domain.interfaces.iTaskService;
 
+import java.util.LinkedList;
 import java.util.Objects;
 
 public class RecurringTask extends TaskItem implements iTaskService, Comparable<RecurringTask> {
@@ -14,13 +15,30 @@ public class RecurringTask extends TaskItem implements iTaskService, Comparable<
 	public static int num = 1;
 	private final int id = num++;
 	
-	//Constructors
+	//Create a list of recurring task
+	private static final LinkedList<RecurringTask> recurringTaskList = new LinkedList<RecurringTask>();
+	
+	/**
+	 * Constructs an RecurringTask with no specified parameters
+	 */
 	public RecurringTask() {
 	}
 	
-	public RecurringTask(String description, String date, TaskCategories taskCategories, TaskTypes taskTypes, boolean complete, String expirationDate, String count) {
-		super(description, date, taskCategories, taskTypes, complete, expirationDate);
+	/**
+	 * Constructs an RecurringTask of a given description, creationDate,
+	 * taskCategory, taskType, complete, expirationDate, count
+	 * @param description RecurringTask description
+	 * @param creationDate RecurringTask creationDate
+	 * @param taskCategory RecurringTask taskCategory
+	 * @param taskType RecurringTask taskType
+	 * @param complete RecurringTask complete
+	 * @param expirationDate RecurringTask expirationDate
+	 * @param count RecurringTask count
+	 */
+	public RecurringTask(String description, String creationDate, TaskCategory taskCategory, TaskType taskType, boolean complete, String expirationDate, String count) {
+		super(description, creationDate, taskCategory, taskType, complete, expirationDate);
 		this.count = count;
+		recurringTaskList.add(this);
 	}
 	
 	//Methods
@@ -29,10 +47,10 @@ public class RecurringTask extends TaskItem implements iTaskService, Comparable<
 		
 		System.out.println("Task " + getId() + ".\n" +
 							"Name: " + getDescription() + ".\n" +
-							"Creation date: " + getDate() + ".\n" +
+							"Creation date: " + getCreationDate() + ".\n" +
 							"Repeat: " + getCount() + ".\n" +
-							"Type: " + getTaskTypes() + ".\n" +
-							"Category: " + getTaskCategories() + ".\n" +
+							"Type: " + getTaskType() + ".\n" +
+							"Category: " + getTaskCategory() + ".\n" +
 							"Expiration date: " + getExpirationDate() + ".\n" +
 							"Complete: " + isComplete() + ".\n");
 	}
@@ -64,14 +82,14 @@ public class RecurringTask extends TaskItem implements iTaskService, Comparable<
 	}
 	
 	//Method compareTo
-	//Comparing tasks by type by category
+	//Comparing tasks by type and by category
 	@Override
 	public int compareTo(RecurringTask obj) {
 		
-		int result = this.getTaskTypes().compareTo(obj.getTaskTypes());
+		int result = this.getTaskType().compareTo(obj.getTaskType());
 		
 		if (result == 0) {
-			result = this.getTaskCategories().compareTo(obj.getTaskCategories());
+			result = this.getTaskCategory().compareTo(obj.getTaskCategory());
 		}
 		return result;
 	}
@@ -81,25 +99,51 @@ public class RecurringTask extends TaskItem implements iTaskService, Comparable<
 	public String toString() {
 		final StringBuffer sb = new StringBuffer("Task " + id);
 		sb.append(". Description: ").append(getDescription());
-		sb.append(". Creation date: ").append(getDate());
+		sb.append(". Creation date: ").append(getCreationDate());
 		sb.append(". Repeat: ").append(getCount());
-		sb.append(". Type: ").append(getTaskTypes());
-		sb.append(". Category: ").append(getTaskCategories());
+		sb.append(". Type: ").append(getTaskType());
+		sb.append(". Category: ").append(getTaskCategory());
 		sb.append(". Expiration date: ").append(getExpirationDate());
 		sb.append(". Complete: ").append(isComplete());
 		sb.append('.');
 		return sb.toString();
 	}
-	//Getters and setters
-	
+
+	/**
+	 * @return RecurringTask ID
+	 */
 	public int getId() {
 		
 		return id;
 	}
 	
+	/**
+	 * @return RecurringTask count
+	 */
 	public String getCount() {
 		
 		return count;
+	}
+	
+	/**
+	 * @return A list of RecurringTask
+	 */
+	public static LinkedList<RecurringTask> getRecurringTaskList() {
+		return recurringTaskList;
+	}
+	
+	/**
+	 * @return A list of Recurring that have a quantity > 0
+	 */
+	public static LinkedList<RecurringTask> getTasks() {
+		
+		LinkedList<RecurringTask> tasks = new LinkedList<RecurringTask>();
+		
+		for(RecurringTask task : recurringTaskList) {
+			if(task.getId() > 0)
+				tasks.add(task);
+		}
+		return tasks;
 	}
 	
 	public void setCount(String count) {

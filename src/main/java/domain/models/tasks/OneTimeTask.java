@@ -1,10 +1,10 @@
 package domain.models.tasks;
 
-
-import domain.enums.TaskCategories;
-import domain.enums.TaskTypes;
+import domain.enums.TaskCategory;
+import domain.enums.TaskType;
 import domain.interfaces.iTaskService;
 
+import java.util.LinkedList;
 import java.util.Objects;
 
 public class OneTimeTask extends TaskItem implements iTaskService, Comparable<OneTimeTask> {
@@ -13,13 +13,29 @@ public class OneTimeTask extends TaskItem implements iTaskService, Comparable<On
 	public static int num = 1;
 	private final int id = num++;
 	
-	//Constructors
+	//Create a list of one-time task
+	private static final LinkedList<OneTimeTask> oneTimeTaskList = new LinkedList<OneTimeTask>();
+	
+	/**
+	 * Constructs an OneTimeTask with no specified parameters
+	 */
 	public OneTimeTask() {
+		oneTimeTaskList.add(this);
 	}
 	
-	public OneTimeTask(String description, String date, TaskCategories taskCategories, TaskTypes taskTypes, boolean complete, String expirationDate) {
-		super(description, date, taskCategories, taskTypes, complete, expirationDate);
-
+	/**
+	 * Constructs an OneTimeTask of a given description, creationDate,
+	 * taskCategory, taskType, complete, expirationDate
+	 * @param description OneTimeTask description
+	 * @param creationDate OneTimeTask creationDate
+	 * @param taskCategory OneTimeTask taskCategory
+	 * @param taskType OneTimeTask taskType
+	 * @param complete OneTimeTask complete
+	 * @param expirationDate OneTimeTask expirationDate
+	 */
+	public OneTimeTask(String description, String creationDate, TaskCategory taskCategory, TaskType taskType, boolean complete, String expirationDate) {
+		super(description, creationDate, taskCategory, taskType, complete, expirationDate);
+		oneTimeTaskList.add(this);
 	}
 	
 	//Methods
@@ -27,9 +43,9 @@ public class OneTimeTask extends TaskItem implements iTaskService, Comparable<On
 	public void createTask() {
 		System.out.println("Task " + getId() + ".\n" +
 							"Description: " + getDescription() + ".\n" +
-							"Creation date: " + getDate() + ".\n" +
-							"Type: " + getTaskTypes() + ".\n" +
-							"Category: " + getTaskCategories() + ".\n" +
+							"Creation date: " + getCreationDate() + ".\n" +
+							"Type: " + getTaskType() + ".\n" +
+							"Category: " + getTaskCategory() + ".\n" +
 							"Expiration date: " + getExpirationDate() + ".\n" +
 							"Complete: " + isComplete() + ".\n");
 	}
@@ -49,9 +65,9 @@ public class OneTimeTask extends TaskItem implements iTaskService, Comparable<On
 	public String toString() {
 		final StringBuffer sb = new StringBuffer("Task " + id);
 		sb.append(". Description: ").append(getDescription());
-		sb.append(". Creation date: ").append(getDate());
-		sb.append(". Type: ").append(getTaskTypes());
-		sb.append(". Category: ").append(getTaskCategories());
+		sb.append(". Creation date: ").append(getCreationDate());
+		sb.append(". Type: ").append(getTaskType());
+		sb.append(". Category: ").append(getTaskCategory());
 		sb.append(". Expiration date: ").append(getExpirationDate());
 		sb.append(". Complete: ").append(isComplete());
 		sb.append('.');
@@ -77,15 +93,37 @@ public class OneTimeTask extends TaskItem implements iTaskService, Comparable<On
 	@Override
 	public int compareTo(OneTimeTask obj) {
 		
-		int result = this.getTaskTypes().compareTo(obj.getTaskTypes());
-		
+			int result = this.getTaskType().compareTo(obj.getTaskType());
 		if (result == 0) {
-			result = this.getTaskCategories().compareTo(obj.getTaskCategories());
+			result = this.getTaskCategory().compareTo(obj.getTaskCategory());
 		}
 		return result;
 	}
 	
-	//Getters and setters
+	/**
+	 * @return A list of OneTimeTask
+	 */
+	public static LinkedList<OneTimeTask> getOneTimeTaskList() {
+		return oneTimeTaskList;
+	}
+	
+	/**
+	 * @return A list of oneTimeTask that have a quantity > 0
+	 */
+	public static LinkedList<OneTimeTask> getTasks() {
+		
+		LinkedList<OneTimeTask> tasks = new LinkedList<OneTimeTask>();
+		
+		for(OneTimeTask task : oneTimeTaskList) {
+			if(task.getId() > 0)
+				tasks.add(task);
+		}
+		return tasks;
+	}
+	
+	/**
+	 * @return OneTimeTask ID
+	 */
 	public int getId() {
 		return id;
 	}

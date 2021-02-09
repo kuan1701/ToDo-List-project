@@ -8,7 +8,14 @@ public class User<T> implements iUserService {
 	private String password;
 	private T id;
 	
-	//Constructors
+	/**
+	 * Constructs an User of a given firstName, lastName, userName, password, id
+	 * @param firstName User firstName
+	 * @param lastName User lastName
+	 * @param userName User userName
+	 * @param password User password
+	 * @param id User id
+	 */
 	public User(String firstName, String lastName, String userName, String password, T id) {
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -17,6 +24,9 @@ public class User<T> implements iUserService {
 		this.id = id;
 	}
 	
+	/**
+	 * Constructs an RecurringTask with no specified parameters
+	 */
 	public User() {
 	}
 	
@@ -84,7 +94,9 @@ public class User<T> implements iUserService {
 				"ID: " + id + '.';
 	}
 	
-	//Getters and setters
+	/**
+	 * @return User firstName
+	 */
 	public String getFirstName() {
 		
 		return firstName;
@@ -95,6 +107,9 @@ public class User<T> implements iUserService {
 		this.firstName = firstName;
 	}
 	
+	/**
+	 * @return User lastName
+	 */
 	public String getLastName() {
 		
 		return lastName;
@@ -105,6 +120,9 @@ public class User<T> implements iUserService {
 		this.lastName = lastName;
 	}
 	
+	/**
+	 * @return User userName
+	 */
 	public String getUserName() {
 		
 		return userName;
@@ -115,6 +133,9 @@ public class User<T> implements iUserService {
 		this.userName = userName;
 	}
 	
+	/**
+	 * @return User password
+	 */
 	public String getPassword() {
 		return password;
 	}
@@ -123,6 +144,9 @@ public class User<T> implements iUserService {
 		this.password = password;
 	}
 	
+	/**
+	 * @return User ID
+	 */
 	public T getId() {
 		return id;
 	}
