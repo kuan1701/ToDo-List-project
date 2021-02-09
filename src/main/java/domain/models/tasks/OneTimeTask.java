@@ -34,6 +34,7 @@ public class OneTimeTask extends TaskItem implements iTaskService, Comparable<On
 	 * @param expirationDate OneTimeTask expirationDate
 	 */
 	public OneTimeTask(String description, String creationDate, TaskCategory taskCategory, TaskType taskType, boolean complete, String expirationDate) {
+		
 		super(description, creationDate, taskCategory, taskType, complete, expirationDate);
 		oneTimeTaskList.add(this);
 	}
@@ -41,6 +42,7 @@ public class OneTimeTask extends TaskItem implements iTaskService, Comparable<On
 	//Methods
 	@Override
 	public void createTask() {
+		
 		System.out.println(	"Description: " + getDescription() + ".\n" +
 							"Creation date: " + getCreationDate() + ".\n" +
 							"Type: " + getTaskType() + ".\n" +
@@ -62,6 +64,7 @@ public class OneTimeTask extends TaskItem implements iTaskService, Comparable<On
 	//Method toString
 	@Override
 	public String toString() {
+		
 		final StringBuffer sb = new StringBuffer();
 		sb.append(" Description: ").append(getDescription());
 		sb.append(". Creation date: ").append(getCreationDate());
@@ -76,6 +79,7 @@ public class OneTimeTask extends TaskItem implements iTaskService, Comparable<On
 	//Method equals
 	@Override
 	public boolean equals(Object obj) {
+		
 		if (this == obj) return true;
 		if (!(obj instanceof OneTimeTask)) return false;
 		OneTimeTask that = (OneTimeTask) obj;

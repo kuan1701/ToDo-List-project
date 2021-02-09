@@ -35,6 +35,7 @@ public class User<T> implements iUserService {
 		private User<T> newUser;
 		
 		public Builder() {
+			
 			newUser = new User<>();
 		}
 		
@@ -87,6 +88,7 @@ public class User<T> implements iUserService {
 	
 	@Override
 	public String toString() {
+		
 		return "User " + userName + ".\n" +
 				"First name: " + firstName + ".\n" +
 				"Last name: " + lastName + ".\n" +

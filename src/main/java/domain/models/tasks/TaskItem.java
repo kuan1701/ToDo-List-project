@@ -32,6 +32,7 @@ abstract public class TaskItem implements iTaskService {
 	 * @param expirationDate TaskItem expirationDate
 	 */
 	public TaskItem(String description, String creationDate, TaskCategory taskCategory, TaskType taskType, boolean complete, String expirationDate) {
+		
 		this.description = description;
 		this.date = creationDate;
 		this.taskCategory = taskCategory;
@@ -124,6 +125,7 @@ abstract public class TaskItem implements iTaskService {
 	 * @return TaskItem number
 	 */
 	public static int getNumberOfTask() {
+		
 		return numberOfTask;
 	}
 }

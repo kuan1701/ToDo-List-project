@@ -96,6 +96,7 @@ public class RecurringTask extends TaskItem implements iTaskService, Comparable<
 	//Method toString
 	@Override
 	public String toString() {
+		
 		final StringBuffer sb = new StringBuffer();
 		sb.append(" Description: ").append(getDescription());
 		sb.append(". Creation date: ").append(getCreationDate());
@@ -139,6 +140,7 @@ public class RecurringTask extends TaskItem implements iTaskService, Comparable<
 		LinkedList<RecurringTask> tasks = new LinkedList<RecurringTask>();
 		
 		for(RecurringTask task : recurringTaskList) {
+			
 			if(task.getId() > 0)
 				tasks.add(task);
 		}
