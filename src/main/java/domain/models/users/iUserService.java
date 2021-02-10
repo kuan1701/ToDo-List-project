@@ -6,5 +6,5 @@ public interface iUserService {
 	
 	public void editAccount(String firstName, String lastName, String userName, String password);
 	
-	public void deleteAccount();
+	public void deleteAccount(User user);
 }

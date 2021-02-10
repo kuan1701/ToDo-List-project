@@ -1,5 +1,10 @@
 package domain.models.users;
 
+import domain.models.tasks.RecurringTask;
+import domain.models.tasks.TaskItem;
+
+import java.util.LinkedList;
+
 public class User<T> implements iUserService {
 	
 	private String firstName;
@@ -7,6 +12,11 @@ public class User<T> implements iUserService {
 	private String userName;
 	private String password;
 	private T id;
+	
+	//Assigning a serial number to the user
+	private static int numOfUsers = 1;
+	
+	private static final LinkedList<User> usersList = new LinkedList<User>();
 	
 	/**
 	 * Constructs an User of a given firstName, lastName, userName, password, id
@@ -22,17 +32,19 @@ public class User<T> implements iUserService {
 		this.userName = userName;
 		this.password = password;
 		this.id = id;
+		usersList.add(this);
 	}
 	
 	/**
 	 * Constructs an RecurringTask with no specified parameters
 	 */
 	public User() {
+		usersList.add(this);
 	}
 	
 	//Using "Builder Pattern"
 	public static class Builder<T> {
-		private User<T> newUser;
+		private final User<T> newUser;
 		
 		public Builder() {
 			
@@ -66,6 +78,7 @@ public class User<T> implements iUserService {
 		}
 		
 		public User<T> build() {
+			
 			return newUser;
 		}
 	}
@@ -74,7 +87,7 @@ public class User<T> implements iUserService {
 	@Override
 	public void showInfo() {
 		
-		System.out.println("User " + userName + ".\n" +
+		System.out.println( "Username: " + userName + ".\n" +
 							"First name: " + firstName + ".\n" +
 							"Last name: " + lastName + ".\n" +
 							"Password: " + password + ".\n" +
@@ -91,14 +104,14 @@ public class User<T> implements iUserService {
 	}
 	
 	@Override
-	public void deleteAccount() {
-	
+	public void deleteAccount(User user) {
+		usersList.remove(user);
 	}
 	
 	@Override
 	public String toString() {
 		
-		return "User " + userName + ".\n" +
+		return  "Username: " + userName + ".\n" +
 				"First name: " + firstName + ".\n" +
 				"Last name: " + lastName + ".\n" +
 				"Password: " + password + ".\n" +
@@ -148,10 +161,12 @@ public class User<T> implements iUserService {
 	 * @return User password
 	 */
 	public String getPassword() {
+		
 		return password;
 	}
 	
 	public void setPassword(String password) {
+		
 		this.password = password;
 	}
 	
@@ -159,10 +174,21 @@ public class User<T> implements iUserService {
 	 * @return User ID
 	 */
 	public T getId() {
+		
 		return id;
 	}
 	
 	public void setId(T id) {
+		
 		this.id = id;
+	}
+	
+	//Display a list of users
+	public static void getListOfUsers() {
+		
+		for (User user : usersList) {
+			int currentUserNum = numOfUsers++;
+			System.out.println("User " + currentUserNum + ".\n" + user + "\n");
+		}
 	}
 }

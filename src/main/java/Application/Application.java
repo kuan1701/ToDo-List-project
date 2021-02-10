@@ -119,9 +119,7 @@ public class Application {
 				.withPassword("17011993")
 				.withID("id1701")
 				.build();
-		
 		user.editAccount("Kot", "Tiger", "tiger2014", "23554");
-		System.out.println(user + "\n");
 		
 		User<Integer> admin = new User.Builder<Integer>()
 				.withFirstName("Kuan")
@@ -130,6 +128,6 @@ public class Application {
 				.withPassword("123456")
 				.withID(1234567)
 				.build();
-		admin.showInfo();
+		User.getListOfUsers();
 	}
 }
