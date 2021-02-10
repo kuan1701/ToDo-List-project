@@ -14,7 +14,7 @@ public class Application {
 	public static void main(String[] args) {
 
 		//Create a one-time task
-		OneTimeTask oneTimeTask = new OneTimeTask(
+		OneTimeTask oneTimeTask1 = new OneTimeTask(
 				"1buy products",
 				"02.02.2021 11:20",
 				TaskCategory.SHOPPING,
@@ -22,8 +22,8 @@ public class Application {
 				false,
 				"08.02.2021");
 		
-		OneTimeTask oneTimeTask2 = new OneTimeTask(
-				"2buy cat food",
+		OneTimeTask oneTimeTask2 = new OneTimeTask();
+		oneTimeTask2.createTask("2buy cat food",
 				"04.02.2021 16:48",
 				TaskCategory.SHOPPING,
 				TaskType.URGENTLY,
@@ -38,9 +38,9 @@ public class Application {
 				false,
 				"10.02.2021");
 		
-		
 		//Create a recurring task
-		TaskItem recurringTask = new RecurringTask(
+		RecurringTask recurringTask1 = new RecurringTask();
+				recurringTask1.createTask(
 				"1pay utility bills",
 				"20.02.2021 14:38",
 				TaskCategory.HOUSEWORK,
@@ -58,51 +58,57 @@ public class Application {
 				"20.02.2021",
 				"every month");
 		
+		RecurringTask recurringTask3 = new RecurringTask(
+				"go to class",
+				"10.02.2021 23:14",
+				TaskCategory.WORK,
+				TaskType.IMPORTANT,
+				false,
+				"10.02.2021",
+				"2 times a week");
+		
 		
 		//Displaying all and creating one-time tasks
+		System.out.println("------------------");
 		System.out.println("One-time task list");
 		System.out.println("------------------");
 		
+		//Delete the task
+		oneTimeTask3.deleteTask(oneTimeTask3);
+		
+		//Change task parameters
+		oneTimeTask1.editTask("do homework", "09/02/2021 22:36", TaskCategory.WORK, TaskType.DEFAULT, true, "11/02/2021");
+		
 		//List of one-time tasks
 		Collections.sort(OneTimeTask.getOneTimeTaskList());
-		
-		int numOfOneTimeTask = 1;
-		//Displaying one-time tasks
-		for (TaskItem oTT: OneTimeTask.getTasks()) {
-			
-			int idOneTimeTask = numOfOneTimeTask++;
-			System.out.println("Task " + idOneTimeTask + ".");
-			oTT.createTask();
-			//The second way to display task
-			//System.out.println("Task " + idOneTimeTask + "." + oTT);
-		}
-		System.out.println("");
-		
+		//Assigns a sequential number to each task
+		OneTimeTask.getIdOfOneTimeTask();
 		
 		//Displaying and creating all recurring tasks
+		System.out.println("-------------------");
 		System.out.println("Recurring task list");
 		System.out.println("-------------------");
 		
+		//Delete the task
+		recurringTask2.deleteTask(recurringTask2);
+		
+		//Change task parameters
+		recurringTask3.editTask("learn java", "12.02.2021 15:36", TaskCategory.PERSONAL, TaskType.IMPORTANT, true, "15.04.2021", "every day");
+		
 		//List of recurring tasks
 		Collections.sort(RecurringTask.getRecurringTaskList());
+		//Assigns a sequential number to each task
+		RecurringTask.getIdOfRecurringTask();
 		
-		int numOfRecurringTask = 1;
-		//Displaying recurring tasks
-		for (TaskItem rT : RecurringTask.getTasks()) {
-			
-			int idRecurringTask = numOfRecurringTask++;
-			//System.out.println("Task " + idRecurringTask + ".");
-			//rT.createTask();
-			//The second way to display task
-			System.out.println("Task " + idRecurringTask + "." + rT);
-		}
 		
 		//Total numbers of tasks
-		System.out.println("-------------------");
-		System.out.println("In total, you have " + TaskItem.getNumberOfTask() + " tasks.\n");
+//		System.out.println("---------------------------");
+//		System.out.println("In total, you have " + TaskItem.getNumberOfTask() + " tasks.");
+//		System.out.println("---------------------------\n");
 		
 		
 		//Displaying and creating users
+		System.out.println("-------------------");
 		System.out.println("       Users       ");
 		System.out.println("-------------------");
 		
@@ -113,6 +119,8 @@ public class Application {
 				.withPassword("17011993")
 				.withID("id1701")
 				.build();
+		
+		user.editAccount("Kot", "Tiger", "tiger2014", "23554");
 		System.out.println(user + "\n");
 		
 		User<Integer> admin = new User.Builder<Integer>()
@@ -122,6 +130,6 @@ public class Application {
 				.withPassword("123456")
 				.withID(1234567)
 				.build();
-		System.out.println(admin);
+		admin.showInfo();
 	}
 }

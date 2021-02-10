@@ -73,12 +73,21 @@ public class User<T> implements iUserService {
 	//Methods
 	@Override
 	public void showInfo() {
-		System.out.println();
+		
+		System.out.println("User " + userName + ".\n" +
+							"First name: " + firstName + ".\n" +
+							"Last name: " + lastName + ".\n" +
+							"Password: " + password + ".\n" +
+							"ID: " + id + '.');
 	}
 	
 	@Override
-	public void editAccount() {
-	
+	public void editAccount(String firstName, String lastName, String userName, String password) {
+		
+		setFirstName(firstName);
+		setLastName(lastName);
+		setUserName(userName);
+		setPassword(password);
 	}
 	
 	@Override

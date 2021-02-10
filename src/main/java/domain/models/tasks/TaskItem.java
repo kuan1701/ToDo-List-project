@@ -2,9 +2,8 @@ package domain.models.tasks;
 
 import domain.enums.TaskCategory;
 import domain.enums.TaskType;
-import domain.interfaces.iTaskService;
 
-abstract public class TaskItem implements iTaskService {
+abstract public class TaskItem {
 	
 	//Fields
 	private String description;
@@ -19,6 +18,8 @@ abstract public class TaskItem implements iTaskService {
 	 * Constructs an TaskItem with no specified parameters
 	 */
 	public TaskItem() {
+		
+		numberOfTask++;
 	}
 	
 	/**
@@ -64,7 +65,7 @@ abstract public class TaskItem implements iTaskService {
 		return date;
 	}
 	
-	public void setDate(String date) {
+	public void setCreationDate(String date) {
 		
 		this.date = date;
 	}

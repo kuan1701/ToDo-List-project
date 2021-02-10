@@ -2,14 +2,17 @@ package domain.models.tasks;
 
 import domain.enums.TaskCategory;
 import domain.enums.TaskType;
-import domain.interfaces.iTaskService;
+import domain.interfaces.OneTimeTaskService;
 
 import java.util.LinkedList;
 import java.util.Objects;
 
-public class OneTimeTask extends TaskItem implements iTaskService, Comparable<OneTimeTask> {
+public class OneTimeTask extends TaskItem implements OneTimeTaskService, Comparable<OneTimeTask> {
 	
 	//Generate sequence numbers when creating a task
+	private static int numOfOneTimeTask = 1;
+
+	//Assign a serial number to a task for further comparison
 	public static int num = 1;
 	private final int id = num++;
 	
@@ -20,6 +23,7 @@ public class OneTimeTask extends TaskItem implements iTaskService, Comparable<On
 	 * Constructs an OneTimeTask with no specified parameters
 	 */
 	public OneTimeTask() {
+		
 		oneTimeTaskList.add(this);
 	}
 	
@@ -41,38 +45,44 @@ public class OneTimeTask extends TaskItem implements iTaskService, Comparable<On
 	
 	//Methods
 	@Override
-	public void createTask() {
+	public void createTask(String description, String creationDate, TaskCategory category, TaskType type, boolean complete, String expirationDate) {
 		
-		System.out.println(	"Description: " + getDescription() + ".\n" +
-							"Creation date: " + getCreationDate() + ".\n" +
-							"Type: " + getTaskType() + ".\n" +
-							"Category: " + getTaskCategory() + ".\n" +
-							"Expiration date: " + getExpirationDate() + ".\n" +
-							"Complete: " + isComplete() + ".\n");
+		setDescription(description);
+		setCreationDate(creationDate);
+		setTaskCategory(category);
+		setTaskType(type);
+		setComplete(complete);
+		setExpirationDate(expirationDate);
 	}
 	
 	@Override
-	public void deleteTask() {
-	
+	public void deleteTask(OneTimeTask oneTimeTask) {
+		oneTimeTaskList.remove(oneTimeTask);
 	}
 	
 	@Override
-	public void editTask() {
-	
+	public void editTask(String description, String creationDate, TaskCategory category, TaskType type, boolean complete, String expirationDate) {
+		
+		setDescription(description);
+		setCreationDate(creationDate);
+		setTaskCategory(category);
+		setTaskType(type);
+		setComplete(complete);
+		setExpirationDate(expirationDate);
 	}
+	
 	
 	//Method toString
 	@Override
 	public String toString() {
 		
-		final StringBuffer sb = new StringBuffer();
-		sb.append(" Description: ").append(getDescription());
-		sb.append(". Creation date: ").append(getCreationDate());
-		sb.append(". Type: ").append(getTaskType());
-		sb.append(". Category: ").append(getTaskCategory());
-		sb.append(". Expiration date: ").append(getExpirationDate());
-		sb.append(". Complete: ").append(isComplete());
-		sb.append('.');
+		final StringBuffer sb = new StringBuffer("\n");
+		sb.append("Description: ").append(getDescription()).append(".\n");
+		sb.append("Creation date: ").append(getCreationDate()).append(".\n");
+		sb.append("Type: ").append(getTaskType()).append(".\n");
+		sb.append("Category: ").append(getTaskCategory()).append(".\n");
+		sb.append("Expiration date: ").append(getExpirationDate()).append(".\n");
+		sb.append("Complete: ").append(isComplete()).append(".\n");
 		return sb.toString();
 	}
 	
@@ -89,6 +99,7 @@ public class OneTimeTask extends TaskItem implements iTaskService, Comparable<On
 	//Method hashCode
 	@Override
 	public int hashCode() {
+		
 		return Objects.hash(getId());
 	}
 	
@@ -96,7 +107,8 @@ public class OneTimeTask extends TaskItem implements iTaskService, Comparable<On
 	@Override
 	public int compareTo(OneTimeTask obj) {
 		
-			int result = this.getTaskType().compareTo(obj.getTaskType());
+		int result = this.getTaskType().compareTo(obj.getTaskType());
+		
 		if (result == 0) {
 			result = this.getTaskCategory().compareTo(obj.getTaskCategory());
 		}
@@ -107,27 +119,33 @@ public class OneTimeTask extends TaskItem implements iTaskService, Comparable<On
 	 * @return A list of OneTimeTask
 	 */
 	public static LinkedList<OneTimeTask> getOneTimeTaskList() {
+		
 		return oneTimeTaskList;
 	}
 	
 	/**
-	 * @return A list of oneTimeTask that have a quantity > 0
+	 * @return A list of oneTimeTask
 	 */
 	public static LinkedList<OneTimeTask> getTasks() {
 		
-		LinkedList<OneTimeTask> tasks = new LinkedList<OneTimeTask>();
-		
-		for(OneTimeTask task : oneTimeTaskList) {
-			if(task.getId() > 0)
-				tasks.add(task);
-		}
-		return tasks;
+		return new LinkedList<OneTimeTask>(oneTimeTaskList);
 	}
 	
 	/**
 	 * @return OneTimeTask ID
 	 */
 	public int getId() {
+		
 		return id;
+	}
+	
+	//Method for assigns a sequential number to each task
+	public static void getIdOfOneTimeTask() {
+		
+		for (TaskItem oTT : OneTimeTask.getTasks()) {
+			
+			int idOfOneTimeTask = numOfOneTimeTask++;
+			System.out.println("Task " + idOfOneTimeTask + "." + oTT);
+		}
 	}
 }

@@ -2,16 +2,21 @@ package domain.models.tasks;
 
 import domain.enums.TaskCategory;
 import domain.enums.TaskType;
-import domain.interfaces.iTaskService;
+import domain.interfaces.OneTimeTaskService;
+import domain.interfaces.RecurringTaskService;
 
 import java.util.LinkedList;
 import java.util.Objects;
 
-public class RecurringTask extends TaskItem implements iTaskService, Comparable<RecurringTask> {
+public class RecurringTask extends TaskItem implements RecurringTaskService, Comparable<RecurringTask> {
 	
 	private String count;
 	
 	//Generate sequence numbers when creating a task
+	private static int numOfRecurringTask = 1;
+	
+	
+	//Assign a serial number to a task for further comparison
 	public static int num = 1;
 	private final int id = num++;
 	
@@ -22,6 +27,7 @@ public class RecurringTask extends TaskItem implements iTaskService, Comparable<
 	 * Constructs an RecurringTask with no specified parameters
 	 */
 	public RecurringTask() {
+		recurringTaskList.add(this);
 	}
 	
 	/**
@@ -42,26 +48,35 @@ public class RecurringTask extends TaskItem implements iTaskService, Comparable<
 	}
 	
 	//Methods
+	
+	
 	@Override
-	public void createTask() {
+	public void createTask(String description, String creationDate, TaskCategory category, TaskType type, boolean complete, String expirationDate, String count) {
 		
-		System.out.println(	"Description: " + getDescription() + ".\n" +
-							"Creation date: " + getCreationDate() + ".\n" +
-							"Repeat: " + getCount() + ".\n" +
-							"Type: " + getTaskType() + ".\n" +
-							"Category: " + getTaskCategory() + ".\n" +
-							"Expiration date: " + getExpirationDate() + ".\n" +
-							"Complete: " + isComplete() + ".\n");
+		setDescription(description);
+		setCreationDate(creationDate);
+		setTaskCategory(category);
+		setTaskType(type);
+		setComplete(complete);
+		setExpirationDate(expirationDate);
+		setCount(count);
 	}
 	
 	@Override
-	public void deleteTask() {
-	
+	public void deleteTask(RecurringTask recurringTask) {
+		recurringTaskList.remove(recurringTask);
 	}
 	
 	@Override
-	public void editTask() {
-	
+	public void editTask(String description, String creationDate, TaskCategory category, TaskType type, boolean complete, String expirationDate, String count) {
+		
+		setDescription(description);
+		setCreationDate(creationDate);
+		setTaskCategory(category);
+		setTaskType(type);
+		setComplete(complete);
+		setExpirationDate(expirationDate);
+		setCount(count);
 	}
 	
 	//Method equals
@@ -97,15 +112,14 @@ public class RecurringTask extends TaskItem implements iTaskService, Comparable<
 	@Override
 	public String toString() {
 		
-		final StringBuffer sb = new StringBuffer();
-		sb.append(" Description: ").append(getDescription());
-		sb.append(". Creation date: ").append(getCreationDate());
-		sb.append(". Repeat: ").append(getCount());
-		sb.append(". Type: ").append(getTaskType());
-		sb.append(". Category: ").append(getTaskCategory());
-		sb.append(". Expiration date: ").append(getExpirationDate());
-		sb.append(". Complete: ").append(isComplete());
-		sb.append('.');
+		final StringBuffer sb = new StringBuffer("\n");
+		sb.append("Description: ").append(getDescription()).append(".\n");
+		sb.append("Creation date: ").append(getCreationDate()).append(".\n");
+		sb.append("Repeat: ").append(getCount()).append(".\n");
+		sb.append("Type: ").append(getTaskType()).append(".\n");
+		sb.append("Category: ").append(getTaskCategory()).append(".\n");
+		sb.append("Expiration date: ").append(getExpirationDate()).append(".\n");
+		sb.append("Complete: ").append(isComplete()).append(".\n");
 		return sb.toString();
 	}
 
@@ -133,22 +147,25 @@ public class RecurringTask extends TaskItem implements iTaskService, Comparable<
 	}
 	
 	/**
-	 * @return A list of Recurring that have a quantity > 0
+	 * @return A list of Recurring task
 	 */
 	public static LinkedList<RecurringTask> getTasks() {
 		
-		LinkedList<RecurringTask> tasks = new LinkedList<RecurringTask>();
-		
-		for(RecurringTask task : recurringTaskList) {
-			
-			if(task.getId() > 0)
-				tasks.add(task);
-		}
-		return tasks;
+		return new LinkedList<RecurringTask>(recurringTaskList);
 	}
 	
 	public void setCount(String count) {
 		
 		this.count = count;
+	}
+	
+	//Method for assigns a sequential number to each task
+	public static void getIdOfRecurringTask() {
+		
+		for (TaskItem oTT : RecurringTask.getTasks()) {
+			
+			int idOfRecurringTask = numOfRecurringTask++;
+			System.out.println("Task " + idOfRecurringTask + "." + oTT);
+		}
 	}
 }

@@ -4,7 +4,7 @@ public interface iUserService {
 	
 	public void showInfo();
 	
-	public void editAccount();
+	public void editAccount(String firstName, String lastName, String userName, String password);
 	
 	public void deleteAccount();
 }
