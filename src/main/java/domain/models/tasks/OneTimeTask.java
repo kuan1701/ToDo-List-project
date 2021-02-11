@@ -124,14 +124,6 @@ public class OneTimeTask extends TaskItem implements iTaskService, Comparable<On
 	}
 	
 	/**
-	 * @return A list of oneTimeTask
-	 */
-	public static LinkedList<OneTimeTask> getTasks() {
-		
-		return new LinkedList<OneTimeTask>(oneTimeTaskList);
-	}
-	
-	/**
 	 * @return OneTimeTask ID
 	 */
 	public int getId() {
@@ -142,7 +134,7 @@ public class OneTimeTask extends TaskItem implements iTaskService, Comparable<On
 	//Method for assigns a sequential number to each task
 	public static void getIdOfOneTimeTask() {
 		
-		for (TaskItem oTT : OneTimeTask.getTasks()) {
+		for (TaskItem oTT : OneTimeTask.getOneTimeTaskList()) {
 			
 			int idOfOneTimeTask = numOfOneTimeTask++;
 			System.out.println("Task " + idOfOneTimeTask + "." + oTT);
