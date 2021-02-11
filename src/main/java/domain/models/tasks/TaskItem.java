@@ -4,9 +4,11 @@ import domain.enums.TaskCategory;
 import domain.enums.TaskType;
 import domain.interfaces.iTaskService;
 
-abstract public class TaskItem implements iTaskService {
+import java.util.Objects;
+
+abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
 	
-	//Fields
+	// Fields
 	private String description;
 	private String date;
 	private TaskCategory taskCategory;
@@ -44,7 +46,7 @@ abstract public class TaskItem implements iTaskService {
 		//numberOfTask++;
 	}
 	
-	//Getters and setters
+	// Getters and setters
 	/**
 	 * @return TaskItem description
 	 */
@@ -121,6 +123,36 @@ abstract public class TaskItem implements iTaskService {
 	public void setExpirationDate(String expirationDate) {
 		
 		this.expirationDate = expirationDate;
+	}
+	
+	// Method equals
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (!(obj instanceof TaskItem)) return false;
+		TaskItem taskItem = (TaskItem) obj;
+		return Objects.equals(getDescription(), taskItem.getDescription()) &&
+				getTaskCategory() == taskItem.getTaskCategory() &&
+				getTaskType() == taskItem.getTaskType();
+	}
+	
+	// Method hashCode
+	@Override
+	public int hashCode() {
+		
+		return Objects.hash(getDescription(), getTaskCategory(), getTaskType());
+	}
+	
+	// Method compareTo
+	@Override
+	public int compareTo(TaskItem obj) {
+		
+		int result = this.getTaskType().compareTo(obj.getTaskType());
+		
+		if (result == 0) {
+			result = this.getTaskCategory().compareTo(obj.getTaskCategory());
+		}
+		return result;
 	}
 	
 	/**

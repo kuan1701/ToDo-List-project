@@ -7,14 +7,13 @@ import domain.models.tasks.RecurringTask;
 import domain.models.tasks.TaskItem;
 import domain.models.users.User;
 
-import java.sql.ResultSet;
 import java.util.Collections;
 
 public class Application {
 	
 	public static void main(String[] args) {
 
-		//Create a one-time task
+		// Create a one-time task
 		OneTimeTask oneTimeTask1 = new OneTimeTask(
 				"1buy products",
 				"02.02.2021 11:20",
@@ -23,7 +22,7 @@ public class Application {
 				false,
 				"08.02.2021");
 		
-		OneTimeTask oneTimeTask2 = new OneTimeTask();
+		TaskItem oneTimeTask2 = new OneTimeTask();
 		oneTimeTask2.createTask("2buy cat food",
 				"04.02.2021 16:48",
 				TaskCategory.SHOPPING,
@@ -39,7 +38,7 @@ public class Application {
 				false,
 				"10.02.2021");
 		
-		//Create a recurring task
+		// Create a recurring task
 		RecurringTask recurringTask1 = new RecurringTask();
 				recurringTask1.createTask(
 				"1pay utility bills",
@@ -48,7 +47,7 @@ public class Application {
 				TaskType.IMPORTANT,
 				false,
 				"25.02.2021");
-				recurringTask1.setCount("every month");
+				recurringTask1.setRepeat("every month");
 		
 		RecurringTask recurringTask2 = new RecurringTask(
 				"2go to the car diagnostics",
@@ -69,47 +68,47 @@ public class Application {
 				"2 times a week");
 		
 		
-		//Displaying all and creating one-time tasks
+		// Displaying all and creating one-time tasks
 		System.out.println("------------------");
 		System.out.println("One-time task list");
 		System.out.println("------------------");
 		
-		//Delete the task
+		// Delete the task
 		oneTimeTask3.deleteTask(oneTimeTask3);
 		
-		//Change task parameters
+		// Change task parameters
 		oneTimeTask1.editTask("do homework", "09/02/2021 22:36", TaskCategory.WORK, TaskType.DEFAULT, true, "11/02/2021");
 		
-		//List of one-time tasks
+		// List of one-time tasks
 		Collections.sort(OneTimeTask.getOneTimeTaskList());
 		//Assigns a sequential number to each task
 		OneTimeTask.getIdOfOneTimeTask();
 		
-		//Displaying and creating all recurring tasks
+		// Displaying and creating all recurring tasks
 		System.out.println("-------------------");
 		System.out.println("Recurring task list");
 		System.out.println("-------------------");
 		
-		//Delete the task
+		// Delete the task
 		recurringTask2.deleteTask(recurringTask2);
 		
-		//Change task parameters
+		// Change task parameters
 		recurringTask3.editTask("learn java", "12.02.2021 15:36", TaskCategory.PERSONAL, TaskType.IMPORTANT, true, "15.04.2021");
-		recurringTask3.setCount("every day");
+		recurringTask3.setRepeat("every day");
 		
-		//List of recurring tasks
+		// List of recurring tasks
 		Collections.sort(RecurringTask.getRecurringTaskList());
 		//Assigns a sequential number to each task
 		RecurringTask.getIdOfRecurringTask();
 		
 		
-		//Total numbers of tasks
+		// Total numbers of tasks
 //		System.out.println("---------------------------");
 //		System.out.println("In total, you have " + TaskItem.getNumberOfTask() + " tasks.");
 //		System.out.println("---------------------------\n");
 		
 		
-		//Displaying and creating users
+		// Displaying and creating users
 		System.out.println("-------------------");
 		System.out.println("       Users       ");
 		System.out.println("-------------------");

@@ -7,19 +7,14 @@ import domain.interfaces.iTaskService;
 import java.util.LinkedList;
 import java.util.Objects;
 
-public class RecurringTask extends TaskItem implements iTaskService, Comparable<RecurringTask> {
+public class RecurringTask extends TaskItem implements iTaskService {
 	
 	private String repeat;
 	
-	//Generate sequence numbers when creating a task
+	// Generate sequence numbers when creating a task
 	private static int numOfRecurringTask = 1;
 	
-	
-	//Assign a serial number to a task for further comparison
-	public static int num = 1;
-	private final int id = num++;
-	
-	//Create a list of recurring task
+	// Create a list of recurring task
 	private static final LinkedList<RecurringTask> recurringTaskList = new LinkedList<RecurringTask>();
 	
 	/**
@@ -61,6 +56,7 @@ public class RecurringTask extends TaskItem implements iTaskService, Comparable<
 	
 	@Override
 	public void deleteTask(TaskItem taskItem) {
+		
 		recurringTaskList.remove(taskItem);
 	}
 	
@@ -75,37 +71,7 @@ public class RecurringTask extends TaskItem implements iTaskService, Comparable<
 		setExpirationDate(expirationDate);
 	}
 	
-	//Method equals
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) return true;
-		if (!(obj instanceof RecurringTask)) return false;
-		RecurringTask that = (RecurringTask) obj;
-		return getId() == that.getId() &&
-				Objects.equals(getRepeat(), that.getRepeat());
-	}
-	
-	//Method hashCode
-	@Override
-	public int hashCode() {
-		
-		return Objects.hash(getRepeat(), getId());
-	}
-	
-	//Method compareTo
-	//Comparing tasks by type and by category
-	@Override
-	public int compareTo(RecurringTask obj) {
-		
-		int result = this.getTaskType().compareTo(obj.getTaskType());
-		
-		if (result == 0) {
-			result = this.getTaskCategory().compareTo(obj.getTaskCategory());
-		}
-		return result;
-	}
-	
-	//Method toString
+	// Method toString
 	@Override
 	public String toString() {
 		
@@ -128,7 +94,7 @@ public class RecurringTask extends TaskItem implements iTaskService, Comparable<
 		return recurringTaskList;
 	}
 	
-	//Method for assigns a sequential number to each task
+	// Method for assigns a sequential number to each task
 	public static void getIdOfRecurringTask() {
 		
 		for (TaskItem rT : RecurringTask.getRecurringTaskList()) {
@@ -139,22 +105,14 @@ public class RecurringTask extends TaskItem implements iTaskService, Comparable<
 	}
 	
 	/**
-	 * @return RecurringTask ID
-	 */
-	public int getId() {
-		
-		return id;
-	}
-	
-	/**
-	 * @return RecurringTask count
+	 * @return RecurringTask repeat
 	 */
 	public String getRepeat() {
 		
 		return repeat   ;
 	}
 	
-	public void setCount(String repeat  ) {
+	public void setRepeat(String repeat) {
 		
 		this.repeat = repeat   ;
 	}

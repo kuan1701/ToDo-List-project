@@ -5,18 +5,13 @@ import domain.enums.TaskType;
 import domain.interfaces.iTaskService;
 
 import java.util.LinkedList;
-import java.util.Objects;
 
-public class OneTimeTask extends TaskItem implements iTaskService, Comparable<OneTimeTask> {
+public class OneTimeTask extends TaskItem implements iTaskService {
 	
-	//Generate sequence numbers when creating a task
+	// Generate sequence numbers when creating a task
 	private static int numOfOneTimeTask = 1;
-
-	//Assign a serial number to a task for further comparison
-	public static int num = 1;
-	private final int id = num++;
 	
-	//Create a list of one-time task
+	// Create a list of one-time task
 	private static final LinkedList<OneTimeTask> oneTimeTaskList = new LinkedList<OneTimeTask>();
 	
 	/**
@@ -43,7 +38,7 @@ public class OneTimeTask extends TaskItem implements iTaskService, Comparable<On
 		oneTimeTaskList.add(this);
 	}
 	
-	//Methods
+	// Methods
 	@Override
 	public void createTask(String description, String creationDate, TaskCategory category, TaskType type, boolean complete, String expirationDate) {
 		
@@ -57,6 +52,7 @@ public class OneTimeTask extends TaskItem implements iTaskService, Comparable<On
 	
 	@Override
 	public void deleteTask(TaskItem taskItem) {
+		
 		oneTimeTaskList.remove(taskItem);
 	}
 	
@@ -71,8 +67,7 @@ public class OneTimeTask extends TaskItem implements iTaskService, Comparable<On
 		setExpirationDate(expirationDate);
 	}
 	
-	
-	//Method toString
+	// Method toString
 	@Override
 	public String toString() {
 		
@@ -86,35 +81,6 @@ public class OneTimeTask extends TaskItem implements iTaskService, Comparable<On
 		return sb.toString();
 	}
 	
-	//Method equals
-	@Override
-	public boolean equals(Object obj) {
-		
-		if (this == obj) return true;
-		if (!(obj instanceof OneTimeTask)) return false;
-		OneTimeTask that = (OneTimeTask) obj;
-		return getId() == that.getId();
-	}
-	
-	//Method hashCode
-	@Override
-	public int hashCode() {
-		
-		return Objects.hash(getId());
-	}
-	
-	//Method compareTo
-	@Override
-	public int compareTo(OneTimeTask obj) {
-		
-		int result = this.getTaskType().compareTo(obj.getTaskType());
-		
-		if (result == 0) {
-			result = this.getTaskCategory().compareTo(obj.getTaskCategory());
-		}
-		return result;
-	}
-	
 	/**
 	 * @return A list of OneTimeTask
 	 */
@@ -123,15 +89,7 @@ public class OneTimeTask extends TaskItem implements iTaskService, Comparable<On
 		return oneTimeTaskList;
 	}
 	
-	/**
-	 * @return OneTimeTask ID
-	 */
-	public int getId() {
-		
-		return id;
-	}
-	
-	//Method for assigns a sequential number to each task
+	// Method for assigns a sequential number to each task
 	public static void getIdOfOneTimeTask() {
 		
 		for (TaskItem oTT : OneTimeTask.getOneTimeTaskList()) {

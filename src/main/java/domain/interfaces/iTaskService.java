@@ -16,8 +16,10 @@ public interface iTaskService {
 	 */
 	public void createTask(String description, String creationDate, TaskCategory category, TaskType type, boolean complete, String expirationDate);
 	
+	/**
+	 * @param taskItem
+	 */
 	public void deleteTask(TaskItem taskItem);
-	
 	
 	/**
 	 * @param description
