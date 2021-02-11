@@ -2,11 +2,9 @@ package domain.interfaces;
 
 import domain.enums.TaskCategory;
 import domain.enums.TaskType;
-import domain.models.tasks.OneTimeTask;
+import domain.models.tasks.TaskItem;
 
-import java.util.LinkedList;
-
-public interface OneTimeTaskService {
+public interface iTaskService {
 	
 	/**
 	 * @param description
@@ -17,9 +15,9 @@ public interface OneTimeTaskService {
 	 * @param expirationDate
 	 */
 	public void createTask(String description, String creationDate, TaskCategory category, TaskType type, boolean complete, String expirationDate);
-
-	public void deleteTask(OneTimeTask oneTimeTask);
-
+	
+	public void deleteTask(TaskItem taskItem);
+	
 	
 	/**
 	 * @param description

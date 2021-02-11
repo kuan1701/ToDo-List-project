@@ -2,8 +2,9 @@ package domain.models.tasks;
 
 import domain.enums.TaskCategory;
 import domain.enums.TaskType;
+import domain.interfaces.iTaskService;
 
-abstract public class TaskItem {
+abstract public class TaskItem implements iTaskService {
 	
 	//Fields
 	private String description;
@@ -12,14 +13,14 @@ abstract public class TaskItem {
 	private TaskType taskType;
 	private boolean complete;
 	private String expirationDate;
-	private static int numberOfTask = 0;
+	//private static int numberOfTask = 0;
 	
 	/**
 	 * Constructs an TaskItem with no specified parameters
 	 */
 	public TaskItem() {
 		
-		numberOfTask++;
+		//numberOfTask++;
 	}
 	
 	/**
@@ -40,7 +41,7 @@ abstract public class TaskItem {
 		this.taskType = taskType;
 		this.complete = complete;
 		this.expirationDate = expirationDate;
-		numberOfTask++;
+		//numberOfTask++;
 	}
 	
 	//Getters and setters
@@ -125,8 +126,8 @@ abstract public class TaskItem {
 	/**
 	 * @return TaskItem number
 	 */
-	public static int getNumberOfTask() {
-		
-		return numberOfTask;
-	}
+//	public static int getNumberOfTask() {
+//
+//		return numberOfTask;
+//	}
 }

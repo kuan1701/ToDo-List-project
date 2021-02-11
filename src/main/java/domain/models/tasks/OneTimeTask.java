@@ -2,12 +2,12 @@ package domain.models.tasks;
 
 import domain.enums.TaskCategory;
 import domain.enums.TaskType;
-import domain.interfaces.OneTimeTaskService;
+import domain.interfaces.iTaskService;
 
 import java.util.LinkedList;
 import java.util.Objects;
 
-public class OneTimeTask extends TaskItem implements OneTimeTaskService, Comparable<OneTimeTask> {
+public class OneTimeTask extends TaskItem implements iTaskService, Comparable<OneTimeTask> {
 	
 	//Generate sequence numbers when creating a task
 	private static int numOfOneTimeTask = 1;
@@ -56,8 +56,8 @@ public class OneTimeTask extends TaskItem implements OneTimeTaskService, Compara
 	}
 	
 	@Override
-	public void deleteTask(OneTimeTask oneTimeTask) {
-		oneTimeTaskList.remove(oneTimeTask);
+	public void deleteTask(TaskItem taskItem) {
+		oneTimeTaskList.remove(taskItem);
 	}
 	
 	@Override

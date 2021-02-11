@@ -7,6 +7,7 @@ import domain.models.tasks.RecurringTask;
 import domain.models.tasks.TaskItem;
 import domain.models.users.User;
 
+import java.sql.ResultSet;
 import java.util.Collections;
 
 public class Application {
@@ -46,8 +47,8 @@ public class Application {
 				TaskCategory.HOUSEWORK,
 				TaskType.IMPORTANT,
 				false,
-				"25.02.2021",
-				"every month");
+				"25.02.2021");
+				recurringTask1.setCount("every month");
 		
 		RecurringTask recurringTask2 = new RecurringTask(
 				"2go to the car diagnostics",
@@ -93,7 +94,8 @@ public class Application {
 		recurringTask2.deleteTask(recurringTask2);
 		
 		//Change task parameters
-		recurringTask3.editTask("learn java", "12.02.2021 15:36", TaskCategory.PERSONAL, TaskType.IMPORTANT, true, "15.04.2021", "every day");
+		recurringTask3.editTask("learn java", "12.02.2021 15:36", TaskCategory.PERSONAL, TaskType.IMPORTANT, true, "15.04.2021");
+		recurringTask3.setCount("every day");
 		
 		//List of recurring tasks
 		Collections.sort(RecurringTask.getRecurringTaskList());
