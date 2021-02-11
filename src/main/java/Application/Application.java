@@ -40,32 +40,32 @@ public class Application {
 		
 		// Create a recurring task
 		RecurringTask recurringTask1 = new RecurringTask();
-				recurringTask1.createTask(
-				"1pay utility bills",
-				"20.02.2021 14:38",
-				TaskCategory.HOUSEWORK,
-				TaskType.IMPORTANT,
-				false,
-				"25.02.2021");
-				recurringTask1.setRepeat("every month");
+						recurringTask1.createTask(
+						"1pay utility bills",
+						"20.02.2021 14:38",
+						TaskCategory.HOUSEWORK,
+						TaskType.IMPORTANT,
+						false,
+						"25.02.2021",
+						"every month"		);
 		
-		RecurringTask recurringTask2 = new RecurringTask(
-				"2go to the car diagnostics",
-				"02.02.2021 13:27",
-				TaskCategory.PERSONAL,
-				TaskType.IMPORTANT,
-				false,
-				"20.02.2021",
-				"every month");
+		TaskItem recurringTask2 = new RecurringTask(
+						"2go to the car diagnostics",
+						"02.02.2021 13:27",
+						TaskCategory.PERSONAL,
+						TaskType.IMPORTANT,
+						false,
+						"20.02.2021",
+						"every month");
 		
 		RecurringTask recurringTask3 = new RecurringTask(
-				"go to class",
-				"10.02.2021 23:14",
-				TaskCategory.WORK,
-				TaskType.IMPORTANT,
-				false,
-				"10.02.2021",
-				"2 times a week");
+						"go to class",
+						"10.02.2021 23:14",
+						TaskCategory.WORK,
+						TaskType.IMPORTANT,
+						false,
+						"10.02.2021",
+						"2 times a week");
 		
 		
 		// Displaying all and creating one-time tasks
@@ -93,8 +93,7 @@ public class Application {
 		recurringTask2.deleteTask(recurringTask2);
 		
 		// Change task parameters
-		recurringTask3.editTask("learn java", "12.02.2021 15:36", TaskCategory.PERSONAL, TaskType.IMPORTANT, true, "15.04.2021");
-		recurringTask3.setRepeat("every day");
+		recurringTask3.editTask("learn java", "12.02.2021 15:36", TaskCategory.PERSONAL, TaskType.IMPORTANT, true, "15.04.2021", "everyday");
 		
 		// List of recurring tasks
 		Collections.sort(RecurringTask.getRecurringTaskList());

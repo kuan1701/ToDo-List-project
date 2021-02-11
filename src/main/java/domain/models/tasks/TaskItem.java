@@ -5,8 +5,11 @@ import domain.enums.TaskType;
 import domain.interfaces.iTaskService;
 
 import java.util.Objects;
+import java.util.Scanner;
 
 abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
+	
+	Scanner scanner = new Scanner(System.in);
 	
 	// Fields
 	private String description;
@@ -44,6 +47,90 @@ abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
 		this.complete = complete;
 		this.expirationDate = expirationDate;
 		//numberOfTask++;
+	}
+	
+	// METHODS
+	// Method equals
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (!(obj instanceof TaskItem)) return false;
+		TaskItem taskItem = (TaskItem) obj;
+		return Objects.equals(getDescription(), taskItem.getDescription()) &&
+				getTaskCategory() == taskItem.getTaskCategory() &&
+				getTaskType() == taskItem.getTaskType();
+	}
+	
+	// Method hashCode
+	@Override
+	public int hashCode() {
+		
+		return Objects.hash(getDescription(), getTaskCategory(), getTaskType());
+	}
+	
+	// Method compareTo
+	@Override
+	public int compareTo(TaskItem obj) {
+
+//		String scan = scanner.nextLine();
+//		int result = 0;
+//
+//		if (scan.equalsIgnoreCase("type")) {
+//			result = this.getTaskType().compareTo(obj.getTaskType());
+//		} else if (scan.equalsIgnoreCase("category")) {
+//			result = this.getTaskCategory().compareTo(obj.getTaskCategory());
+//		}
+//		return result;
+		
+		int result = this.getTaskType().compareTo(obj.getTaskType());
+		
+		if (result == 0) {
+			
+			result = this.getTaskCategory().compareTo(obj.getTaskCategory());
+		}
+		return result;
+	}
+	
+	// Create method
+	@Override
+	public void createTask(String description, String creationDate, TaskCategory category, TaskType type, boolean complete, String expirationDate) {
+		
+		setDescription(description);
+		setCreationDate(creationDate);
+		setTaskCategory(category);
+		setTaskType(type);
+		setComplete(complete);
+		setExpirationDate(expirationDate);
+	}
+	
+	// Delete method
+	@Override
+	public void deleteTask(TaskItem taskItem) {
+	
+	}
+	
+	// Edit method
+	@Override
+	public void editTask(String description, String creationDate, TaskCategory category, TaskType type, boolean complete, String expirationDate) {
+		
+		setDescription(description);
+		setCreationDate(creationDate);
+		setTaskCategory(category);
+		setTaskType(type);
+		setComplete(complete);
+		setExpirationDate(expirationDate);
+	}
+	
+	@Override
+	public String toString() {
+		final StringBuffer sb = new StringBuffer("\n");
+		sb.append("Description: ").append(getDescription()).append(".\n");
+		sb.append("Creation date: ").append(getCreationDate()).append(".\n");
+		sb.append("Type: ").append(getTaskType()).append(".\n");
+		sb.append("Category: ").append(getTaskCategory()).append(".\n");
+		sb.append("Expiration date: ").append(getExpirationDate()).append(".\n");
+		sb.append("Complete: ").append(isComplete()).append(".\n");
+		return sb.toString();
 	}
 	
 	// Getters and setters
@@ -123,36 +210,6 @@ abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
 	public void setExpirationDate(String expirationDate) {
 		
 		this.expirationDate = expirationDate;
-	}
-	
-	// Method equals
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) return true;
-		if (!(obj instanceof TaskItem)) return false;
-		TaskItem taskItem = (TaskItem) obj;
-		return Objects.equals(getDescription(), taskItem.getDescription()) &&
-				getTaskCategory() == taskItem.getTaskCategory() &&
-				getTaskType() == taskItem.getTaskType();
-	}
-	
-	// Method hashCode
-	@Override
-	public int hashCode() {
-		
-		return Objects.hash(getDescription(), getTaskCategory(), getTaskType());
-	}
-	
-	// Method compareTo
-	@Override
-	public int compareTo(TaskItem obj) {
-		
-		int result = this.getTaskType().compareTo(obj.getTaskType());
-		
-		if (result == 0) {
-			result = this.getTaskCategory().compareTo(obj.getTaskCategory());
-		}
-		return result;
 	}
 	
 	/**

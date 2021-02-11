@@ -2,12 +2,11 @@ package domain.models.tasks;
 
 import domain.enums.TaskCategory;
 import domain.enums.TaskType;
-import domain.interfaces.iTaskService;
+
 
 import java.util.LinkedList;
-import java.util.Objects;
 
-public class RecurringTask extends TaskItem implements iTaskService {
+public class RecurringTask extends TaskItem {
 	
 	private String repeat;
 	
@@ -43,32 +42,21 @@ public class RecurringTask extends TaskItem implements iTaskService {
 	}
 	
 	//Methods
-	@Override
-	public void createTask(String description, String creationDate, TaskCategory category, TaskType type, boolean complete, String expirationDate) {
+	public void createTask(String description, String creationDate, TaskCategory category, TaskType type, boolean complete, String expirationDate, String repeat) {
 		
-		setDescription(description);
-		setCreationDate(creationDate);
-		setTaskCategory(category);
-		setTaskType(type);
-		setComplete(complete);
-		setExpirationDate(expirationDate);
+		createTask(description, creationDate, category, type, complete, expirationDate);
+		this.repeat = repeat;
 	}
 	
-	@Override
 	public void deleteTask(TaskItem taskItem) {
 		
 		recurringTaskList.remove(taskItem);
 	}
 	
-	@Override
-	public void editTask(String description, String creationDate, TaskCategory category, TaskType type, boolean complete, String expirationDate) {
+	public void editTask(String description, String creationDate, TaskCategory category, TaskType type, boolean complete, String expirationDate, String repeat) {
 		
-		setDescription(description);
-		setCreationDate(creationDate);
-		setTaskCategory(category);
-		setTaskType(type);
-		setComplete(complete);
-		setExpirationDate(expirationDate);
+		editTask(description, creationDate, category, type, complete, expirationDate);
+		this.repeat = repeat;
 	}
 	
 	// Method toString

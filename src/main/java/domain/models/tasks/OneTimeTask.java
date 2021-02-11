@@ -2,11 +2,10 @@ package domain.models.tasks;
 
 import domain.enums.TaskCategory;
 import domain.enums.TaskType;
-import domain.interfaces.iTaskService;
 
 import java.util.LinkedList;
 
-public class OneTimeTask extends TaskItem implements iTaskService {
+public class OneTimeTask extends TaskItem {
 	
 	// Generate sequence numbers when creating a task
 	private static int numOfOneTimeTask = 1;
@@ -39,46 +38,9 @@ public class OneTimeTask extends TaskItem implements iTaskService {
 	}
 	
 	// Methods
-	@Override
-	public void createTask(String description, String creationDate, TaskCategory category, TaskType type, boolean complete, String expirationDate) {
-		
-		setDescription(description);
-		setCreationDate(creationDate);
-		setTaskCategory(category);
-		setTaskType(type);
-		setComplete(complete);
-		setExpirationDate(expirationDate);
-	}
-	
-	@Override
 	public void deleteTask(TaskItem taskItem) {
 		
 		oneTimeTaskList.remove(taskItem);
-	}
-	
-	@Override
-	public void editTask(String description, String creationDate, TaskCategory category, TaskType type, boolean complete, String expirationDate) {
-		
-		setDescription(description);
-		setCreationDate(creationDate);
-		setTaskCategory(category);
-		setTaskType(type);
-		setComplete(complete);
-		setExpirationDate(expirationDate);
-	}
-	
-	// Method toString
-	@Override
-	public String toString() {
-		
-		final StringBuffer sb = new StringBuffer("\n");
-		sb.append("Description: ").append(getDescription()).append(".\n");
-		sb.append("Creation date: ").append(getCreationDate()).append(".\n");
-		sb.append("Type: ").append(getTaskType()).append(".\n");
-		sb.append("Category: ").append(getTaskCategory()).append(".\n");
-		sb.append("Expiration date: ").append(getExpirationDate()).append(".\n");
-		sb.append("Complete: ").append(isComplete()).append(".\n");
-		return sb.toString();
 	}
 	
 	/**
