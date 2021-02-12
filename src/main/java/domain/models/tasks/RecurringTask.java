@@ -75,17 +75,17 @@ public class RecurringTask extends TaskItem {
 	}
 	
 	/**
-	 * @return A list of RecurringTask
+	 * @return A list of RecurringTask for sort
 	 */
-	public static LinkedList<RecurringTask> getRecurringTaskList() {
+	public static LinkedList<RecurringTask> sortRecurringTaskList() {
 		
 		return recurringTaskList;
 	}
 	
-	// Method for assigns a sequential number to each task
-	public static void getIdOfRecurringTask() {
+	// Displaying the Recurring task list
+	public static void getRecurringTaskList() {
 		
-		for (TaskItem rT : RecurringTask.getRecurringTaskList()) {
+		for (TaskItem rT : RecurringTask.recurringTaskList) {
 			
 			int idOfRecurringTask = numOfRecurringTask++;
 			System.out.println("Task " + idOfRecurringTask + "." + rT);

@@ -71,23 +71,30 @@ abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
 	// Method compareTo
 	@Override
 	public int compareTo(TaskItem obj) {
-
-//		String scan = scanner.nextLine();
-//		int result = 0;
-//
-//		if (scan.equalsIgnoreCase("type")) {
-//			result = this.getTaskType().compareTo(obj.getTaskType());
-//		} else if (scan.equalsIgnoreCase("category")) {
-//			result = this.getTaskCategory().compareTo(obj.getTaskCategory());
-//		}
-//		return result;
 		
-		int result = this.getTaskType().compareTo(obj.getTaskType());
+		System.out.println("If you want to sort tasks press 1, if not press 0.");
+		String step1 = scanner.nextLine();
 		
-		if (result == 0) {
+		int result;
+		
+		if (step1.equals("1")) {
 			
-			result = this.getTaskCategory().compareTo(obj.getTaskCategory());
+			System.out.println("If you want sort by type, press 1, if by category, press 2. If you don't want to sort tasks, press 0.");
+			String scan = scanner.nextLine();
+			
+			if (scan.equals("1")) {
+				
+				result = this.getTaskType().compareTo(obj.getTaskType());
+			} else if (scan.equals("2")) {
+				result = this.getTaskCategory().compareTo(obj.getTaskCategory());
+			} else {
+				result = 0;
+			}
+		} else {
+			
+			result = 0;
 		}
+		
 		return result;
 	}
 	

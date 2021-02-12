@@ -1,7 +1,6 @@
 package domain.models.users;
 
-import domain.models.tasks.RecurringTask;
-import domain.models.tasks.TaskItem;
+import domain.interfaces.iUserService;
 
 import java.util.LinkedList;
 

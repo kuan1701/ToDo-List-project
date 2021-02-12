@@ -1,4 +1,6 @@
-package domain.models.users;
+package domain.interfaces;
+
+import domain.models.users.User;
 
 public interface iUserService {
 	

@@ -3,6 +3,7 @@ package domain.models.tasks;
 import domain.enums.TaskCategory;
 import domain.enums.TaskType;
 
+import java.util.Collection;
 import java.util.LinkedList;
 
 public class OneTimeTask extends TaskItem {
@@ -44,17 +45,17 @@ public class OneTimeTask extends TaskItem {
 	}
 	
 	/**
-	 * @return A list of OneTimeTask
+	 * @return A list of OneTimeTask for sort
 	 */
-	public static LinkedList<OneTimeTask> getOneTimeTaskList() {
+	public static LinkedList<OneTimeTask> sortOneTimeTaskList() {
 		
 		return oneTimeTaskList;
 	}
 	
-	// Method for assigns a sequential number to each task
-	public static void getIdOfOneTimeTask() {
+	// Displaying the One-time task list
+	public static void getOneTimeTaskList() {
 		
-		for (TaskItem oTT : OneTimeTask.getOneTimeTaskList()) {
+		for (TaskItem oTT : oneTimeTaskList) {
 			
 			int idOfOneTimeTask = numOfOneTimeTask++;
 			System.out.println("Task " + idOfOneTimeTask + "." + oTT);

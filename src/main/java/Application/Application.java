@@ -79,10 +79,10 @@ public class Application {
 		// Change task parameters
 		oneTimeTask1.editTask("do homework", "09/02/2021 22:36", TaskCategory.WORK, TaskType.DEFAULT, true, "11/02/2021");
 		
-		// List of one-time tasks
-		Collections.sort(OneTimeTask.getOneTimeTaskList());
-		//Assigns a sequential number to each task
-		OneTimeTask.getIdOfOneTimeTask();
+		// Sort the list
+		Collections.sort(OneTimeTask.sortOneTimeTaskList());
+		//List of one-time tasks
+		OneTimeTask.getOneTimeTaskList();
 		
 		// Displaying and creating all recurring tasks
 		System.out.println("-------------------");
@@ -96,9 +96,9 @@ public class Application {
 		recurringTask3.editTask("learn java", "12.02.2021 15:36", TaskCategory.PERSONAL, TaskType.IMPORTANT, true, "15.04.2021", "everyday");
 		
 		// List of recurring tasks
-		Collections.sort(RecurringTask.getRecurringTaskList());
+		Collections.sort(RecurringTask.sortRecurringTaskList());
 		//Assigns a sequential number to each task
-		RecurringTask.getIdOfRecurringTask();
+		RecurringTask.getRecurringTaskList();
 		
 		
 		// Total numbers of tasks
