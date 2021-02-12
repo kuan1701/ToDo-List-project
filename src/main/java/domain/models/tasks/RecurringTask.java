@@ -3,7 +3,6 @@ package domain.models.tasks;
 import domain.enums.TaskCategory;
 import domain.enums.TaskType;
 
-
 import java.util.LinkedList;
 
 public class RecurringTask extends TaskItem {

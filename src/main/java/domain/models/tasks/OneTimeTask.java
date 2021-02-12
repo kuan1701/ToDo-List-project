@@ -3,7 +3,6 @@ package domain.models.tasks;
 import domain.enums.TaskCategory;
 import domain.enums.TaskType;
 
-import java.util.Collection;
 import java.util.LinkedList;
 
 public class OneTimeTask extends TaskItem {
