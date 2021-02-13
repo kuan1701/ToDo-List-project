@@ -72,14 +72,14 @@ abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
 	@Override
 	public int compareTo(TaskItem obj) {
 		
-		System.out.println("If you want to sort tasks press 1, if not press 0.");
+		System.out.println("If you want to sort tasks press 1, if not press any key.");
 		String step1 = scanner.nextLine();
 		
 		int result;
 		
 		if (step1.equals("1")) {
 			
-			System.out.println("If you want sort by type, press 1, if by category, press 2. If you don't want to sort tasks, press 0.");
+			System.out.println("If you want sort by type, press 1, if by category, press 2. If you don't want to sort tasks, press any key.");
 			String scan = scanner.nextLine();
 			
 			if (scan.equals("1")) {
