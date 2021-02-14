@@ -4,6 +4,7 @@ import domain.enums.TaskCategory;
 import domain.enums.TaskType;
 
 import java.util.LinkedList;
+import java.util.stream.Stream;
 
 public class RecurringTask extends TaskItem {
 	
@@ -13,7 +14,9 @@ public class RecurringTask extends TaskItem {
 	private static int numOfRecurringTask = 1;
 	
 	// Create a list of recurring task
-	private static final LinkedList<RecurringTask> recurringTaskList = new LinkedList<RecurringTask>();
+	private static final LinkedList<TaskItem> recurringTaskList = new LinkedList<TaskItem>();
+	
+	Stream rTStream = recurringTaskList.stream();
 	
 	/**
 	 * Constructs an RecurringTask with no specified parameters
@@ -76,7 +79,7 @@ public class RecurringTask extends TaskItem {
 	/**
 	 * @return A list of RecurringTask for sort
 	 */
-	public static LinkedList<RecurringTask> sortRecurringTaskList() {
+	public static LinkedList<TaskItem> sortRecurringTaskList() {
 		
 		return recurringTaskList;
 	}

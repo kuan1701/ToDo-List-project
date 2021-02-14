@@ -4,6 +4,7 @@ import domain.enums.TaskCategory;
 import domain.enums.TaskType;
 
 import java.util.LinkedList;
+import java.util.stream.Stream;
 
 public class OneTimeTask extends TaskItem {
 	
@@ -11,7 +12,9 @@ public class OneTimeTask extends TaskItem {
 	private static int numOfOneTimeTask = 1;
 	
 	// Create a list of one-time task
-	private static final LinkedList<OneTimeTask> oneTimeTaskList = new LinkedList<OneTimeTask>();
+	private static final LinkedList<TaskItem> oneTimeTaskList = new LinkedList<TaskItem>();
+	
+	Stream oTTStream = oneTimeTaskList.stream();
 	
 	/**
 	 * Constructs an OneTimeTask with no specified parameters
@@ -46,7 +49,7 @@ public class OneTimeTask extends TaskItem {
 	/**
 	 * @return A list of OneTimeTask for sort
 	 */
-	public static LinkedList<OneTimeTask> sortOneTimeTaskList() {
+	public static LinkedList<TaskItem> sortOneTimeTaskList() {
 		
 		return oneTimeTaskList;
 	}
