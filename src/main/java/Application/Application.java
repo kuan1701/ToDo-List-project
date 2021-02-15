@@ -44,7 +44,7 @@ public class Application {
 				"10.02.2021");
 		
 		OneTimeTask oneTimeTask4 = new OneTimeTask(
-				"4buy cat food",
+				"4buy",
 				"04.02.2021 16:48",
 				TaskCategory.HOUSEWORK,
 				TaskType.DISPOSABLE,
@@ -73,7 +73,7 @@ public class Application {
 				"every month");
 		
 		TaskItem recurringTask2 = new RecurringTask(
-				"2go to the car diagnostics",
+				"2go",
 				"02.02.2021 13:27",
 				TaskCategory.PERSONAL,
 				TaskType.REUSABLE,
@@ -147,11 +147,17 @@ public class Application {
 		List<TaskItem> listWithoutDuplicate = TaskItem.removeDuplicateTasks(tasksList);
 		TaskItem.printTasksList(listWithoutDuplicate);
 		
-		// Display onlu description
+		// Display only description
 		System.out.println("--------------------");
 		System.out.println("Description of tasks");
 		System.out.println("--------------------");
 		TaskItem.showDescriptionOfTasks(tasksList);
+		
+		// Checking the length of the task name
+		System.out.println("------------------------------------");
+		System.out.println("Checking the length of the task name");
+		System.out.println("------------------------------------");
+		TaskItem.taskNameLength(tasksList);
 		
 		
 		// Displaying and creating users

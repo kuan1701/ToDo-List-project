@@ -26,7 +26,7 @@ abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
 	 * Constructs an TaskItem with no specified parameters
 	 */
 	public TaskItem() {
-
+	
 	}
 	
 	/**
@@ -50,7 +50,7 @@ abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
 		this.priority = priority;
 		this.complete = complete;
 		this.expirationDate = expirationDate;
-
+		
 	}
 	
 	// METHODS
@@ -191,7 +191,7 @@ abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
 	public static List<TaskItem> sortByCategory(List<TaskItem> taskItemList) {
 		
 		return taskItemList.stream()
-				.sorted(Comparator.comparing(TaskItem::getTaskCategory))
+				.sorted(Comparator.comparing(TaskItem :: getTaskCategory))
 				.collect(Collectors.toList());
 	}
 	
@@ -199,7 +199,7 @@ abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
 	public static List<TaskItem> sortByPriority(List<TaskItem> taskItemList) {
 		
 		return taskItemList.stream()
-				.sorted(Comparator.comparing(TaskItem::getPriority))
+				.sorted(Comparator.comparing(TaskItem :: getPriority))
 				.collect(Collectors.toList());
 	}
 	
@@ -207,7 +207,7 @@ abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
 	public static List<TaskItem> sortByType(List<TaskItem> taskItemList) {
 		
 		return taskItemList.stream()
-				.sorted(Comparator.comparing(TaskItem::getTaskType))
+				.sorted(Comparator.comparing(TaskItem :: getTaskType))
 				.collect(Collectors.toList());
 	}
 	
@@ -221,6 +221,7 @@ abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
 	}
 	
 	// Getters and setters
+	
 	/**
 	 * @return TaskItem description
 	 */
@@ -310,12 +311,34 @@ abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
 		this.priority = priority;
 	}
 	
+	// Method for displaying task description
+	public static int num = 1;
 	public static void showDescriptionOfTasks(List<TaskItem> taskItemList) {
-	
+		
 		taskItemList.forEach((t) -> {
 			
+			int count = num++;
 			Optional<String> descriptionOfTasks = Optional.of(t.getDescription());
-			System.out.println(descriptionOfTasks.map(s -> ("Description: " + s)));
+			System.out.println(descriptionOfTasks.map(s -> ("Task " + count + ": " + s + ".")).toString()
+					.replace("[", " ")
+					.replace("]", " ")
+					.replace("Optional", "")
+			);
 		});
+	}
+	
+	// Method for checking the length of the task name
+	public static int num2 = 1;
+	public static void taskNameLength(List<TaskItem> taskItemList) {
+		
+		taskItemList.forEach((t) -> {
+			
+			int count = num2++;
+			boolean allMatch = taskItemList.stream()
+					.allMatch(word -> (t.getDescription()).length() > 5);
+			System.out.println(" Task " + count + ": " + allMatch + ".");
+		});
+		
+		
 	}
 }
