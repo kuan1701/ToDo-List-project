@@ -5,10 +5,7 @@ import domain.enums.TaskCategory;
 import domain.enums.TaskType;
 import domain.interfaces.iTaskService;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
@@ -63,22 +60,19 @@ abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
 		if (this == obj) return true;
 		if (!(obj instanceof TaskItem)) return false;
 		TaskItem taskItem = (TaskItem) obj;
-		return getDescription().equals(taskItem.getDescription()) &&
-				getTaskCategory() == taskItem.getTaskCategory() &&
-				getTaskType() == taskItem.getTaskType() &&
-				getPriority() == taskItem.getPriority();
+		return getDescription().equals(taskItem.getDescription());
 	}
 	
 	// Method hashCode
 	@Override
 	public int hashCode() {
 		
-		return Objects.hash(getDescription(), getTaskCategory(), getTaskType(), getPriority());
+		return Objects.hash(getDescription());
 	}
 	
 	// Method compareTo
 	@Override
-	public int compareTo(TaskItem obj) {
+	public int compareTo(TaskItem taskItem) {
 		
 		int result;
 		
@@ -87,23 +81,23 @@ abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
 		
 		switch (scan) {
 			case "1":
-				result = this.getTaskType().compareTo(obj.getTaskType());
+				result = this.getTaskType().compareTo(taskItem.getTaskType());
 				if (result == 0) {
-					result = this.getTaskCategory().compareTo(obj.getTaskCategory());
+					result = this.getTaskCategory().compareTo(taskItem.getTaskCategory());
 				}
 				break;
 			
 			case "2":
-				result = this.getTaskCategory().compareTo(obj.getTaskCategory());
+				result = this.getTaskCategory().compareTo(taskItem.getTaskCategory());
 				if (result == 0) {
-					result = this.getTaskType().compareTo(obj.getTaskType());
+					result = this.getTaskType().compareTo(taskItem.getTaskType());
 				}
 				break;
 			
 			case "3":
-				result = this.getPriority().compareTo(obj.getPriority());
+				result = this.getPriority().compareTo(taskItem.getPriority());
 				if (result == 0) {
-					result = this.getTaskType().compareTo(obj.getTaskType());
+					result = this.getTaskType().compareTo(taskItem.getTaskType());
 				}
 				break;
 			
@@ -154,24 +148,70 @@ abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
 		return sb.toString();
 	}
 	
+	// Print task list
+	public static void printTask(TaskItem taskItem) {
+		
+		System.out.println(taskItem);
+	}
+	
 	//Stream API
 	// Search by priority
-	public static List<TaskItem> filterTaskItem(List<TaskItem> taskItemList, Priority priority) {
+	public static List<TaskItem> filterByPriority(List<TaskItem> taskItemList, Priority priority) {
 		
 		return taskItemList.stream()
 				.filter(taskItem -> taskItem.getPriority().equals(priority))
 				.collect(Collectors.toList());
 	}
 	
-	// Sorting tasks
-	public static List<TaskItem> sortTaskItem(List<TaskItem> taskItemList) {
+	// Search by category
+	public static List<TaskItem> filterByCategory(List<TaskItem> taskItemList, TaskCategory taskCategory) {
+		
+		return taskItemList.stream()
+				.filter(taskItem -> taskItem.getTaskCategory().equals(taskCategory))
+				.collect(Collectors.toList());
+	}
+	
+	// Search by type
+	public static List<TaskItem> filterByType(List<TaskItem> taskItemList, TaskType taskType) {
+		
+		return taskItemList.stream()
+				.filter(taskItem -> taskItem.getTaskType().equals(taskType))
+				.collect(Collectors.toList());
+	}
+	
+	// Remove duplicate tasks
+	public static List<TaskItem> removeDuplicateTasks(List<TaskItem> taskItemList) {
+		
+		return taskItemList.stream()
+				.distinct()
+				.collect(Collectors.toList());
+	}
+	
+	// Sorting tasks by category
+	public static List<TaskItem> sortByCategory(List<TaskItem> taskItemList) {
 		
 		return taskItemList.stream()
 				.sorted(Comparator.comparing(TaskItem::getTaskCategory))
 				.collect(Collectors.toList());
 	}
 	
-	//Print task list
+	// Sorting tasks priority
+	public static List<TaskItem> sortByPriority(List<TaskItem> taskItemList) {
+		
+		return taskItemList.stream()
+				.sorted(Comparator.comparing(TaskItem::getPriority))
+				.collect(Collectors.toList());
+	}
+	
+	// Sorting tasks type
+	public static List<TaskItem> sortByType(List<TaskItem> taskItemList) {
+		
+		return taskItemList.stream()
+				.sorted(Comparator.comparing(TaskItem::getTaskType))
+				.collect(Collectors.toList());
+	}
+	
+	// Print task list
 	public static void printTasksList(List<TaskItem> taskItemList) {
 		
 		taskItemList.forEach((t) -> {
@@ -268,5 +308,14 @@ abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
 	
 	public void setPriority(Priority priority) {
 		this.priority = priority;
+	}
+	
+	public static void showDescriptionOfTasks(List<TaskItem> taskItemList) {
+	
+		taskItemList.forEach((t) -> {
+			
+			Optional<String> descriptionOfTasks = Optional.of(t.getDescription());
+			System.out.println(descriptionOfTasks.map(s -> ("Description: " + s)));
+		});
 	}
 }

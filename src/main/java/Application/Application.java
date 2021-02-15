@@ -8,7 +8,6 @@ import domain.models.tasks.RecurringTask;
 import domain.models.tasks.TaskItem;
 import domain.models.users.User;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -53,6 +52,15 @@ public class Application {
 				false,
 				"10.02.2021");
 		
+		OneTimeTask oneTimeTask5 = new OneTimeTask(
+				"1buy products",
+				"22222222",
+				TaskCategory.HOUSEWORK,
+				TaskType.DISPOSABLE,
+				Priority.DEFAULT,
+				false,
+				"08.02.2021");
+		
 		// Create a recurring task
 		RecurringTask recurringTask1 = new RecurringTask(
 				"1pay utility bills",
@@ -84,31 +92,66 @@ public class Application {
 				"10.02.2021",
 				"2 times a week");
 		
-		// Displaying all and creating one-time tasks
-		System.out.println("-------------------");
-		System.out.println("    Tasks list     ");
-		System.out.println("-------------------");
 		
 		List<TaskItem> tasksList = new LinkedList<TaskItem>();
 		tasksList.add(oneTimeTask1);
 		tasksList.add(oneTimeTask2);
 		tasksList.add(oneTimeTask3);
 		tasksList.add(oneTimeTask4);
+		tasksList.add(oneTimeTask5);
 		tasksList.add(recurringTask1);
 		tasksList.add(recurringTask2);
 		tasksList.add(recurringTask3);
 		
 		//Displaying tasks list
-		//TaskItem.printTasksList(tasksList);
+		// Displaying all and creating one-time tasks
+		System.out.println("-------------------");
+		System.out.println("    Tasks list     ");
+		System.out.println("-------------------");
+		TaskItem.printTasksList(tasksList);
 		
-		// Filter
-		//List<TaskItem> important = TaskItem.filterTaskItem(tasksList, Priority.IMPORTANT);
-		//TaskItem.printTasksList(important);
+		// Filter by priority
+		System.out.println("--------------------------------");
+		System.out.println("Filtering tasks list by priority");
+		System.out.println("--------------------------------");
+		List<TaskItem> filteredList = TaskItem.filterByPriority(tasksList, Priority.IMPORTANT);
+		TaskItem.printTasksList(filteredList);
 		
-		//Sorting tasks
-		List<TaskItem> category = TaskItem.sortTaskItem(tasksList);
-		TaskItem.printTasksList(category);
+		// Filter by category
+		System.out.println("--------------------------------");
+		System.out.println("Filtering tasks list by category");
+		System.out.println("--------------------------------");
+		List<TaskItem> filteredList2 = TaskItem.filterByCategory(tasksList,TaskCategory.PERSONAL);
+		TaskItem.printTasksList(filteredList2);
 		
+		
+		//Sorting tasks by category
+		System.out.println("-------------------------");
+		System.out.println("Sorting tasks by category");
+		System.out.println("-------------------------");
+		List<TaskItem> sortedList = TaskItem.sortByCategory(tasksList);
+		TaskItem.printTasksList(sortedList);
+		
+		//Sorting tasks by priority
+		System.out.println("-------------------------");
+		System.out.println("Sorting tasks by priority");
+		System.out.println("-------------------------");
+		List<TaskItem> sortedList2 = TaskItem.sortByPriority(tasksList);
+		TaskItem.printTasksList(sortedList2);
+		
+		
+		// Remove duplicate tasks
+		System.out.println("------------------------");
+		System.out.println("Removing duplicate tasks");
+		System.out.println("------------------------");
+		List<TaskItem> listWithoutDuplicate = TaskItem.removeDuplicateTasks(tasksList);
+		TaskItem.printTasksList(listWithoutDuplicate);
+		
+		// Display onlu description
+		System.out.println("--------------------");
+		System.out.println("Description of tasks");
+		System.out.println("--------------------");
+		TaskItem.showDescriptionOfTasks(tasksList);
 		
 		
 		// Displaying and creating users
