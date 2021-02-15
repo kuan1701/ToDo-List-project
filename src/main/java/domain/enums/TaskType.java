@@ -2,16 +2,11 @@ package domain.enums;
 
 public enum TaskType {
 	
-	URGENTLY("Urgently"),
-	IMPORTANT("Important"),
-	DEFAULT("Default");
+	DISPOSABLE("Disposable"),
+	REUSABLE("Reusable");
 	
-	public String type;
+	private String type;
 	
-	/**
-	 * Constructs an TaskCategory of a given type
-	 * @param type TaskCategory type
-	 */
 	TaskType(String type) {
 		
 		this.type = type;
@@ -22,7 +17,6 @@ public enum TaskType {
 	 */
 	@Override
 	public String toString() {
-		
 		return type;
 	}
 	
@@ -30,7 +24,10 @@ public enum TaskType {
 	 * @return Task type
 	 */
 	public String getType() {
-		
 		return type;
+	}
+	
+	public void setType(String type) {
+		this.type = type;
 	}
 }

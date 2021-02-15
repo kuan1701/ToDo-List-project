@@ -1,5 +1,6 @@
 package Application;
 
+import domain.enums.Priority;
 import domain.enums.TaskCategory;
 import domain.enums.TaskType;
 import domain.models.tasks.OneTimeTask;
@@ -8,25 +9,29 @@ import domain.models.tasks.TaskItem;
 import domain.models.users.User;
 
 import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Application {
 	
 	public static void main(String[] args) {
-
+		
 		// Create a one-time task
 		OneTimeTask oneTimeTask1 = new OneTimeTask(
 				"1buy products",
 				"02.02.2021 11:20",
 				TaskCategory.SHOPPING,
-				TaskType.IMPORTANT,
+				TaskType.DISPOSABLE,
+				Priority.DEFAULT,
 				false,
 				"08.02.2021");
 		
-		TaskItem oneTimeTask2 = new OneTimeTask();
-		oneTimeTask2.createTask("2buy cat food",
+		TaskItem oneTimeTask2 = new OneTimeTask(
+				"2buy cat food",
 				"04.02.2021 16:48",
 				TaskCategory.SHOPPING,
-				TaskType.URGENTLY,
+				TaskType.DISPOSABLE,
+				Priority.IMPORTANT,
 				false,
 				"10.02.2021");
 		
@@ -34,77 +39,76 @@ public class Application {
 				"3buy cat food",
 				"04.02.2021 16:48",
 				TaskCategory.PERSONAL,
-				TaskType.URGENTLY,
+				TaskType.DISPOSABLE,
+				Priority.IMPORTANT,
+				false,
+				"10.02.2021");
+		
+		OneTimeTask oneTimeTask4 = new OneTimeTask(
+				"4buy cat food",
+				"04.02.2021 16:48",
+				TaskCategory.HOUSEWORK,
+				TaskType.DISPOSABLE,
+				Priority.URGENTLY,
 				false,
 				"10.02.2021");
 		
 		// Create a recurring task
-		RecurringTask recurringTask1 = new RecurringTask();
-						recurringTask1.createTask(
-						"1pay utility bills",
-						"20.02.2021 14:38",
-						TaskCategory.HOUSEWORK,
-						TaskType.IMPORTANT,
-						false,
-						"25.02.2021",
-						"every month"		);
+		RecurringTask recurringTask1 = new RecurringTask(
+				"1pay utility bills",
+				"20.02.2021 14:38",
+				TaskCategory.HOUSEWORK,
+				TaskType.REUSABLE,
+				Priority.IMPORTANT,
+				false,
+				"25.02.2021",
+				"every month");
 		
 		TaskItem recurringTask2 = new RecurringTask(
-						"2go to the car diagnostics",
-						"02.02.2021 13:27",
-						TaskCategory.PERSONAL,
-						TaskType.IMPORTANT,
-						false,
-						"20.02.2021",
-						"every month");
+				"2go to the car diagnostics",
+				"02.02.2021 13:27",
+				TaskCategory.PERSONAL,
+				TaskType.REUSABLE,
+				Priority.URGENTLY,
+				false,
+				"20.02.2021",
+				"every month");
 		
 		RecurringTask recurringTask3 = new RecurringTask(
-						"go to class",
-						"10.02.2021 23:14",
-						TaskCategory.WORK,
-						TaskType.IMPORTANT,
-						false,
-						"10.02.2021",
-						"2 times a week");
-		
+				"3go to class",
+				"10.02.2021 23:14",
+				TaskCategory.WORK,
+				TaskType.REUSABLE,
+				Priority.DEFAULT,
+				false,
+				"10.02.2021",
+				"2 times a week");
 		
 		// Displaying all and creating one-time tasks
-		System.out.println("------------------");
-		System.out.println("One-time task list");
-		System.out.println("------------------");
-		
-		// Delete the task
-		oneTimeTask3.deleteTask(oneTimeTask3);
-		
-		// Change task parameters
-		oneTimeTask1.editTask("do homework", "09/02/2021 22:36", TaskCategory.WORK, TaskType.DEFAULT, true, "11/02/2021");
-		
-		// Sort the list
-		Collections.sort(OneTimeTask.sortOneTimeTaskList());
-		//List of one-time tasks
-		OneTimeTask.getOneTimeTaskList();
-		
-		// Displaying and creating all recurring tasks
 		System.out.println("-------------------");
-		System.out.println("Recurring task list");
+		System.out.println("    Tasks list     ");
 		System.out.println("-------------------");
 		
-		// Delete the task
-		recurringTask2.deleteTask(recurringTask2);
+		List<TaskItem> tasksList = new LinkedList<TaskItem>();
+		tasksList.add(oneTimeTask1);
+		tasksList.add(oneTimeTask2);
+		tasksList.add(oneTimeTask3);
+		tasksList.add(oneTimeTask4);
+		tasksList.add(recurringTask1);
+		tasksList.add(recurringTask2);
+		tasksList.add(recurringTask3);
 		
-		// Change task parameters
-		recurringTask3.editTask("learn java", "12.02.2021 15:36", TaskCategory.PERSONAL, TaskType.IMPORTANT, true, "15.04.2021", "everyday");
+		//Displaying tasks list
+		//TaskItem.printTasksList(tasksList);
 		
-		// List of recurring tasks
-		Collections.sort(RecurringTask.sortRecurringTaskList());
-		//Assigns a sequential number to each task
-		RecurringTask.getRecurringTaskList();
+		// Filter
+		//List<TaskItem> important = TaskItem.filterTaskItem(tasksList, Priority.IMPORTANT);
+		//TaskItem.printTasksList(important);
 		
+		//Sorting tasks
+		List<TaskItem> category = TaskItem.sortTaskItem(tasksList);
+		TaskItem.printTasksList(category);
 		
-		// Total numbers of tasks
-//		System.out.println("---------------------------");
-//		System.out.println("In total, you have " + TaskItem.getNumberOfTask() + " tasks.");
-//		System.out.println("---------------------------\n");
 		
 		
 		// Displaying and creating users
