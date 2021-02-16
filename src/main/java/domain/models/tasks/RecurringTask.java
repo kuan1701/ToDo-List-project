@@ -56,7 +56,6 @@ public class RecurringTask extends TaskItem {
 		sb.append("Description: ").append(getDescription()).append(".\n");
 		sb.append("Creation date: ").append(getCreationDate()).append(".\n");
 		sb.append("Repeat: ").append(getRepeat()).append(".\n");
-		sb.append("Type: ").append(getTaskType()).append(".\n");
 		sb.append("Priority: ").append(getPriority()).append(".\n");
 		sb.append("Category: ").append(getTaskCategory()).append(".\n");
 		sb.append("Expiration date: ").append(getExpirationDate()).append(".\n");

@@ -140,7 +140,6 @@ abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
 		final StringBuffer sb = new StringBuffer("\n");
 		sb.append("Description: ").append(getDescription()).append(".\n");
 		sb.append("Creation date: ").append(getCreationDate()).append(".\n");
-		sb.append("Type: ").append(getTaskType()).append(".\n");
 		sb.append("Category: ").append(getTaskCategory()).append(".\n");
 		sb.append("Priority: ").append(getPriority()).append(".\n");
 		sb.append("Expiration date: ").append(getExpirationDate()).append(".\n");
@@ -221,12 +220,12 @@ abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
 	}
 	
 	// Method for displaying task description
-	public static int num = 1;
+	public static int numOfTaskDescription = 1;
 	public static void showDescriptionOfTasks(List<TaskItem> taskItemList) {
 		
 		taskItemList.forEach((t) -> {
 			
-			int count = num++;
+			int count = numOfTaskDescription++;
 			Optional<String> descriptionOfTasks = Optional.of(t.getDescription());
 			System.out.println(descriptionOfTasks.map(s -> ("Task " + count + ": " + s + ".")).toString()
 					.replace("[", " ")
@@ -237,12 +236,12 @@ abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
 	}
 	
 	// Method for checking the length of the task name
-	public static int num2 = 1;
+	public static int numOfTaskLength = 1;
 	public static void taskNameLength(List<TaskItem> taskItemList) {
 		
 		taskItemList.forEach((t) -> {
 			
-			int count = num2++;
+			int count = numOfTaskLength++;
 			boolean allMatch = taskItemList.stream()
 					.allMatch(word -> (t.getDescription()).length() > 5);
 			System.out.println(" Task " + count + ": " + allMatch + ".");
