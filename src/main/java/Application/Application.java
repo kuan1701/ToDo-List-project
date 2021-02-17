@@ -7,6 +7,7 @@ import domain.models.tasks.OneTimeTask;
 import domain.models.tasks.RecurringTask;
 import domain.models.tasks.TaskItem;
 import domain.models.users.User;
+import domain.util.TaskService;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -108,21 +109,21 @@ public class Application {
 		System.out.println("-------------------");
 		System.out.println("    Tasks list     ");
 		System.out.println("-------------------");
-		TaskItem.printTasksList(tasksList);
+		TaskService.printTasksList(tasksList);
 		
 		// Filter by priority
 		System.out.println("--------------------------------");
 		System.out.println("Filtering tasks list by priority");
 		System.out.println("--------------------------------");
 		List<TaskItem> filteredList = TaskItem.filterByPriority(tasksList, Priority.IMPORTANT);
-		TaskItem.printTasksList(filteredList);
+		TaskService.printTasksList(filteredList);
 		
 		// Filter by category
 		System.out.println("--------------------------------");
 		System.out.println("Filtering tasks list by category");
 		System.out.println("--------------------------------");
 		List<TaskItem> filteredList2 = TaskItem.filterByCategory(tasksList,TaskCategory.PERSONAL);
-		TaskItem.printTasksList(filteredList2);
+		TaskService.printTasksList(filteredList2);
 		
 		
 		//Sorting tasks by category
@@ -137,7 +138,7 @@ public class Application {
 		System.out.println("Sorting tasks by priority");
 		System.out.println("-------------------------");
 		List<TaskItem> sortedList2 = TaskItem.sortByPriority(tasksList);
-		TaskItem.printTasksList(sortedList2);
+		TaskService.printTasksList(sortedList2);
 		
 		
 		// Remove duplicate tasks
@@ -145,19 +146,19 @@ public class Application {
 		System.out.println("Removing duplicate tasks");
 		System.out.println("------------------------");
 		List<TaskItem> listWithoutDuplicate = TaskItem.removeDuplicateTasks(tasksList);
-		TaskItem.printTasksList(listWithoutDuplicate);
+		TaskService.printTasksList(listWithoutDuplicate);
 		
 		// Display only description
 		System.out.println("--------------------");
 		System.out.println("Description of tasks");
 		System.out.println("--------------------");
-		TaskItem.showDescriptionOfTasks(tasksList);
+		TaskService.showDescriptionOfTasks(tasksList);
 		
 		// Checking the length of the task name
 		System.out.println("------------------------------------");
 		System.out.println("Checking the length of the task name");
 		System.out.println("------------------------------------");
-		TaskItem.taskNameLength(tasksList);
+		TaskService.taskNameLength(tasksList);
 		
 		
 		// Displaying and creating users
