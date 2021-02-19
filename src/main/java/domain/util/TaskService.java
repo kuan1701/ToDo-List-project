@@ -79,8 +79,30 @@ public class TaskService {
 	private static int id = 1;
 	public static void printTasksList(List<TaskItem> taskItemList) {
 		
+		taskItemList.removeIf(TaskItem :: isComplete);
+		
 		taskItemList.forEach((t) -> {
+			
 			int idOfTasks = id++;
+			
+			if (t.isComplete()) {
+				t.setTaskCategory(TaskCategory.FINISHED);
+			}
+			System.out.println("Task " + idOfTasks + "." + t);
+		});
+	}
+	
+	// Print list of all tasks
+	private static int idAllTasks = 1;
+	public static void printListOfAllTasks(List<TaskItem> taskItemList) {
+		
+		taskItemList.forEach((t) -> {
+			
+			int idOfTasks = idAllTasks++;
+			
+			if (t.isComplete()) {
+				t.setTaskCategory(TaskCategory.FINISHED);
+			}
 			System.out.println("Task " + idOfTasks + "." + t);
 		});
 	}

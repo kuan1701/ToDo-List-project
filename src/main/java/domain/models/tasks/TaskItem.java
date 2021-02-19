@@ -5,6 +5,9 @@ import domain.enums.TaskCategory;
 import domain.enums.TaskType;
 import domain.interfaces.iTaskService;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
@@ -13,12 +16,13 @@ abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
 	
 	// Fields
 	private String description;
-	private String date;
+	private static LocalDate creationDate;
 	private TaskCategory taskCategory;
 	private TaskType taskType;
 	private Priority priority;
-	private boolean complete;
-	private String expirationDate;
+	private boolean complete = true;
+	private static LocalDate expirationDate;
+	private long daysLeft;
 	
 	/**
 	 * Constructs an TaskItem with no specified parameters
@@ -32,32 +36,29 @@ abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
 	 * taskCategory, taskType, complete, expirationDate
 	 *
 	 * @param description    TaskItem description
-	 * @param creationDate   TaskItem creationDate
 	 * @param taskCategory   TaskItem taskCategory
 	 * @param taskType       TaskItem taskType
 	 * @param priority       TaskItem priority
 	 * @param complete       TaskItem complete
 	 * @param expirationDate TaskItem expirationDate
 	 */
-	public TaskItem(String description, String creationDate, TaskCategory taskCategory, TaskType taskType, Priority priority, boolean complete, String expirationDate) {
+	public TaskItem(String description, TaskCategory taskCategory, TaskType taskType, Priority priority, boolean complete, LocalDate expirationDate) {
 		
 		this.description = description;
-		this.date = creationDate;
 		this.taskCategory = taskCategory;
 		this.taskType = taskType;
 		this.priority = priority;
 		this.complete = complete;
 		this.expirationDate = expirationDate;
-		
 	}
 	
 	// METHODS
 	// Method equals
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) return true;
-		if (!(obj instanceof TaskItem)) return false;
-		TaskItem taskItem = (TaskItem) obj;
+	public boolean equals(Object that) {
+		if (this == that) return true;
+		if (!(that instanceof TaskItem)) return false;
+		TaskItem taskItem = (TaskItem) that;
 		return getDescription().equals(taskItem.getDescription());
 	}
 	
@@ -108,10 +109,9 @@ abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
 	
 	// Create method
 	@Override
-	public void createTask(String description, String creationDate, TaskCategory category, TaskType type, Priority priority, boolean complete, String expirationDate) {
+	public void createTask(String description, TaskCategory category, TaskType type, Priority priority, boolean complete, LocalDate expirationDate) {
 		
 		setDescription(description);
-		setCreationDate(creationDate);
 		setTaskCategory(category);
 		setTaskType(type);
 		setPriority(priority);
@@ -121,10 +121,9 @@ abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
 	
 	// Edit method
 	@Override
-	public void editTask(String description, String creationDate, TaskCategory category, TaskType type, Priority priority, boolean complete, String expirationDate) {
+	public void editTask(String description, TaskCategory category, TaskType type, Priority priority, boolean complete, LocalDate expirationDate) {
 		
 		setDescription(description);
-		setCreationDate(creationDate);
 		setTaskCategory(category);
 		setTaskType(type);
 		setPriority(priority);
@@ -135,12 +134,14 @@ abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
 	// toString method
 	@Override
 	public String toString() {
+		
 		final StringBuffer sb = new StringBuffer("\n");
 		sb.append("Description: ").append(getDescription()).append(".\n");
 		sb.append("Creation date: ").append(getCreationDate()).append(".\n");
-		sb.append("Category: ").append(getTaskCategory()).append(".\n");
 		sb.append("Priority: ").append(getPriority()).append(".\n");
+		sb.append("Category: ").append(getTaskCategory()).append(".\n");
 		sb.append("Expiration date: ").append(getExpirationDate()).append(".\n");
+		sb.append("Days left: ").append(getDaysLeft()).append(" days.\n");
 		sb.append("Complete: ").append(isComplete()).append(".\n");
 		return sb.toString();
 	}
@@ -162,14 +163,14 @@ abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
 	/**
 	 * @return TaskItem creationDate
 	 */
-	public String getCreationDate() {
+	public static String getCreationDate() {
 		
-		return date;
+		creationDate = LocalDate.now();
+		return creationDate.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
 	}
 	
-	public void setCreationDate(String date) {
-		
-		this.date = date;
+	public static void setCreationDate(LocalDate creationDate) {
+		TaskItem.creationDate = creationDate;
 	}
 	
 	/**
@@ -214,14 +215,13 @@ abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
 	/**
 	 * @return TaskItem expirationDate
 	 */
-	public String getExpirationDate() {
+	public static String getExpirationDate() {
 		
-		return expirationDate;
+		return expirationDate.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
 	}
 	
-	public void setExpirationDate(String expirationDate) {
-		
-		this.expirationDate = expirationDate;
+	public void setExpirationDate(LocalDate expirationDate) {
+		TaskItem.expirationDate = expirationDate;
 	}
 	
 	/**
@@ -235,5 +235,19 @@ abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
 	public void setPriority(Priority priority) {
 		
 		this.priority = priority;
+	}
+	
+	/**
+	 * @return TaskItem days left
+	 */
+	public long getDaysLeft() {
+		
+		daysLeft = ChronoUnit.DAYS.between(creationDate, expirationDate);
+		
+		return daysLeft;
+	}
+	
+	public void setDaysLeft(long daysLeft) {
+		this.daysLeft = daysLeft;
 	}
 }

@@ -1,6 +1,7 @@
 package Application;
 
 import domain.enums.Priority;
+import domain.enums.Repeats;
 import domain.enums.TaskCategory;
 import domain.enums.TaskType;
 import domain.models.tasks.OneTimeTask;
@@ -9,6 +10,7 @@ import domain.models.tasks.TaskItem;
 import domain.models.users.User;
 import domain.util.TaskService;
 
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,79 +21,72 @@ public class Application {
 		// Create a one-time task
 		OneTimeTask oneTimeTask1 = new OneTimeTask(
 				"1buy products",
-				"02.02.2021 11:20",
 				TaskCategory.SHOPPING,
 				TaskType.DISPOSABLE,
 				Priority.DEFAULT,
 				false,
-				"08.02.2021");
+				LocalDate.of(2022, 1, 17));
 		
 		TaskItem oneTimeTask2 = new OneTimeTask(
 				"2buy cat food",
-				"04.02.2021 16:48",
 				TaskCategory.SHOPPING,
 				TaskType.DISPOSABLE,
 				Priority.IMPORTANT,
 				false,
-				"10.02.2021");
+				LocalDate.of(2022, 1, 29));
 		
 		OneTimeTask oneTimeTask3 = new OneTimeTask(
 				"3buy cat food",
-				"04.02.2021 16:48",
 				TaskCategory.PERSONAL,
 				TaskType.DISPOSABLE,
 				Priority.IMPORTANT,
 				false,
-				"10.02.2021");
+				LocalDate.of(2022, 1, 17));
 		
 		OneTimeTask oneTimeTask4 = new OneTimeTask(
 				"4buy",
-				"04.02.2021 16:48",
 				TaskCategory.HOUSEWORK,
 				TaskType.DISPOSABLE,
 				Priority.URGENTLY,
 				false,
-				"10.02.2021");
+				LocalDate.of(2022, 1, 17));
 		
 		OneTimeTask oneTimeTask5 = new OneTimeTask(
 				"1buy products",
-				"22222222",
 				TaskCategory.HOUSEWORK,
 				TaskType.DISPOSABLE,
 				Priority.DEFAULT,
 				false,
-				"08.02.2021");
+				LocalDate.of(2022, 1, 17));
 		
 		// Create a recurring task
 		RecurringTask recurringTask1 = new RecurringTask(
 				"1pay utility bills",
-				"20.02.2021 14:38",
 				TaskCategory.HOUSEWORK,
 				TaskType.REUSABLE,
 				Priority.IMPORTANT,
 				false,
-				"25.02.2021",
-				"every month");
+				LocalDate.of(2022, 1, 17),
+				Repeats.ONCE_A_DAY);
 		
 		TaskItem recurringTask2 = new RecurringTask(
 				"2go",
-				"02.02.2021 13:27",
+				//new Date(),
 				TaskCategory.PERSONAL,
 				TaskType.REUSABLE,
 				Priority.URGENTLY,
-				false,
-				"20.02.2021",
-				"every month");
+				true,
+				LocalDate.of(2022, 1, 17),
+				Repeats.ONCE_A_MONTH);
 		
 		RecurringTask recurringTask3 = new RecurringTask(
 				"3go to class",
-				"10.02.2021 23:14",
 				TaskCategory.WORK,
 				TaskType.REUSABLE,
 				Priority.DEFAULT,
 				false,
-				"10.02.2021",
-				"2 times a week");
+				LocalDate.of(2022, 1, 17),
+				Repeats.ONCE_A_WEEK);
 		
 		
 		List<TaskItem> tasksList = new LinkedList<TaskItem>();
@@ -104,7 +99,14 @@ public class Application {
 		tasksList.add(recurringTask2);
 		tasksList.add(recurringTask3);
 		
+		
 		//Displaying tasks list
+		// Displaying all and creating one-time tasks
+		System.out.println("-------------------------------");
+		System.out.println("    Tasks list of all tasks    ");
+		System.out.println("-------------------------------");
+		TaskService.printListOfAllTasks(tasksList);
+		
 		// Displaying all and creating one-time tasks
 		System.out.println("-------------------");
 		System.out.println("    Tasks list     ");
@@ -115,29 +117,29 @@ public class Application {
 		System.out.println("--------------------------------");
 		System.out.println("Filtering tasks list by priority");
 		System.out.println("--------------------------------");
-		List<TaskItem> filteredList = TaskItem.filterByPriority(tasksList, Priority.IMPORTANT);
+		List<TaskItem> filteredList = TaskService.filterByPriority(tasksList, Priority.IMPORTANT);
 		TaskService.printTasksList(filteredList);
 		
 		// Filter by category
 		System.out.println("--------------------------------");
 		System.out.println("Filtering tasks list by category");
 		System.out.println("--------------------------------");
-		List<TaskItem> filteredList2 = TaskItem.filterByCategory(tasksList,TaskCategory.PERSONAL);
-		TaskService.printTasksList(filteredList2);
+		List<TaskItem> filteredList2 = TaskService.filterByCategory(tasksList,TaskCategory.SHOPPING);
+		TaskService.printListOfAllTasks(filteredList2);
 		
 		
 		//Sorting tasks by category
 		System.out.println("-------------------------");
 		System.out.println("Sorting tasks by category");
 		System.out.println("-------------------------");
-		List<TaskItem> sortedList = TaskItem.sortByCategory(tasksList);
-		TaskItem.printTasksList(sortedList);
+		List<TaskItem> sortedList = TaskService.sortByCategory(tasksList);
+		TaskService.printListOfAllTasks(sortedList);
 		
 		//Sorting tasks by priority
 		System.out.println("-------------------------");
 		System.out.println("Sorting tasks by priority");
 		System.out.println("-------------------------");
-		List<TaskItem> sortedList2 = TaskItem.sortByPriority(tasksList);
+		List<TaskItem> sortedList2 = TaskService.sortByPriority(tasksList);
 		TaskService.printTasksList(sortedList2);
 		
 		
@@ -145,7 +147,7 @@ public class Application {
 		System.out.println("------------------------");
 		System.out.println("Removing duplicate tasks");
 		System.out.println("------------------------");
-		List<TaskItem> listWithoutDuplicate = TaskItem.removeDuplicateTasks(tasksList);
+		List<TaskItem> listWithoutDuplicate = TaskService.removeDuplicateTasks(tasksList);
 		TaskService.printTasksList(listWithoutDuplicate);
 		
 		// Display only description
@@ -158,7 +160,7 @@ public class Application {
 		System.out.println("------------------------------------");
 		System.out.println("Checking the length of the task name");
 		System.out.println("------------------------------------");
-		TaskService.taskNameLength(tasksList);
+		TaskService.printListOfAllTasks(tasksList);
 		
 		
 		// Displaying and creating users

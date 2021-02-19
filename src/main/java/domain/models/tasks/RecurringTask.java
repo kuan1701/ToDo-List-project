@@ -1,12 +1,15 @@
 package domain.models.tasks;
 
 import domain.enums.Priority;
+import domain.enums.Repeats;
 import domain.enums.TaskCategory;
 import domain.enums.TaskType;
 
+import java.time.LocalDate;
+
 public class RecurringTask extends TaskItem {
 	
-	private String repeat;
+	private Repeats repeats;
 	
 	/**
 	 * Constructs an RecurringTask with no specified parameters
@@ -20,37 +23,37 @@ public class RecurringTask extends TaskItem {
 	 * taskCategory, taskType, complete, expirationDate, count
 	 *
 	 * @param description    RecurringTask description
-	 * @param creationDate   RecurringTask creationDate
 	 * @param taskCategory   RecurringTask taskCategory
 	 * @param taskType       RecurringTask taskType
 	 * @param complete       RecurringTask complete
 	 * @param expirationDate RecurringTask expirationDate
-	 * @param repeat         RecurringTask count
+	 * @param repeats        RecurringTask repeats
 	 */
 	
 	// Constructor
-	public RecurringTask(String description, String creationDate, TaskCategory taskCategory, TaskType taskType, Priority priority, boolean complete, String expirationDate, String repeat) {
+	public RecurringTask(String description, TaskCategory taskCategory, TaskType taskType, Priority priority, boolean complete, LocalDate expirationDate, Repeats repeats) {
 		
-		super(description, creationDate, taskCategory, taskType, priority, complete, expirationDate);
-		this.repeat = repeat;
+		super(description, taskCategory, taskType, priority, complete, expirationDate);
+		this.repeats = repeats;
 	}
 	
 	//Methods
-	public void createTask(String description, String creationDate, TaskCategory category, TaskType type, Priority priority, boolean complete, String expirationDate, String repeat) {
+	public void createTask(String description, TaskCategory category, TaskType type, Priority priority, boolean complete, LocalDate expirationDate, Repeats repeats) {
 		
-		createTask(description, creationDate, category, type, priority, complete, expirationDate);
-		this.repeat = repeat;
+		createTask(description, category, type, priority, complete, expirationDate);
+		this.repeats = repeats;
 	}
 	
-	public void editTask(String description, String creationDate, TaskCategory category, TaskType type, Priority priority, boolean complete, String expirationDate, String repeat) {
+	public void editTask(String description, TaskCategory category, TaskType type, Priority priority, boolean complete, LocalDate expirationDate, Repeats repeats) {
 		
-		editTask(description, creationDate, category, type, priority, complete, expirationDate);
-		this.repeat = repeat;
+		editTask(description, category, type, priority, complete, expirationDate);
+		this.repeats = repeats;
 	}
 	
 	// Method toString
 	@Override
 	public String toString() {
+		
 		
 		final StringBuffer sb = new StringBuffer("\n");
 		sb.append("Description: ").append(getDescription()).append(".\n");
@@ -59,6 +62,7 @@ public class RecurringTask extends TaskItem {
 		sb.append("Priority: ").append(getPriority()).append(".\n");
 		sb.append("Category: ").append(getTaskCategory()).append(".\n");
 		sb.append("Expiration date: ").append(getExpirationDate()).append(".\n");
+		sb.append("Days left: ").append(getDaysLeft()).append(" days.\n");
 		sb.append("Complete: ").append(isComplete()).append(".\n");
 		return sb.toString();
 	}
@@ -66,13 +70,13 @@ public class RecurringTask extends TaskItem {
 	/**
 	 * @return RecurringTask repeat
 	 */
-	public String getRepeat() {
+	public Repeats getRepeat() {
 		
-		return repeat;
+		return repeats;
 	}
 	
-	public void setRepeat(String repeat) {
+	public void setRepeat(Repeats repeats) {
 		
-		this.repeat = repeat;
+		this.repeats = repeats;
 	}
 }

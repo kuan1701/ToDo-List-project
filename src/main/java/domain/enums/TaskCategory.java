@@ -1,6 +1,7 @@
 package domain.enums;
 
 public enum TaskCategory {
+	
 	PERSONAL("Personal"),
 	HOUSEWORK("Housework"),
 	SHOPPING("Shopping"),
