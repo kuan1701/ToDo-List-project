@@ -1,6 +1,6 @@
 package domain.util;
 
-import domain.Exception.EmptyDescriptionOfTaskException;
+import domain.Exception.MissingTaskDescriptionException;
 import domain.enums.Priority;
 import domain.enums.TaskCategory;
 import domain.enums.TaskType;
@@ -14,12 +14,12 @@ import java.util.stream.Collectors;
 public class TaskService {
 	
 	// Print task list
-	public static void printTask(TaskItem taskItem) throws EmptyDescriptionOfTaskException {
+	public static void printTask(TaskItem taskItem) throws MissingTaskDescriptionException {
 		
-		if (taskItem.getDescription().length() == 0){
+		if (taskItem.getDescription().equals("")){
 			System.out.println(taskItem);
 		} else {
-			throw new EmptyDescriptionOfTaskException("Write a description of task");
+			throw new MissingTaskDescriptionException("Write a description of task");
 		}
 	}
 	
@@ -148,10 +148,10 @@ public class TaskService {
 	
 	// longException(t)
 	private static void longException(TaskItem t) {
-		if (t.getDescription().length() == 0) {
+		if (t.getDescription().equals("")) {
 			try {
-				throw new EmptyDescriptionOfTaskException("Write a description of task");
-			} catch (EmptyDescriptionOfTaskException e) {
+				throw new MissingTaskDescriptionException("Write a description of task");
+			} catch (MissingTaskDescriptionException e) {
 				t.setDescription("no description");
 			}
 		}
