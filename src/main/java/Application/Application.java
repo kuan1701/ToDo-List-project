@@ -18,17 +18,25 @@ public class Application {
 	
 	public static void main(String[] args) {
 		
+//		Scanner scanner = new Scanner(System.in);
+//		System.out.println("Enter the year");
+//		int year = scanner.nextInt();
+//		System.out.println("Enter the month");
+//		int month = scanner.nextInt();
+//		System.out.println("Enter the day");
+//		int day = scanner.nextInt();
+		
 		// Create a one-time task
 		OneTimeTask oneTimeTask1 = new OneTimeTask(
-				"1buy products",
+				"1buy",
 				TaskCategory.SHOPPING,
 				TaskType.DISPOSABLE,
 				Priority.DEFAULT,
 				false,
-				LocalDate.of(2022, 1, 17));
+				LocalDate.of(2022, 1, 29));
 		
 		TaskItem oneTimeTask2 = new OneTimeTask(
-				"2buy cat food",
+				"",
 				TaskCategory.SHOPPING,
 				TaskType.DISPOSABLE,
 				Priority.IMPORTANT,
@@ -127,7 +135,6 @@ public class Application {
 		List<TaskItem> filteredList2 = TaskService.filterByCategory(tasksList,TaskCategory.SHOPPING);
 		TaskService.printListOfAllTasks(filteredList2);
 		
-		
 		//Sorting tasks by category
 		System.out.println("-------------------------");
 		System.out.println("Sorting tasks by category");
@@ -141,7 +148,6 @@ public class Application {
 		System.out.println("-------------------------");
 		List<TaskItem> sortedList2 = TaskService.sortByPriority(tasksList);
 		TaskService.printTasksList(sortedList2);
-		
 		
 		// Remove duplicate tasks
 		System.out.println("------------------------");
@@ -160,7 +166,7 @@ public class Application {
 		System.out.println("------------------------------------");
 		System.out.println("Checking the length of the task name");
 		System.out.println("------------------------------------");
-		TaskService.printListOfAllTasks(tasksList);
+		TaskService.taskNameLength(tasksList);
 		
 		
 		// Displaying and creating users

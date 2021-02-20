@@ -1,5 +1,6 @@
 package domain.util;
 
+import domain.Exception.EmptyDescriptionOfTaskException;
 import domain.enums.Priority;
 import domain.enums.TaskCategory;
 import domain.enums.TaskType;
@@ -13,9 +14,13 @@ import java.util.stream.Collectors;
 public class TaskService {
 	
 	// Print task list
-	public static void printTask(TaskItem taskItem) {
+	public static void printTask(TaskItem taskItem) throws EmptyDescriptionOfTaskException {
 		
-		System.out.println(taskItem);
+		if (taskItem.getDescription().length() == 0){
+			System.out.println(taskItem);
+		} else {
+			throw new EmptyDescriptionOfTaskException("Write a description of task");
+		}
 	}
 	
 	//Stream API
@@ -85,6 +90,8 @@ public class TaskService {
 			
 			int idOfTasks = id++;
 			
+			longException(t);
+			
 			if (t.isComplete()) {
 				t.setTaskCategory(TaskCategory.FINISHED);
 			}
@@ -99,6 +106,8 @@ public class TaskService {
 		taskItemList.forEach((t) -> {
 			
 			int idOfTasks = idAllTasks++;
+			
+			longException(t);
 			
 			if (t.isComplete()) {
 				t.setTaskCategory(TaskCategory.FINISHED);
@@ -134,5 +143,17 @@ public class TaskService {
 					.allMatch(word -> (t.getDescription()).length() > 5);
 			System.out.println(" Task " + count + ": " + allMatch + ".");
 		});
+	}
+	
+	
+	// longException(t)
+	private static void longException(TaskItem t) {
+		if (t.getDescription().length() == 0) {
+			try {
+				throw new EmptyDescriptionOfTaskException("Write a description of task");
+			} catch (EmptyDescriptionOfTaskException e) {
+				t.setDescription("no description");
+			}
+		}
 	}
 }
