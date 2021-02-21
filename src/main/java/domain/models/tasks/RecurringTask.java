@@ -1,5 +1,6 @@
 package domain.models.tasks;
 
+import domain.Exception.DateException;
 import domain.enums.Priority;
 import domain.enums.Repeats;
 import domain.enums.TaskCategory;
@@ -61,7 +62,11 @@ public class RecurringTask extends TaskItem {
 		sb.append("Repeat: ").append(getRepeat()).append(".\n");
 		sb.append("Priority: ").append(getPriority()).append(".\n");
 		sb.append("Category: ").append(getTaskCategory()).append(".\n");
-		sb.append("Expiration date: ").append(getExpirationDate()).append(".\n");
+		try {
+			sb.append("Expiration date: ").append(getExpirationDate()).append(".\n");
+		} catch (DateException e) {
+			sb.append(setExpirationDate("expired date")).append(".\n");
+		}
 		sb.append("Days left: ").append(getDaysLeft()).append(" days.\n");
 		sb.append("Complete: ").append(isComplete()).append(".\n");
 		return sb.toString();

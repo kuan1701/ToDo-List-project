@@ -52,12 +52,12 @@ public class Application {
 				LocalDate.of(2022, 1, 17));
 		
 		OneTimeTask oneTimeTask4 = new OneTimeTask(
-				"4buy",
+				"",
 				TaskCategory.HOUSEWORK,
 				TaskType.DISPOSABLE,
 				Priority.URGENTLY,
 				false,
-				LocalDate.of(2022, 1, 17));
+				LocalDate.of(2020, 1, 17));
 		
 		OneTimeTask oneTimeTask5 = new OneTimeTask(
 				"1buy products",

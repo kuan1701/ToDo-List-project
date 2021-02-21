@@ -1,5 +1,6 @@
 package domain.models.tasks;
 
+import domain.Exception.DateException;
 import domain.enums.Priority;
 import domain.enums.TaskCategory;
 import domain.enums.TaskType;
@@ -147,7 +148,11 @@ abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
 		sb.append("Creation date: ").append(getCreationDate()).append(".\n");
 		sb.append("Priority: ").append(getPriority()).append(".\n");
 		sb.append("Category: ").append(getTaskCategory()).append(".\n");
-		sb.append("Expiration date: ").append(getExpirationDate()).append(".\n");
+		try {
+			sb.append("Expiration date: ").append(getExpirationDate()).append(".\n");
+		} catch (DateException e) {
+			sb.append(setExpirationDate("expired date")).append(".\n");
+		}
 		sb.append("Days left: ").append(getDaysLeft()).append(" days.\n");
 		sb.append("Complete: ").append(isComplete()).append(".\n");
 		return sb.toString();
@@ -184,12 +189,20 @@ abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
 	 * @return TaskItem expirationDate
 	 */
 	
-	public String getExpirationDate() {
+	public String getExpirationDate() throws DateException{
 		
-		return expirationDateOfTask.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
+		daysLeft = ChronoUnit.DAYS.between(creationDateOfTask, expirationDateOfTask);
+		
+		if (daysLeft >= 0){
+			return expirationDateOfTask.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
+		} else {
+			throw new DateException("expired date");
+		}
 	}
 	
-	public void setExpirationDate(String expirationDate) {
+	public String setExpirationDate(String expirationDate) {
+		
+		return expirationDate;
 	}
 	
 	public void setCreationDateOfTask(LocalDate creationDateOfTask) {
@@ -255,9 +268,13 @@ abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
 	/**
 	 * @return TaskItem days left
 	 */
-	public long getDaysLeft() {
+	public long getDaysLeft(){
 		
 		daysLeft = ChronoUnit.DAYS.between(creationDateOfTask, expirationDateOfTask);
+		
+		if (daysLeft < 0) {
+			daysLeft = 0;
+		}
 		
 		return daysLeft;
 	}
