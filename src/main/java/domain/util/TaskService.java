@@ -17,21 +17,28 @@ public class TaskService {
 	
 	// add task
 	public static void addTask(TaskItem taskItem) {
-	
+		boolean taskExists = tasksList.stream()
+				.anyMatch(task -> task.getDescription().equals(taskItem.getDescription()) &&
+						task.getTaskCategory().equals(taskItem.getTaskCategory()) &&
+						task.getTaskType().equals(taskItem.getTaskType()));
+		
+		if (!taskExists) {
 			tasksList.add(taskItem);
+		}
 	}
+	
 	// delete task
 	public static void deleteTask(String description) {
 		tasksList.stream()
 				.filter(task -> task.getDescription().equals(description))
 				.findFirst()
-				.ifPresent(tasksList::remove);
+				.ifPresent(tasksList :: remove);
 	}
 	
 	// Print task list
 	public static void printTask(TaskItem taskItem) throws MissingTaskDescriptionException {
 		
-		if (taskItem.getDescription().equals("")){
+		if (taskItem.getDescription().equals("")) {
 			System.out.println(taskItem);
 		} else {
 			throw new MissingTaskDescriptionException("Write a description of task");
@@ -40,6 +47,7 @@ public class TaskService {
 	
 	// Print task list
 	private static int id = 1;
+	
 	public static void printTasksList() {
 		
 		tasksList.removeIf(TaskItem :: isComplete);
@@ -48,24 +56,30 @@ public class TaskService {
 			
 			int idOfTasks = id++;
 			longException(t);
-			
-			if (t.isComplete()) {
-				t.setTaskCategory(TaskCategory.FINISHED);
-			}
+			finishedTask(t);
 			System.out.println("Task " + idOfTasks + "." + t);
 		});
 	}
 	
 	// Print list of all tasks
 	private static int idAllTasks = 1;
+	
 	public static void printListOfAllTasks() {
 		
 		tasksList.forEach((t) -> {
 			
 			int idOfTasks = idAllTasks++;
 			longException(t);
+			finishedTask(t);
 			System.out.println("Task " + idOfTasks + "." + t);
 		});
+	}
+	
+	//finished task
+	private static void finishedTask(TaskItem t) {
+		if (t.isComplete()) {
+			t.setTaskCategory(TaskCategory.FINISHED);
+		}
 	}
 	
 	//Stream API
@@ -74,7 +88,7 @@ public class TaskService {
 		
 		tasksList.stream()
 				.filter(task -> task.getPriority().equals(priority))
-				.forEach(System.out::println);
+				.forEach(System.out :: println);
 	}
 	
 	// Search by category
@@ -82,7 +96,7 @@ public class TaskService {
 		
 		tasksList.stream()
 				.filter(taskItem -> taskItem.getTaskCategory().equals(taskCategory))
-				.forEach(System.out::println);
+				.forEach(System.out :: println);
 	}
 	
 	// Search by type
@@ -90,7 +104,7 @@ public class TaskService {
 		
 		tasksList.stream()
 				.filter(taskItem -> taskItem.getTaskType().equals(taskType))
-				.forEach(System.out::println);
+				.forEach(System.out :: println);
 	}
 	
 	// Remove duplicate tasks
@@ -98,7 +112,7 @@ public class TaskService {
 		
 		tasksList.stream()
 				.distinct()
-				.forEach(System.out::println);
+				.forEach(System.out :: println);
 	}
 	
 	// Sorting tasks by category
@@ -111,23 +125,24 @@ public class TaskService {
 	
 	// Sorting tasks priority
 	public static void sortByPriority() {
-			
-			tasksList.stream()
-					.sorted(Comparator.comparing(TaskItem :: getPriority))
-					.forEach(System.out::println);
-	
+		
+		tasksList.stream()
+				.sorted(Comparator.comparing(TaskItem :: getPriority))
+				.forEach(System.out :: println);
+		
 	}
 	
 	// Sorting tasks type
 	public static void sortByType() {
-			
-			tasksList.stream()
-					.sorted(Comparator.comparing(TaskItem :: getTaskType))
-					.forEach(System.out::println);
+		
+		tasksList.stream()
+				.sorted(Comparator.comparing(TaskItem :: getTaskType))
+				.forEach(System.out :: println);
 	}
 	
 	// Method for displaying task description
 	public static int numOfTaskDescription = 1;
+	
 	public static void showDescriptionOfTasks() {
 		
 		tasksList.forEach((t) -> {
@@ -144,6 +159,7 @@ public class TaskService {
 	
 	// Method for checking the length of the task name
 	public static int numOfTaskLength = 1;
+	
 	public static void taskNameLength() {
 		
 		tasksList.forEach((t) -> {
@@ -154,6 +170,7 @@ public class TaskService {
 			System.out.println(" Task " + count + ": " + allMatch + ".");
 		});
 	}
+	
 	
 	// longException(t)
 	private static void longException(TaskItem t) {
