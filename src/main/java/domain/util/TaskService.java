@@ -7,11 +7,26 @@ import domain.enums.TaskType;
 import domain.models.tasks.TaskItem;
 
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class TaskService {
+	
+	private static final List<TaskItem> tasksList = new LinkedList<TaskItem>();
+	
+	// add task
+	public static void addTask(TaskItem taskItem) {
+	
+			tasksList.add(taskItem);
+	}
+	// delete task
+	public static void deleteTask(String description) {
+		tasksList.stream()
+				.filter(task -> task.getDescription().equals(description))
+				.findFirst()
+				.ifPresent(tasksList::remove);
+	}
 	
 	// Print task list
 	public static void printTask(TaskItem taskItem) throws MissingTaskDescriptionException {
@@ -23,73 +38,15 @@ public class TaskService {
 		}
 	}
 	
-	//Stream API
-	// Search by priority
-	public static List<TaskItem> filterByPriority(List<TaskItem> taskItemList, Priority priority) {
-		
-		return taskItemList.stream()
-				.filter(taskItem -> taskItem.getPriority().equals(priority))
-				.collect(Collectors.toList());
-	}
-	
-	// Search by category
-	public static List<TaskItem> filterByCategory(List<TaskItem> taskItemList, TaskCategory taskCategory) {
-		
-		return taskItemList.stream()
-				.filter(taskItem -> taskItem.getTaskCategory().equals(taskCategory))
-				.collect(Collectors.toList());
-	}
-	
-	// Search by type
-	public static List<TaskItem> filterByType(List<TaskItem> taskItemList, TaskType taskType) {
-		
-		return taskItemList.stream()
-				.filter(taskItem -> taskItem.getTaskType().equals(taskType))
-				.collect(Collectors.toList());
-	}
-	
-	// Remove duplicate tasks
-	public static List<TaskItem> removeDuplicateTasks(List<TaskItem> taskItemList) {
-		
-		return taskItemList.stream()
-				.distinct()
-				.collect(Collectors.toList());
-	}
-	
-	// Sorting tasks by category
-	public static List<TaskItem> sortByCategory(List<TaskItem> taskItemList) {
-		
-		return taskItemList.stream()
-				.sorted(Comparator.comparing(TaskItem :: getTaskCategory))
-				.collect(Collectors.toList());
-	}
-	
-	// Sorting tasks priority
-	public static List<TaskItem> sortByPriority(List<TaskItem> taskItemList) {
-		
-		return taskItemList.stream()
-				.sorted(Comparator.comparing(TaskItem :: getPriority))
-				.collect(Collectors.toList());
-	}
-	
-	// Sorting tasks type
-	public static List<TaskItem> sortByType(List<TaskItem> taskItemList) {
-		
-		return taskItemList.stream()
-				.sorted(Comparator.comparing(TaskItem :: getTaskType))
-				.collect(Collectors.toList());
-	}
-	
 	// Print task list
 	private static int id = 1;
-	public static void printTasksList(List<TaskItem> taskItemList) {
+	public static void printTasksList() {
 		
-		taskItemList.removeIf(TaskItem :: isComplete);
+		tasksList.removeIf(TaskItem :: isComplete);
 		
-		taskItemList.forEach((t) -> {
+		tasksList.forEach((t) -> {
 			
 			int idOfTasks = id++;
-			
 			longException(t);
 			
 			if (t.isComplete()) {
@@ -101,26 +58,79 @@ public class TaskService {
 	
 	// Print list of all tasks
 	private static int idAllTasks = 1;
-	public static void printListOfAllTasks(List<TaskItem> taskItemList) {
+	public static void printListOfAllTasks() {
 		
-		taskItemList.forEach((t) -> {
+		tasksList.forEach((t) -> {
 			
 			int idOfTasks = idAllTasks++;
-			
 			longException(t);
-			
-			if (t.isComplete()) {
-				t.setTaskCategory(TaskCategory.FINISHED);
-			}
 			System.out.println("Task " + idOfTasks + "." + t);
 		});
 	}
 	
+	//Stream API
+	// Search by priority
+	public static void filterByPriority(Priority priority) {
+		
+		tasksList.stream()
+				.filter(task -> task.getPriority().equals(priority))
+				.forEach(System.out::println);
+	}
+	
+	// Search by category
+	public static void filterByCategory(TaskCategory taskCategory) {
+		
+		tasksList.stream()
+				.filter(taskItem -> taskItem.getTaskCategory().equals(taskCategory))
+				.forEach(System.out::println);
+	}
+	
+	// Search by type
+	public static void filterByType(TaskType taskType) {
+		
+		tasksList.stream()
+				.filter(taskItem -> taskItem.getTaskType().equals(taskType))
+				.forEach(System.out::println);
+	}
+	
+	// Remove duplicate tasks
+	public static void removeDuplicateTasks() {
+		
+		tasksList.stream()
+				.distinct()
+				.forEach(System.out::println);
+	}
+	
+	// Sorting tasks by category
+	public static void sortByCategory() {
+		
+		tasksList.stream()
+				.sorted(Comparator.comparing(TaskItem :: getTaskCategory))
+				.forEach(System.out :: println);
+	}
+	
+	// Sorting tasks priority
+	public static void sortByPriority() {
+			
+			tasksList.stream()
+					.sorted(Comparator.comparing(TaskItem :: getPriority))
+					.forEach(System.out::println);
+	
+	}
+	
+	// Sorting tasks type
+	public static void sortByType() {
+			
+			tasksList.stream()
+					.sorted(Comparator.comparing(TaskItem :: getTaskType))
+					.forEach(System.out::println);
+	}
+	
 	// Method for displaying task description
 	public static int numOfTaskDescription = 1;
-	public static void showDescriptionOfTasks(List<TaskItem> taskItemList) {
+	public static void showDescriptionOfTasks() {
 		
-		taskItemList.forEach((t) -> {
+		tasksList.forEach((t) -> {
 			
 			int count = numOfTaskDescription++;
 			Optional<String> descriptionOfTasks = Optional.of(t.getDescription());
@@ -134,17 +144,16 @@ public class TaskService {
 	
 	// Method for checking the length of the task name
 	public static int numOfTaskLength = 1;
-	public static void taskNameLength(List<TaskItem> taskItemList) {
+	public static void taskNameLength() {
 		
-		taskItemList.forEach((t) -> {
+		tasksList.forEach((t) -> {
 			
 			int count = numOfTaskLength++;
-			boolean allMatch = taskItemList.stream()
+			boolean allMatch = tasksList.stream()
 					.allMatch(word -> (t.getDescription()).length() > 5);
 			System.out.println(" Task " + count + ": " + allMatch + ".");
 		});
 	}
-	
 	
 	// longException(t)
 	private static void longException(TaskItem t) {

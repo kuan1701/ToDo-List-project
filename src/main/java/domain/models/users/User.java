@@ -3,19 +3,15 @@ package domain.models.users;
 import domain.interfaces.iUserService;
 
 import java.util.LinkedList;
+import java.util.Objects;
 
-public class User<T> implements iUserService {
+public class User<T> implements iUserService, Comparable<User> {
 	
 	private String firstName;
 	private String lastName;
 	private String userName;
 	private String password;
 	private T id;
-	
-	//Assigning a serial number to the user
-	private static int numOfUsers = 1;
-	
-	private static final LinkedList<User> usersList = new LinkedList<User>();
 	
 	/**
 	 * Constructs an User of a given firstName, lastName, userName, password, id
@@ -31,14 +27,12 @@ public class User<T> implements iUserService {
 		this.userName = userName;
 		this.password = password;
 		this.id = id;
-		usersList.add(this);
 	}
 	
 	/**
 	 * Constructs an RecurringTask with no specified parameters
 	 */
 	public User() {
-		usersList.add(this);
 	}
 	
 	//Using "Builder Pattern"
@@ -93,6 +87,13 @@ public class User<T> implements iUserService {
 							"ID: " + id + '.');
 	}
 	
+	// compareTo method
+	@Override
+	public int compareTo(User user) {
+		return this.userName.compareTo(user.getUserName());
+	}
+	
+	// edit method
 	@Override
 	public void editAccount(String firstName, String lastName, String userName, String password) {
 		
@@ -102,11 +103,7 @@ public class User<T> implements iUserService {
 		setPassword(password);
 	}
 	
-	@Override
-	public void deleteAccount(User user) {
-		usersList.remove(user);
-	}
-	
+	// toString method
 	@Override
 	public String toString() {
 		
@@ -115,6 +112,21 @@ public class User<T> implements iUserService {
 				"Last name: " + lastName + ".\n" +
 				"Password: " + password + ".\n" +
 				"ID: " + id + '.';
+	}
+	
+	// Equals method
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (!(obj instanceof User)) return false;
+		User<?> user = (User<?>) obj;
+		return Objects.equals(getUserName(), user.getUserName());
+	}
+	
+	// hashCode method
+	@Override
+	public int hashCode() {
+		return Objects.hash(getUserName());
 	}
 	
 	/**
@@ -180,14 +192,5 @@ public class User<T> implements iUserService {
 	public void setId(T id) {
 		
 		this.id = id;
-	}
-	
-	//Display a list of users
-	public static void getListOfUsers() {
-		
-		for (User user : usersList) {
-			int currentUserNum = numOfUsers++;
-			System.out.println("User " + currentUserNum + ".\n" + user + "\n");
-		}
 	}
 }

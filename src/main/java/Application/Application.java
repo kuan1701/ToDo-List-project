@@ -8,11 +8,10 @@ import domain.models.tasks.OneTimeTask;
 import domain.models.tasks.RecurringTask;
 import domain.models.tasks.TaskItem;
 import domain.models.users.User;
+import domain.models.users.UserDataBase;
 import domain.util.TaskService;
 
 import java.time.LocalDate;
-import java.util.LinkedList;
-import java.util.List;
 
 public class Application {
 	
@@ -96,16 +95,14 @@ public class Application {
 				LocalDate.of(2022, 1, 17),
 				Repeats.ONCE_A_WEEK);
 		
-		
-		List<TaskItem> tasksList = new LinkedList<TaskItem>();
-		tasksList.add(oneTimeTask1);
-		tasksList.add(oneTimeTask2);
-		tasksList.add(oneTimeTask3);
-		tasksList.add(oneTimeTask4);
-		tasksList.add(oneTimeTask5);
-		tasksList.add(recurringTask1);
-		tasksList.add(recurringTask2);
-		tasksList.add(recurringTask3);
+		TaskService.addTask(oneTimeTask1);
+		TaskService.addTask(oneTimeTask2);
+		TaskService.addTask(oneTimeTask3);
+		TaskService.addTask(oneTimeTask4);
+		TaskService.addTask(oneTimeTask5);
+		TaskService.addTask(recurringTask1);
+		TaskService.addTask(recurringTask2);
+		TaskService.addTask(recurringTask3);
 		
 		
 		//Displaying tasks list
@@ -113,60 +110,55 @@ public class Application {
 		System.out.println("-------------------------------");
 		System.out.println("    Tasks list of all tasks    ");
 		System.out.println("-------------------------------");
-		TaskService.printListOfAllTasks(tasksList);
+		TaskService.printListOfAllTasks();
 		
 		// Displaying all and creating one-time tasks
 		System.out.println("-------------------");
 		System.out.println("    Tasks list     ");
 		System.out.println("-------------------");
-		TaskService.printTasksList(tasksList);
+		TaskService.printTasksList();
 		
 		// Filter by priority
 		System.out.println("--------------------------------");
 		System.out.println("Filtering tasks list by priority");
 		System.out.println("--------------------------------");
-		List<TaskItem> filteredList = TaskService.filterByPriority(tasksList, Priority.IMPORTANT);
-		TaskService.printTasksList(filteredList);
+		TaskService.filterByPriority(Priority.IMPORTANT);
 		
 		// Filter by category
 		System.out.println("--------------------------------");
 		System.out.println("Filtering tasks list by category");
 		System.out.println("--------------------------------");
-		List<TaskItem> filteredList2 = TaskService.filterByCategory(tasksList,TaskCategory.SHOPPING);
-		TaskService.printListOfAllTasks(filteredList2);
+		TaskService.filterByCategory(TaskCategory.SHOPPING);
 		
 		//Sorting tasks by category
 		System.out.println("-------------------------");
 		System.out.println("Sorting tasks by category");
 		System.out.println("-------------------------");
-		List<TaskItem> sortedList = TaskService.sortByCategory(tasksList);
-		TaskService.printListOfAllTasks(sortedList);
+		TaskService.sortByCategory();
 		
 		//Sorting tasks by priority
 		System.out.println("-------------------------");
 		System.out.println("Sorting tasks by priority");
 		System.out.println("-------------------------");
-		List<TaskItem> sortedList2 = TaskService.sortByPriority(tasksList);
-		TaskService.printTasksList(sortedList2);
+		TaskService.sortByPriority();
 		
 		// Remove duplicate tasks
 		System.out.println("------------------------");
 		System.out.println("Removing duplicate tasks");
 		System.out.println("------------------------");
-		List<TaskItem> listWithoutDuplicate = TaskService.removeDuplicateTasks(tasksList);
-		TaskService.printTasksList(listWithoutDuplicate);
+		TaskService.removeDuplicateTasks();
 		
 		// Display only description
 		System.out.println("--------------------");
 		System.out.println("Description of tasks");
 		System.out.println("--------------------");
-		TaskService.showDescriptionOfTasks(tasksList);
+		TaskService.showDescriptionOfTasks();
 		
 		// Checking the length of the task name
 		System.out.println("------------------------------------");
 		System.out.println("Checking the length of the task name");
 		System.out.println("------------------------------------");
-		TaskService.taskNameLength(tasksList);
+		TaskService.taskNameLength();
 		
 		
 		// Displaying and creating users
@@ -190,6 +182,9 @@ public class Application {
 				.withPassword("123456")
 				.withID(1234567)
 				.build();
-		User.getListOfUsers();
+		
+		UserDataBase.addUser(user);
+		UserDataBase.addUser(admin);
+		UserDataBase.printListOfUsers();
 	}
 }

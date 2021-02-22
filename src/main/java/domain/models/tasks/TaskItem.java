@@ -35,11 +35,10 @@ abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
 	 * Constructs an TaskItem with no specified parameters
 	 */
 	public TaskItem() {
-	
 	}
 	
 	/**
-	 * Constructs an TaskItem of a given description, creationDate,
+	 * Constructs an TaskItem of a given description,
 	 * taskCategory, taskType, complete, expirationDate
 	 *
 	 * @param description          TaskItem description
@@ -159,13 +158,12 @@ abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
 	}
 	
 	// Getters and setters
-	
 	/**
 	 * @return TaskItem description
 	 */
 	public String getDescription() {
 	
-			return description;
+		return description;
 	}
 	
 	public void setDescription(String description) {
@@ -180,9 +178,6 @@ abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
 		
 		creationDateOfTask = LocalDate.now();
 		return creationDateOfTask.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
-	}
-	
-	public void setCreationDate(String creationDate) {
 	}
 	
 	/**
@@ -206,6 +201,7 @@ abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
 	}
 	
 	public void setCreationDateOfTask(LocalDate creationDateOfTask) {
+		
 		this.creationDateOfTask = creationDateOfTask;
 	}
 	
@@ -275,7 +271,6 @@ abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
 		if (daysLeft < 0) {
 			daysLeft = 0;
 		}
-		
 		return daysLeft;
 	}
 	
