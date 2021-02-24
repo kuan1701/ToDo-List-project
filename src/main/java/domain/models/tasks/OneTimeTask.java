@@ -4,9 +4,12 @@ import domain.enums.Priority;
 import domain.enums.TaskCategory;
 import domain.enums.TaskType;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class OneTimeTask extends TaskItem {
+public class OneTimeTask extends TaskItem implements Serializable {
+	
+	private static final long serialVersionUID = 5L;
 	
 	/**
 	 * Constructs an OneTimeTask with no specified parameters

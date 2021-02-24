@@ -13,7 +13,10 @@ import java.util.Optional;
 
 public class TaskService {
 	
-	private static final List<TaskItem> tasksList = new LinkedList<TaskItem>();
+	private static List<TaskItem> tasksList = new LinkedList<TaskItem>();
+	
+	public TaskService() {
+	}
 	
 	// add task
 	public static void addTask(TaskItem taskItem) {
@@ -150,8 +153,8 @@ public class TaskService {
 			int count = numOfTaskDescription++;
 			Optional<String> descriptionOfTasks = Optional.of(t.getDescription());
 			System.out.println(descriptionOfTasks.map(s -> ("Task " + count + ": " + s + ".")).toString()
-					.replace("[", " ")
-					.replace("]", " ")
+					.replace("[", "")
+					.replace("]", "")
 					.replace("Optional", "")
 			);
 		});
@@ -171,7 +174,6 @@ public class TaskService {
 		});
 	}
 	
-	
 	// longException(t)
 	private static void longException(TaskItem t) {
 		if (t.getDescription().equals("")) {
@@ -181,5 +183,15 @@ public class TaskService {
 				t.setDescription("no description");
 			}
 		}
+	}
+	
+	public static List<TaskItem> getTasks() {
+		
+		return tasksList;
+	}
+	
+	public static void setTasks(List<TaskItem> tasksList) {
+		
+		TaskService.tasksList = tasksList;
 	}
 }

@@ -6,20 +6,22 @@ import domain.enums.TaskCategory;
 import domain.enums.TaskType;
 import domain.interfaces.iTaskService;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
-abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
+abstract public class TaskItem implements iTaskService, Serializable {
 	
-	Scanner scanner = new Scanner(System.in);
+//	Scanner scanner = new Scanner(System.in);
 //
 //	int year = scanner.nextInt();
 //	int month = scanner.nextInt();
 //	int day = scanner.nextInt();
 	
 	// Fields
+	private static final long serialVersionUID = 5L;
 	private String description;
 	private TaskCategory taskCategory;
 	private TaskType taskType;
@@ -77,42 +79,42 @@ abstract public class TaskItem implements iTaskService, Comparable<TaskItem> {
 	}
 	
 	// Method compareTo
-	@Override
-	public int compareTo(TaskItem taskItem) {
-		
-		int result;
-		
-		System.out.println("If you want sort by type, press 1, if by category, press 2, if by type, press 3. If you don't want to sort tasks, press any key.");
-		String scan = scanner.nextLine();
-		
-		switch (scan) {
-			case "1":
-				result = this.getTaskType().compareTo(taskItem.getTaskType());
-				if (result == 0) {
-					result = this.getTaskCategory().compareTo(taskItem.getTaskCategory());
-				}
-				break;
-			
-			case "2":
-				result = this.getTaskCategory().compareTo(taskItem.getTaskCategory());
-				if (result == 0) {
-					result = this.getTaskType().compareTo(taskItem.getTaskType());
-				}
-				break;
-			
-			case "3":
-				result = this.getPriority().compareTo(taskItem.getPriority());
-				if (result == 0) {
-					result = this.getTaskType().compareTo(taskItem.getTaskType());
-				}
-				break;
-			
-			default:
-				result = 0;
-				break;
-		}
-		return result;
-	}
+//	@Override
+//	public int compareTo(TaskItem taskItem) {
+//
+//		int result;
+//
+//		System.out.println("If you want sort by type, press 1, if by category, press 2, if by type, press 3. If you don't want to sort tasks, press any key.");
+//		String scan = scanner.nextLine();
+//
+//		switch (scan) {
+//			case "1":
+//				result = this.getTaskType().compareTo(taskItem.getTaskType());
+//				if (result == 0) {
+//					result = this.getTaskCategory().compareTo(taskItem.getTaskCategory());
+//				}
+//				break;
+//
+//			case "2":
+//				result = this.getTaskCategory().compareTo(taskItem.getTaskCategory());
+//				if (result == 0) {
+//					result = this.getTaskType().compareTo(taskItem.getTaskType());
+//				}
+//				break;
+//
+//			case "3":
+//				result = this.getPriority().compareTo(taskItem.getPriority());
+//				if (result == 0) {
+//					result = this.getTaskType().compareTo(taskItem.getTaskType());
+//				}
+//				break;
+//
+//			default:
+//				result = 0;
+//				break;
+//		}
+//		return result;
+//	}
 	
 	// Create method
 	@Override

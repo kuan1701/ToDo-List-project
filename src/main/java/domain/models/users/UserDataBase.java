@@ -37,14 +37,17 @@ public class UserDataBase {
 	}
 	
 	public static void sort() {
+		
 		Collections.sort(usersList);
 	}
 	
 	public static List<User<?>> getUsers() {
+		
 		return usersList;
 	}
 	
 	public static void setUsers(List<User<?>> usersList) {
+		
 		UserDataBase.usersList = usersList;
 	}
 }

@@ -6,9 +6,12 @@ import domain.enums.Repeats;
 import domain.enums.TaskCategory;
 import domain.enums.TaskType;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class RecurringTask extends TaskItem {
+public class RecurringTask extends TaskItem implements Serializable {
+	
+	private static final long serialVersionUID = 5L;
 	
 	private Repeats repeats;
 	
