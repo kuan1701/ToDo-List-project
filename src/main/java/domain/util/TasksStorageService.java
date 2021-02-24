@@ -7,7 +7,7 @@ import java.util.List;
 
 public class TasksStorageService implements iTasksStorageService {
 	
-	private static final String STORAGE_FILENAME = "D:\\ToDo-List-project\\src\\main\\java\\resources";
+	private static final String STORAGE_FILENAME = "D:\\ToDo-List-project\\src\\main\\java\\resources\\tasks.txt";
 	
 	@Override
 	public void writeTasks(List<TaskItem> tasksList) {

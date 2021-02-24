@@ -17,7 +17,7 @@ import java.time.LocalDate;
 
 public class Application {
 	
-	private static final String FILENAME = "D:\\ToDo-List-project\\src\\main\\java\\resources";
+	private static final String FILENAME = "D:\\ToDo-List-project\\src\\main\\java\\resources\\tasks.txt";
 	private static final iTasksStorageService iTasksStorageService = new TasksStorageService();
 	
 	public static void main(String[] args) throws IOException {
