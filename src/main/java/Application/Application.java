@@ -117,11 +117,11 @@ public class Application {
 		TaskService.addTask(recurringTask1);
 		TaskService.addTask(recurringTask2);
 		TaskService.addTask(recurringTask3);
-		
-		
-		
 	
+		// Save tasks
 		iTasksStorageService.writeTasks(TaskService.getTasks());
+		
+		// Read tasks
 		iTasksStorageService.readTasks();
 		
 		
