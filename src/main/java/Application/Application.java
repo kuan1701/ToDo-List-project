@@ -17,7 +17,7 @@ import java.time.LocalDate;
 
 public class Application {
 	
-	private static final String FILENAME = "tasks.txt";
+	private static final String FILENAME = "D:\\ToDo-List-project\\src\\main\\java\\resources";
 	private static final iTasksStorageService iTasksStorageService = new TasksStorageService();
 	
 	public static void main(String[] args) throws IOException {
@@ -117,11 +117,11 @@ public class Application {
 		TaskService.addTask(recurringTask1);
 		TaskService.addTask(recurringTask2);
 		TaskService.addTask(recurringTask3);
-		TaskService.addTask(recurringTask4);
+		
 		
 		
 	
-		//iTasksStorageService.writeTasks(TaskService.getTasks());
+		iTasksStorageService.writeTasks(TaskService.getTasks());
 		iTasksStorageService.readTasks();
 		
 		
