@@ -126,6 +126,7 @@ public class User<T> implements iUserService, Comparable<User> {
 	// hashCode method
 	@Override
 	public int hashCode() {
+		
 		return Objects.hash(getUserName());
 	}
 	

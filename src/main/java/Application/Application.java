@@ -8,6 +8,8 @@ import domain.interfaces.iTasksStorageService;
 import domain.models.tasks.OneTimeTask;
 import domain.models.tasks.RecurringTask;
 import domain.models.tasks.TaskItem;
+import domain.models.users.User;
+import domain.models.users.UserDataBase;
 import domain.util.SerializationTaskService;
 import domain.util.TaskService;
 import domain.util.TasksStorageService;
@@ -109,6 +111,15 @@ public class Application {
 				LocalDate.of(2021, 9, 17),
 				Repeats.ONCE_A_WEEK);
 		
+		RecurringTask recurringTask5 = new RecurringTask(
+				"learn dart",
+				TaskCategory.WORK,
+				TaskType.REUSABLE,
+				Priority.DEFAULT,
+				false,
+				LocalDate.of(2021, 9, 17),
+				Repeats.ONCE_A_WEEK);
+		
 		TaskService.addTask(oneTimeTask1);
 		TaskService.addTask(oneTimeTask2);
 		TaskService.addTask(oneTimeTask3);
@@ -117,9 +128,13 @@ public class Application {
 		TaskService.addTask(recurringTask1);
 		TaskService.addTask(recurringTask2);
 		TaskService.addTask(recurringTask3);
+		TaskService.addTask(recurringTask4);
+		TaskService.addTask(recurringTask5);
 	
+		SerializationTaskService.serialize(TaskService.getTasks(), FILENAME);
+		
 		// Save tasks
-		iTasksStorageService.writeTasks(TaskService.getTasks());
+		//iTasksStorageService.writeTasks(TaskService.getTasks());
 		
 		// Read tasks
 		iTasksStorageService.readTasks();
@@ -181,30 +196,30 @@ public class Application {
 //		TaskService.taskNameLength();
 //
 //
-//		// Displaying and creating users
-//		System.out.println("-------------------");
-//		System.out.println("       Users       ");
-//		System.out.println("-------------------");
-//
-//		User<String> user = new User.Builder<String>()
-//				.withFirstName("Kuan")
-//				.withLastName("Chin")
-//				.withUserName("kuan1701")
-//				.withPassword("17011993")
-//				.withID("id1701")
-//				.build();
-//		user.editAccount("Kot", "Tiger", "tiger2014", "23554");
-//
-//		User<Integer> admin = new User.Builder<Integer>()
-//				.withFirstName("Kuan")
-//				.withLastName("Chin")
-//				.withUserName("Admin")
-//				.withPassword("123456")
-//				.withID(1234567)
-//				.build();
-//
-//		UserDataBase.addUser(user);
-//		UserDataBase.addUser(admin);
-//		UserDataBase.printListOfUsers();
+		// Displaying and creating users
+		System.out.println("-------------------");
+		System.out.println("       Users       ");
+		System.out.println("-------------------");
+
+		User<String> user = new User.Builder<String>()
+				.withFirstName("Kuan")
+				.withLastName("Chin")
+				.withUserName("kuan1701")
+				.withPassword("17011993")
+				.withID("id1701")
+				.build();
+		user.editAccount("Kot", "Tiger", "tiger2014", "23554");
+
+		User<Integer> admin = new User.Builder<Integer>()
+				.withFirstName("Kuan")
+				.withLastName("Chin")
+				.withUserName("Admin")
+				.withPassword("123456")
+				.withID(1234567)
+				.build();
+
+		UserDataBase.addUser(user);
+		UserDataBase.addUser(admin);
+		UserDataBase.printListOfUsers();
 	}
 }
