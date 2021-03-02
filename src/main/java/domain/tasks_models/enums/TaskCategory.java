@@ -1,4 +1,4 @@
-package domain.enums;
+package domain.tasks_models.enums;
 
 public enum TaskCategory {
 	

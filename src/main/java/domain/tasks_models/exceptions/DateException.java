@@ -1,4 +1,4 @@
-package domain.Exception;
+package domain.tasks_models.exceptions;
 
 public class DateException extends Exception {
 

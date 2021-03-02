@@ -1,6 +1,6 @@
-package domain.interfaces;
+package domain.tasks_models.interfaces;
 
-import domain.models.tasks.TaskItem;
+import domain.tasks_models.tasks.TaskItem;
 
 import java.util.List;
 

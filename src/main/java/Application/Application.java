@@ -1,18 +1,18 @@
 package Application;
 
-import domain.enums.Priority;
-import domain.enums.Repeats;
-import domain.enums.TaskCategory;
-import domain.enums.TaskType;
-import domain.interfaces.iTasksStorageService;
-import domain.models.tasks.OneTimeTask;
-import domain.models.tasks.RecurringTask;
-import domain.models.tasks.TaskItem;
-import domain.models.users.User;
-import domain.models.users.UserDataBase;
-import domain.util.SerializationTaskService;
-import domain.util.TaskService;
-import domain.util.TasksStorageService;
+import domain.tasks_models.enums.Priority;
+import domain.tasks_models.enums.Repeats;
+import domain.tasks_models.enums.TaskCategory;
+import domain.tasks_models.enums.TaskType;
+import domain.users_models.exceptions.UserNameException;
+import domain.tasks_models.interfaces.iTasksStorageService;
+import domain.tasks_models.tasks.OneTimeTask;
+import domain.tasks_models.tasks.RecurringTask;
+import domain.tasks_models.tasks.TaskItem;
+import domain.users_models.users.User;
+import domain.users_models.util.UserDataBase;
+import domain.tasks_models.util.TaskService;
+import domain.tasks_models.util.TasksStorageService;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -22,8 +22,8 @@ public class Application {
 	private static final String FILENAME = "D:\\ToDo-List-project\\src\\main\\java\\resources\\tasks.txt";
 	private static final iTasksStorageService iTasksStorageService = new TasksStorageService();
 	
-	public static void main(String[] args) throws IOException {
-		
+	public static void main(String[] args) throws IOException, UserNameException {
+	
 //		Scanner scanner = new Scanner(System.in);
 //		System.out.println("Enter the year");
 //		int year = scanner.nextInt();
@@ -131,10 +131,10 @@ public class Application {
 		TaskService.addTask(recurringTask4);
 		TaskService.addTask(recurringTask5);
 	
-		SerializationTaskService.serialize(TaskService.getTasks(), FILENAME);
+		//SerializationTaskService.serialize(TaskService.getTasks(), FILENAME);
 		
 		// Save tasks
-		//iTasksStorageService.writeTasks(TaskService.getTasks());
+		iTasksStorageService.writeTasks(TaskService.getTasks());
 		
 		// Read tasks
 		iTasksStorageService.readTasks();
@@ -194,32 +194,5 @@ public class Application {
 //		System.out.println("Checking the length of the task name");
 //		System.out.println("------------------------------------");
 //		TaskService.taskNameLength();
-//
-//
-		// Displaying and creating users
-		System.out.println("-------------------");
-		System.out.println("       Users       ");
-		System.out.println("-------------------");
-
-		User<String> user = new User.Builder<String>()
-				.withFirstName("Kuan")
-				.withLastName("Chin")
-				.withUserName("kuan1701")
-				.withPassword("17011993")
-				.withID("id1701")
-				.build();
-		user.editAccount("Kot", "Tiger", "tiger2014", "23554");
-
-		User<Integer> admin = new User.Builder<Integer>()
-				.withFirstName("Kuan")
-				.withLastName("Chin")
-				.withUserName("Admin")
-				.withPassword("123456")
-				.withID(1234567)
-				.build();
-
-		UserDataBase.addUser(user);
-		UserDataBase.addUser(admin);
-		UserDataBase.printListOfUsers();
 	}
 }

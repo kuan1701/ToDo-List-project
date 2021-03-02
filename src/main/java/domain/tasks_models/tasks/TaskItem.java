@@ -1,10 +1,10 @@
-package domain.models.tasks;
+package domain.tasks_models.tasks;
 
-import domain.Exception.DateException;
-import domain.enums.Priority;
-import domain.enums.TaskCategory;
-import domain.enums.TaskType;
-import domain.interfaces.iTaskService;
+import domain.tasks_models.exceptions.DateException;
+import domain.tasks_models.enums.Priority;
+import domain.tasks_models.enums.TaskCategory;
+import domain.tasks_models.enums.TaskType;
+import domain.tasks_models.interfaces.iTaskService;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -28,7 +28,7 @@ abstract public class TaskItem implements iTaskService, Serializable {
 	private Priority priority;
 	private boolean complete = true;
 	
-	private LocalDate creationDateOfTask;
+	private LocalDate currentDate = LocalDate.now();;
 	private LocalDate expirationDateOfTask;
 	private long daysLeft;
 	
@@ -146,7 +146,6 @@ abstract public class TaskItem implements iTaskService, Serializable {
 		
 		final StringBuffer sb = new StringBuffer("\n");
 		sb.append("Description: ").append(getDescription()).append(".\n");
-		sb.append("Creation date: ").append(getCreationDate()).append(".\n");
 		sb.append("Priority: ").append(getPriority()).append(".\n");
 		sb.append("Category: ").append(getTaskCategory()).append(".\n");
 		try {
@@ -176,10 +175,9 @@ abstract public class TaskItem implements iTaskService, Serializable {
 	/**
 	 * @return TaskItem creationDate
 	 */
-	public String getCreationDate() {
+	public String getCurrentDate() {
 		
-		creationDateOfTask = LocalDate.now();
-		return creationDateOfTask.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
+		return currentDate.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
 	}
 	
 	/**
@@ -188,7 +186,7 @@ abstract public class TaskItem implements iTaskService, Serializable {
 	
 	public String getExpirationDate() throws DateException{
 		
-		daysLeft = ChronoUnit.DAYS.between(creationDateOfTask, expirationDateOfTask);
+		daysLeft = ChronoUnit.DAYS.between(currentDate, expirationDateOfTask);
 		
 		if (daysLeft >= 0){
 			return expirationDateOfTask.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
@@ -202,9 +200,9 @@ abstract public class TaskItem implements iTaskService, Serializable {
 		return expirationDate;
 	}
 	
-	public void setCreationDateOfTask(LocalDate creationDateOfTask) {
+	public void setCurrent(LocalDate currentDate) {
 		
-		this.creationDateOfTask = creationDateOfTask;
+		this.currentDate = currentDate;
 	}
 	
 	public void setExpirationDateOfTask(LocalDate expirationDateOfTask) {
@@ -268,7 +266,7 @@ abstract public class TaskItem implements iTaskService, Serializable {
 	 */
 	public long getDaysLeft(){
 		
-		daysLeft = ChronoUnit.DAYS.between(creationDateOfTask, expirationDateOfTask);
+		daysLeft = ChronoUnit.DAYS.between(currentDate, expirationDateOfTask);
 		
 		if (daysLeft < 0) {
 			daysLeft = 0;

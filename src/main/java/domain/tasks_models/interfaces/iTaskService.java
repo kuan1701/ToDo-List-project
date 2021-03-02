@@ -1,13 +1,10 @@
-package domain.interfaces;
+package domain.tasks_models.interfaces;
 
-import domain.enums.Priority;
-import domain.enums.TaskCategory;
-import domain.enums.TaskType;
+import domain.tasks_models.enums.Priority;
+import domain.tasks_models.enums.TaskCategory;
+import domain.tasks_models.enums.TaskType;
 
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 public interface iTaskService {
 	

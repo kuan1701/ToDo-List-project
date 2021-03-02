@@ -1,10 +1,10 @@
-package domain.util;
+package domain.tasks_models.util;
 
-import domain.Exception.MissingTaskDescriptionException;
-import domain.enums.Priority;
-import domain.enums.TaskCategory;
-import domain.enums.TaskType;
-import domain.models.tasks.TaskItem;
+import domain.tasks_models.exceptions.MissingTaskDescriptionException;
+import domain.tasks_models.enums.Priority;
+import domain.tasks_models.enums.TaskCategory;
+import domain.tasks_models.enums.TaskType;
+import domain.tasks_models.tasks.TaskItem;
 
 import java.util.Comparator;
 import java.util.LinkedList;

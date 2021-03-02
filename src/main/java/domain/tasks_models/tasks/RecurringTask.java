@@ -1,10 +1,10 @@
-package domain.models.tasks;
+package domain.tasks_models.tasks;
 
-import domain.Exception.DateException;
-import domain.enums.Priority;
-import domain.enums.Repeats;
-import domain.enums.TaskCategory;
-import domain.enums.TaskType;
+import domain.tasks_models.exceptions.DateException;
+import domain.tasks_models.enums.Priority;
+import domain.tasks_models.enums.Repeats;
+import domain.tasks_models.enums.TaskCategory;
+import domain.tasks_models.enums.TaskType;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -61,7 +61,6 @@ public class RecurringTask extends TaskItem implements Serializable {
 		
 		final StringBuffer sb = new StringBuffer("\n");
 		sb.append("Description: ").append(getDescription()).append(".\n");
-		sb.append("Creation date: ").append(getCreationDate()).append(".\n");
 		sb.append("Repeat: ").append(getRepeat()).append(".\n");
 		sb.append("Priority: ").append(getPriority()).append(".\n");
 		sb.append("Category: ").append(getTaskCategory()).append(".\n");

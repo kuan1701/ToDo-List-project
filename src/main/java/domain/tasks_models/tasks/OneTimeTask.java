@@ -1,8 +1,8 @@
-package domain.models.tasks;
+package domain.tasks_models.tasks;
 
-import domain.enums.Priority;
-import domain.enums.TaskCategory;
-import domain.enums.TaskType;
+import domain.tasks_models.enums.Priority;
+import domain.tasks_models.enums.TaskCategory;
+import domain.tasks_models.enums.TaskType;
 
 import java.io.Serializable;
 import java.time.LocalDate;

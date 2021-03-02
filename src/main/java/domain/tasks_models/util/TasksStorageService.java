@@ -1,7 +1,7 @@
-package domain.util;
+package domain.tasks_models.util;
 
-import domain.interfaces.iTasksStorageService;
-import domain.models.tasks.TaskItem;
+import domain.tasks_models.interfaces.iTasksStorageService;
+import domain.tasks_models.tasks.TaskItem;
 
 import java.util.List;
 

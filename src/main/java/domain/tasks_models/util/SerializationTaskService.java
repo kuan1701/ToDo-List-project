@@ -1,6 +1,6 @@
-package domain.util;
+package domain.tasks_models.util;
 
-import domain.models.tasks.TaskItem;
+import domain.tasks_models.tasks.TaskItem;
 
 import java.io.*;
 import java.util.List;
