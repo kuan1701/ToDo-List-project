@@ -1,13 +1,13 @@
 package domain.tasks_models.enums;
 
-public enum TaskType {
+public enum Types {
 	
 	DISPOSABLE("Disposable"),
 	REUSABLE("Reusable");
 	
 	private String type;
 	
-	TaskType(String type) {
+	Types(String type) {
 		
 		this.type = type;
 	}

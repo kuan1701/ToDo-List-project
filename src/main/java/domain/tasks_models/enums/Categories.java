@@ -1,22 +1,22 @@
 package domain.tasks_models.enums;
 
-public enum TaskCategory {
+public enum Categories {
 	
+	DEFAULT("Default"),
 	PERSONAL("Personal"),
 	HOUSEWORK("Housework"),
 	SHOPPING("Shopping"),
 	WORK("Work"),
 	WISHLIST("Wishlist"),
-	DEFAULT("Default"),
 	FINISHED("Finished");
 	
 	public String category;
 	
 	/**
-	 * Constructs an TaskCategory of a given category
-	 * @param category TaskCategory category
+	 * Constructs an Categories of a given category
+	 * @param category Categories category
 	 */
-	TaskCategory(String category) {
+	Categories(String category) {
 		
 		this.category = category;
 	}

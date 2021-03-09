@@ -1,7 +1,8 @@
 package domain.tasks_models.enums;
 
 public enum Repeats {
-
+	
+	DEFAULT("Default"),
 	ONCE_A_DAY("Once a day"),
 	ONCE_A_WEEK("Once a week"),
 	ONCE_A_MONTH("Once a month"),

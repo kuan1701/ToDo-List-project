@@ -1,16 +1,13 @@
 package Application;
 
+import domain.tasks_models.enums.Categories;
 import domain.tasks_models.enums.Priority;
 import domain.tasks_models.enums.Repeats;
-import domain.tasks_models.enums.TaskCategory;
-import domain.tasks_models.enums.TaskType;
-import domain.users_models.exceptions.UserNameException;
+import domain.tasks_models.enums.Types;
 import domain.tasks_models.interfaces.iTasksStorageService;
 import domain.tasks_models.tasks.OneTimeTask;
 import domain.tasks_models.tasks.RecurringTask;
 import domain.tasks_models.tasks.TaskItem;
-import domain.users_models.users.User;
-import domain.users_models.util.UserDataBase;
 import domain.tasks_models.util.TaskService;
 import domain.tasks_models.util.TasksStorageService;
 
@@ -22,53 +19,44 @@ public class Application {
 	private static final String FILENAME = "D:\\ToDo-List-project\\src\\main\\java\\resources\\tasks.txt";
 	private static final iTasksStorageService iTasksStorageService = new TasksStorageService();
 	
-	public static void main(String[] args) throws IOException, UserNameException {
-	
-//		Scanner scanner = new Scanner(System.in);
-//		System.out.println("Enter the year");
-//		int year = scanner.nextInt();
-//		System.out.println("Enter the month");
-//		int month = scanner.nextInt();
-//		System.out.println("Enter the day");
-//		int day = scanner.nextInt();
+	public static void main(String[] args) throws IOException{
 		
-		// Create a one-time task
 		OneTimeTask oneTimeTask1 = new OneTimeTask(
 				"1buy",
-				TaskCategory.SHOPPING,
-				TaskType.DISPOSABLE,
+				Categories.SHOPPING,
+				Types.DISPOSABLE,
 				Priority.DEFAULT,
 				false,
 				LocalDate.of(2022, 1, 29));
 		
 		TaskItem oneTimeTask2 = new OneTimeTask(
 				"",
-				TaskCategory.SHOPPING,
-				TaskType.DISPOSABLE,
+				Categories.SHOPPING,
+				Types.DISPOSABLE,
 				Priority.IMPORTANT,
 				false,
 				LocalDate.of(2022, 1, 29));
 		
 		OneTimeTask oneTimeTask3 = new OneTimeTask(
 				"3buy cat food",
-				TaskCategory.PERSONAL,
-				TaskType.DISPOSABLE,
+				Categories.PERSONAL,
+				Types.DISPOSABLE,
 				Priority.IMPORTANT,
 				false,
 				LocalDate.of(2022, 1, 17));
 		
 		OneTimeTask oneTimeTask4 = new OneTimeTask(
 				"",
-				TaskCategory.HOUSEWORK,
-				TaskType.DISPOSABLE,
+				Categories.HOUSEWORK,
+				Types.DISPOSABLE,
 				Priority.URGENTLY,
 				false,
 				LocalDate.of(2020, 1, 17));
 		
 		OneTimeTask oneTimeTask5 = new OneTimeTask(
 				"1buy products",
-				TaskCategory.HOUSEWORK,
-				TaskType.DISPOSABLE,
+				Categories.HOUSEWORK,
+				Types.DISPOSABLE,
 				Priority.DEFAULT,
 				false,
 				LocalDate.of(2022, 1, 17));
@@ -76,8 +64,8 @@ public class Application {
 		// Create a recurring task
 		RecurringTask recurringTask1 = new RecurringTask(
 				"1pay utility bills",
-				TaskCategory.HOUSEWORK,
-				TaskType.REUSABLE,
+				Categories.HOUSEWORK,
+				Types.REUSABLE,
 				Priority.IMPORTANT,
 				false,
 				LocalDate.of(2022, 1, 17),
@@ -86,8 +74,8 @@ public class Application {
 		TaskItem recurringTask2 = new RecurringTask(
 				"2go",
 				//new Date(),
-				TaskCategory.PERSONAL,
-				TaskType.REUSABLE,
+				Categories.PERSONAL,
+				Types.REUSABLE,
 				Priority.URGENTLY,
 				true,
 				LocalDate.of(2022, 1, 17),
@@ -95,8 +83,8 @@ public class Application {
 		
 		RecurringTask recurringTask3 = new RecurringTask(
 				"3go to class",
-				TaskCategory.WORK,
-				TaskType.REUSABLE,
+				Categories.WORK,
+				Types.REUSABLE,
 				Priority.DEFAULT,
 				false,
 				LocalDate.of(2022, 1, 17),
@@ -104,8 +92,8 @@ public class Application {
 		
 		RecurringTask recurringTask4 = new RecurringTask(
 				"learn Java",
-				TaskCategory.WORK,
-				TaskType.REUSABLE,
+				Categories.WORK,
+				Types.REUSABLE,
 				Priority.DEFAULT,
 				false,
 				LocalDate.of(2021, 9, 17),
@@ -113,8 +101,8 @@ public class Application {
 		
 		RecurringTask recurringTask5 = new RecurringTask(
 				"learn dart",
-				TaskCategory.WORK,
-				TaskType.REUSABLE,
+				Categories.WORK,
+				Types.REUSABLE,
 				Priority.DEFAULT,
 				false,
 				LocalDate.of(2021, 9, 17),
@@ -163,7 +151,7 @@ public class Application {
 //		System.out.println("--------------------------------");
 //		System.out.println("Filtering tasks list by category");
 //		System.out.println("--------------------------------");
-//		TaskService.filterByCategory(TaskCategory.SHOPPING);
+//		TaskService.filterByCategory(Categories.SHOPPING);
 //
 //		//Sorting tasks by category
 //		System.out.println("-------------------------");

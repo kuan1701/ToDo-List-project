@@ -1,9 +1,10 @@
 package domain.tasks_models.util;
 
-import domain.tasks_models.exceptions.MissingTaskDescriptionException;
+import domain.tasks_models.exceptions.TasksExceptions;
 import domain.tasks_models.enums.Priority;
-import domain.tasks_models.enums.TaskCategory;
-import domain.tasks_models.enums.TaskType;
+import domain.tasks_models.enums.Categories;
+import domain.tasks_models.enums.Types;
+import domain.tasks_models.tasks.OneTimeTask;
 import domain.tasks_models.tasks.TaskItem;
 
 import java.util.Comparator;
@@ -18,12 +19,22 @@ public class TaskService {
 	public TaskService() {
 	}
 	
+	// create one-time task
+	public static void createOneTimeTask() {
+		
+		OneTimeTask oneTimeTask = new OneTimeTask(
+		
+		);
+	}
+	
+	
 	// add task
 	public static void addTask(TaskItem taskItem) {
+		
 		boolean taskExists = tasksList.stream()
 				.anyMatch(task -> task.getDescription().equals(taskItem.getDescription()) &&
-						task.getTaskCategory().equals(taskItem.getTaskCategory()) &&
-						task.getTaskType().equals(taskItem.getTaskType()));
+						task.getCategories().equals(taskItem.getCategories()) &&
+						task.getTypes().equals(taskItem.getTypes()));
 		
 		if (!taskExists) {
 			tasksList.add(taskItem);
@@ -39,12 +50,12 @@ public class TaskService {
 	}
 	
 	// Print task list
-	public static void printTask(TaskItem taskItem) throws MissingTaskDescriptionException {
+	public static void printTask(TaskItem taskItem) throws TasksExceptions {
 		
 		if (taskItem.getDescription().equals("")) {
 			System.out.println(taskItem);
 		} else {
-			throw new MissingTaskDescriptionException("Write a description of task");
+			throw new TasksExceptions(TasksExceptions.NO_DESCRIPTION);
 		}
 	}
 	
@@ -58,7 +69,7 @@ public class TaskService {
 		tasksList.forEach((t) -> {
 			
 			int idOfTasks = id++;
-			longException(t);
+			noDescriptionException(t);
 			finishedTask(t);
 			System.out.println("Task " + idOfTasks + "." + t);
 		});
@@ -72,7 +83,7 @@ public class TaskService {
 		tasksList.forEach((t) -> {
 			
 			int idOfTasks = idAllTasks++;
-			longException(t);
+			noDescriptionException(t);
 			finishedTask(t);
 			System.out.println("Task " + idOfTasks + "." + t);
 		});
@@ -81,7 +92,7 @@ public class TaskService {
 	//finished task
 	private static void finishedTask(TaskItem t) {
 		if (t.isComplete()) {
-			t.setTaskCategory(TaskCategory.FINISHED);
+			t.setCategories(Categories.FINISHED);
 		}
 	}
 	
@@ -95,18 +106,18 @@ public class TaskService {
 	}
 	
 	// Search by category
-	public static void filterByCategory(TaskCategory taskCategory) {
+	public static void filterByCategory(Categories categories) {
 		
 		tasksList.stream()
-				.filter(taskItem -> taskItem.getTaskCategory().equals(taskCategory))
+				.filter(taskItem -> taskItem.getCategories().equals(categories))
 				.forEach(System.out :: println);
 	}
 	
 	// Search by type
-	public static void filterByType(TaskType taskType) {
+	public static void filterByType(Types types) {
 		
 		tasksList.stream()
-				.filter(taskItem -> taskItem.getTaskType().equals(taskType))
+				.filter(taskItem -> taskItem.getTypes().equals(types))
 				.forEach(System.out :: println);
 	}
 	
@@ -122,7 +133,7 @@ public class TaskService {
 	public static void sortByCategory() {
 		
 		tasksList.stream()
-				.sorted(Comparator.comparing(TaskItem :: getTaskCategory))
+				.sorted(Comparator.comparing(TaskItem :: getCategories))
 				.forEach(System.out :: println);
 	}
 	
@@ -139,7 +150,7 @@ public class TaskService {
 	public static void sortByType() {
 		
 		tasksList.stream()
-				.sorted(Comparator.comparing(TaskItem :: getTaskType))
+				.sorted(Comparator.comparing(TaskItem :: getTypes))
 				.forEach(System.out :: println);
 	}
 	
@@ -175,11 +186,11 @@ public class TaskService {
 	}
 	
 	// longException(t)
-	private static void longException(TaskItem t) {
+	private static void noDescriptionException(TaskItem t) {
 		if (t.getDescription().equals("")) {
 			try {
-				throw new MissingTaskDescriptionException("Write a description of task");
-			} catch (MissingTaskDescriptionException e) {
+				throw new TasksExceptions(TasksExceptions.NO_DESCRIPTION);
+			} catch (TasksExceptions e) {
 				t.setDescription("no description");
 			}
 		}

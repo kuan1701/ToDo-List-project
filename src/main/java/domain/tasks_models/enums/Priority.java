@@ -2,15 +2,15 @@ package domain.tasks_models.enums;
 
 public enum Priority {
 	
+	DEFAULT("Default"),
 	URGENTLY("Urgently"),
-	IMPORTANT("Important"),
-	DEFAULT("Default");
+	IMPORTANT("Important");
 	
 	public String priority;
 	
 	/**
-	 * Constructs an TaskCategory of a given priority
-	 * @param priority TaskCategory priority
+	 * Constructs an Categories of a given priority
+	 * @param priority Categories priority
 	 */
 	Priority(String priority) {
 		

@@ -1,10 +1,10 @@
 package domain.tasks_models.tasks;
 
+import domain.tasks_models.enums.Types;
 import domain.tasks_models.exceptions.DateException;
 import domain.tasks_models.enums.Priority;
 import domain.tasks_models.enums.Repeats;
-import domain.tasks_models.enums.TaskCategory;
-import domain.tasks_models.enums.TaskType;
+import domain.tasks_models.enums.Categories;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -24,31 +24,31 @@ public class RecurringTask extends TaskItem implements Serializable {
 	
 	/**
 	 * Constructs an RecurringTask of a given description, creationDate,
-	 * taskCategory, taskType, complete, expirationDate, count
+	 * categories, types, complete, expirationDate, count
 	 *
 	 * @param description    RecurringTask description
-	 * @param taskCategory   RecurringTask taskCategory
-	 * @param taskType       RecurringTask taskType
+	 * @param categories   RecurringTask categories
+	 * @param types       RecurringTask types
 	 * @param complete       RecurringTask complete
 	 * @param expirationDate RecurringTask expirationDate
 	 * @param repeats        RecurringTask repeats
 	 */
 	
 	// Constructor
-	public RecurringTask(String description, TaskCategory taskCategory, TaskType taskType, Priority priority, boolean complete, LocalDate expirationDate, Repeats repeats) {
+	public RecurringTask(String description, Categories categories, Types types, Priority priority, boolean complete, LocalDate expirationDate, Repeats repeats) {
 		
-		super(description, taskCategory, taskType, priority, complete, expirationDate);
+		super(description, categories, types, priority, complete, expirationDate);
 		this.repeats = repeats;
 	}
 	
 	//Methods
-	public void createTask(String description, TaskCategory category, TaskType type, Priority priority, boolean complete, LocalDate expirationDate, Repeats repeats) {
+	public void createTask(String description, Categories category, Types type, Priority priority, boolean complete, LocalDate expirationDate, Repeats repeats) {
 		
 		createTask(description, category, type, priority, complete, expirationDate);
 		this.repeats = repeats;
 	}
 	
-	public void editTask(String description, TaskCategory category, TaskType type, Priority priority, boolean complete, LocalDate expirationDate, Repeats repeats) {
+	public void editTask(String description, Categories category, Types type, Priority priority, boolean complete, LocalDate expirationDate, Repeats repeats) {
 		
 		editTask(description, category, type, priority, complete, expirationDate);
 		this.repeats = repeats;
@@ -63,7 +63,7 @@ public class RecurringTask extends TaskItem implements Serializable {
 		sb.append("Description: ").append(getDescription()).append(".\n");
 		sb.append("Repeat: ").append(getRepeat()).append(".\n");
 		sb.append("Priority: ").append(getPriority()).append(".\n");
-		sb.append("Category: ").append(getTaskCategory()).append(".\n");
+		sb.append("Category: ").append(getCategories()).append(".\n");
 		try {
 			sb.append("Expiration date: ").append(getExpirationDate()).append(".\n");
 		} catch (DateException e) {

@@ -1,6 +1,5 @@
 package domain.users_models.util;
 
-import domain.users_models.exceptions.UserNameException;
 import domain.users_models.users.User;
 
 import java.util.Collections;
@@ -16,16 +15,7 @@ public class UserDataBase {
 	private UserDataBase() {
 	}
 	
-	public static <T> void createUser(T id) throws UserNameException {
-
-			User<T> user = new User.Builder<T>()
-						.withFirstName()
-						.withLastName()
-						.withUsername()
-						.withPassword()
-						.withID(id)
-						.build();
-		
+	public static void addUser(User<?> user) {
 		boolean userExists = usersList.stream()
 				.anyMatch(userDB -> userDB.getUsername().equals(user.getUsername()));
 		if (!userExists) {

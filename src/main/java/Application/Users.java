@@ -1,32 +1,38 @@
 package Application;
 
-import domain.users_models.exceptions.UserNameException;
+import domain.users_models.exceptions.UserException;
 import domain.users_models.interfaces.iUsersStorageService;
+import domain.users_models.users.User;
 import domain.users_models.util.UserDataBase;
-import domain.users_models.util.UserStorageServce;
+import domain.users_models.util.UserStorageService;
 
 
 public class Users {
 	
 	private static final String FILENAME = "D:\\ToDo-List-project\\src\\main\\java\\resources\\users.txt";
-	private static final iUsersStorageService iUsersStorageService = new UserStorageServce();
+	private static final iUsersStorageService iUsersStorageService = new UserStorageService();
 	
-	public static void main(String[] args) throws UserNameException {
+	public static void main(String[] args) throws UserException {
 		
 		// Displaying and creating users
 		System.out.println("-------------------");
 		System.out.println("       Users       ");
 		System.out.println("-------------------");
 		
-		UserDataBase.createUser(17011993);
-		UserDataBase.createUser("id17011993");
+		User<Object> user = new User.Builder<>()
+				.withFirstName("efewf")
+				.withLastName("dawdawd")
+				.withUsername("awdawd")
+				.withPassword("adada")
+				.withID("ewfwef")
+				.build();
 		
-		UserDataBase.deleteUser("kuan");
+		UserDataBase.addUser(user);
 
-		// Save tasks
+		// Save users
 		iUsersStorageService.writeUsers(UserDataBase.getUsers());
 		
-		// Read tasks
+		// Read users
 		iUsersStorageService.readUsers();
 
 		

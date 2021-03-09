@@ -1,34 +1,28 @@
 package domain.tasks_models.tasks;
 
-import domain.tasks_models.exceptions.DateException;
+import domain.tasks_models.enums.Categories;
 import domain.tasks_models.enums.Priority;
-import domain.tasks_models.enums.TaskCategory;
-import domain.tasks_models.enums.TaskType;
+import domain.tasks_models.enums.Types;
+import domain.tasks_models.exceptions.DateException;
 import domain.tasks_models.interfaces.iTaskService;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.Objects;
 
 abstract public class TaskItem implements iTaskService, Serializable {
-	
-//	Scanner scanner = new Scanner(System.in);
-//
-//	int year = scanner.nextInt();
-//	int month = scanner.nextInt();
-//	int day = scanner.nextInt();
 	
 	// Fields
 	private static final long serialVersionUID = 5L;
 	private String description;
-	private TaskCategory taskCategory;
-	private TaskType taskType;
+	private Categories categories;
+	private Types types;
 	private Priority priority;
 	private boolean complete = true;
 	
-	private LocalDate currentDate = LocalDate.now();;
+	private LocalDate currentDate = LocalDate.now();
 	private LocalDate expirationDateOfTask;
 	private long daysLeft;
 	
@@ -41,20 +35,20 @@ abstract public class TaskItem implements iTaskService, Serializable {
 	
 	/**
 	 * Constructs an TaskItem of a given description,
-	 * taskCategory, taskType, complete, expirationDate
+	 * categories, types, complete, expirationDate
 	 *
 	 * @param description          TaskItem description
-	 * @param taskCategory         TaskItem taskCategory
-	 * @param taskType             TaskItem taskType
+	 * @param categories         TaskItem categories
+	 * @param types             TaskItem types
 	 * @param priority             TaskItem priority
 	 * @param complete             TaskItem complete
 	 * @param expirationDateOfTask TaskItem expirationDate
 	 */
-	public TaskItem(String description, TaskCategory taskCategory, TaskType taskType, Priority priority, boolean complete, LocalDate expirationDateOfTask) {
+	public TaskItem(String description, Categories categories, Types types, Priority priority, boolean complete, LocalDate expirationDateOfTask) {
 		
 		this.description = description;
-		this.taskCategory = taskCategory;
-		this.taskType = taskType;
+		this.categories = categories;
+		this.types = types;
 		this.priority = priority;
 		this.complete = complete;
 		this.expirationDateOfTask = expirationDateOfTask;
@@ -89,23 +83,23 @@ abstract public class TaskItem implements iTaskService, Serializable {
 //
 //		switch (scan) {
 //			case "1":
-//				result = this.getTaskType().compareTo(taskItem.getTaskType());
+//				result = this.getTypes().compareTo(taskItem.getTypes());
 //				if (result == 0) {
-//					result = this.getTaskCategory().compareTo(taskItem.getTaskCategory());
+//					result = this.getCategories().compareTo(taskItem.getCategories());
 //				}
 //				break;
 //
 //			case "2":
-//				result = this.getTaskCategory().compareTo(taskItem.getTaskCategory());
+//				result = this.getCategories().compareTo(taskItem.getCategories());
 //				if (result == 0) {
-//					result = this.getTaskType().compareTo(taskItem.getTaskType());
+//					result = this.getTypes().compareTo(taskItem.getTypes());
 //				}
 //				break;
 //
 //			case "3":
 //				result = this.getPriority().compareTo(taskItem.getPriority());
 //				if (result == 0) {
-//					result = this.getTaskType().compareTo(taskItem.getTaskType());
+//					result = this.getTypes().compareTo(taskItem.getTypes());
 //				}
 //				break;
 //
@@ -118,11 +112,11 @@ abstract public class TaskItem implements iTaskService, Serializable {
 	
 	// Create method
 	@Override
-	public void createTask(String description, TaskCategory category, TaskType type, Priority priority, boolean complete, LocalDate expirationDateOfTask) {
+	public void createTask(String description, Categories category, Types type, Priority priority, boolean complete, LocalDate expirationDateOfTask) {
 		
 		setDescription(description);
-		setTaskCategory(category);
-		setTaskType(type);
+		setCategories(category);
+		setTypes(type);
 		setPriority(priority);
 		setComplete(complete);
 		setExpirationDateOfTask(expirationDateOfTask);
@@ -130,11 +124,11 @@ abstract public class TaskItem implements iTaskService, Serializable {
 	
 	// Edit method
 	@Override
-	public void editTask(String description, TaskCategory category, TaskType type, Priority priority, boolean complete, LocalDate expirationDateOfTask) {
+	public void editTask(String description, Categories category, Types type, Priority priority, boolean complete, LocalDate expirationDateOfTask) {
 		
 		setDescription(description);
-		setTaskCategory(category);
-		setTaskType(type);
+		setCategories(category);
+		setTypes(type);
 		setPriority(priority);
 		setComplete(complete);
 		setExpirationDateOfTask(expirationDateOfTask);
@@ -147,7 +141,7 @@ abstract public class TaskItem implements iTaskService, Serializable {
 		final StringBuffer sb = new StringBuffer("\n");
 		sb.append("Description: ").append(getDescription()).append(".\n");
 		sb.append("Priority: ").append(getPriority()).append(".\n");
-		sb.append("Category: ").append(getTaskCategory()).append(".\n");
+		sb.append("Category: ").append(getCategories()).append(".\n");
 		try {
 			sb.append("Expiration date: ").append(getExpirationDate()).append(".\n");
 		} catch (DateException e) {
@@ -212,27 +206,27 @@ abstract public class TaskItem implements iTaskService, Serializable {
 	/**
 	 * @return TaskItem category
 	 */
-	public TaskCategory getTaskCategory() {
+	public Categories getCategories() {
 		
-		return taskCategory;
+		return categories;
 	}
 	
-	public void setTaskCategory(TaskCategory taskCategory) {
+	public void setCategories(Categories categories) {
 		
-		this.taskCategory = taskCategory;
+		this.categories = categories;
 	}
 	
 	/**
 	 * @return TaskItem type
 	 */
-	public TaskType getTaskType() {
+	public Types getTypes() {
 		
-		return taskType;
+		return types;
 	}
 	
-	public void setTaskType(TaskType taskType) {
+	public void setTypes(Types types) {
 		
-		this.taskType = taskType;
+		this.types = types;
 	}
 	
 	/**

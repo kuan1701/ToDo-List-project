@@ -1,7 +1,8 @@
 package domain.users_models.users;
 
-import domain.users_models.exceptions.UserNameException;
+import domain.users_models.exceptions.UserException;
 import domain.users_models.interfaces.iUserService;
+import domain.users_models.util.UserDataBase;
 
 import javax.swing.*;
 import java.io.Serializable;
@@ -50,44 +51,43 @@ public class User<T> implements iUserService, Comparable<User>, Serializable {
 		}
 		
 		//Methods
-		public Builder<T> withFirstName() {
-			
-			newUser.firstName = JOptionPane.showInputDialog(
-					null,
-					"Enter your first name");
-			return this;
-		}
-		
-		public Builder<T> withLastName() {
-			
-			newUser.lastName = JOptionPane.showInputDialog(
-					null,
-					"Enter your last name");
-			return this;
-		}
-		
-		public Builder<T> withUsername() throws UserNameException {
-			
-			newUser.username = JOptionPane.showInputDialog(
-					null,
-					"Enter your username");
-			
-			if (newUser.username.length() < 3) {
-				throw new UserNameException(UserNameException.SHORT_LOGIN);
+		public Builder<T> withFirstName(String firstName) throws UserException {
+			if (firstName.length() == 0) {
+				throw new UserException(UserException.NO_FIRST_NAME);
 			}
-			
-			if (newUser.username.length() > 20) {
-				throw new UserNameException(UserNameException.LONG_LOGIN);
-			}
-			
+			newUser.firstName = firstName;
 			return this;
 		}
 		
-		public Builder<T> withPassword() {
+		public Builder<T> withLastName(String lastName) throws UserException{
+			if (lastName.length() == 0) {
+				throw new UserException(UserException.NO_LAST_NAME);
+			}
+			newUser.lastName = lastName;
+			return this;
+		}
+		
+		public Builder<T> withUsername(String username) throws UserException{
 			
-			newUser.password = JOptionPane.showInputDialog(
-					null,
-					"Enter your password");
+			if (username.length() == 0) {
+				throw new UserException(UserException.NO_USERNAME);
+			}
+			else if (username.length() < 4) {
+				throw  new UserException(UserException.SHORT_USERNAME);
+			}
+			else if (UserDataBase.getUsers().stream()
+					.anyMatch(userDB -> userDB.getUsername().equals(username))){
+				throw new UserException(UserException.BUSY_USERNAME);
+			}
+			newUser.username = username;
+			return this;
+		}
+		
+		public Builder<T> withPassword(String password) throws UserException{
+			if (password.length() == 0) {
+				throw new UserException(UserException.NO_PASSWORD);
+			}
+			newUser.password = password;
 			return this;
 		}
 		
@@ -100,6 +100,13 @@ public class User<T> implements iUserService, Comparable<User>, Serializable {
 		public User<T> build() {
 			
 			return newUser;
+		}
+		
+		// exit method
+		private void exitProgram() {
+			if (newUser.username == null) {
+				System.exit(0);
+			}
 		}
 	}
 	
@@ -136,9 +143,9 @@ public class User<T> implements iUserService, Comparable<User>, Serializable {
 	@Override
 	public String toString() {
 		
-		return "Username: " + getUsername() + ".\n" +
-				"First name: " + getLastName() + ".\n" +
-				"Last name: " + getFirstName() + ".\n" +
+		return  "Username: " + getUsername() + ".\n" +
+				"First name: " + getFirstName() + ".\n" +
+				"Last name: " + getLastName() + ".\n" +
 				"Password: " + getPassword() + ".\n" +
 				"ID: " + getId() + ".\n";
 	}

@@ -1,14 +1,13 @@
 package domain.users_models.util;
 
-import domain.tasks_models.tasks.TaskItem;
-import domain.tasks_models.util.SerializationTaskService;
 import domain.users_models.interfaces.iUsersStorageService;
 import domain.users_models.users.User;
 
 import java.util.List;
 
-public class UserStorageServce implements iUsersStorageService {
+public class UserStorageService implements iUsersStorageService {
 	
+	private static int numOfUsers = 1;
 	private static final String STORAGE_FILENAME = "D:\\ToDo-List-project\\src\\main\\java\\resources\\users.txt";
 	
 	@Override
@@ -23,11 +22,11 @@ public class UserStorageServce implements iUsersStorageService {
 		
 		List<User<?>> deserialized = (List<User<?>>) UserSerializationService.deserialize(STORAGE_FILENAME);
 		
-		System.out.println(deserialized.toString()
-				.replace("[", "")
-				.replace("]", "")
-				.replace(",", ""));
-		System.out.println("Users are loaded.\n");
+		for (User<?> deserializedUsersList: deserialized) {
+			
+			int currentUserNum = numOfUsers++;
+			System.out.println("User " + currentUserNum + ".\n" + deserializedUsersList + "\n");
+		}
 		return deserialized;
 	}
 }
