@@ -22,11 +22,12 @@ public class UserStorageService implements iUsersStorageService {
 		
 		List<User<?>> deserialized = (List<User<?>>) UserSerializationService.deserialize(STORAGE_FILENAME);
 		
-		for (User<?> deserializedUsersList: deserialized) {
-			
+		deserialized.forEach((t) -> {
 			int currentUserNum = numOfUsers++;
-			System.out.println("User " + currentUserNum + ".\n" + deserializedUsersList + "\n");
-		}
+			System.out.println("User " + currentUserNum + ".\n" + t + "\n");
+		});
+		
 		return deserialized;
 	}
 }
+

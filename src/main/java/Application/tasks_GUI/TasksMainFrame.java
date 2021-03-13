@@ -5,9 +5,11 @@ import domain.tasks_models.enums.Priority;
 import domain.tasks_models.enums.Repeats;
 import domain.tasks_models.enums.Types;
 import domain.tasks_models.exceptions.TasksExceptions;
+import domain.tasks_models.interfaces.iTasksStorageService;
 import domain.tasks_models.tasks.OneTimeTask;
 import domain.tasks_models.tasks.RecurringTask;
 import domain.tasks_models.util.TaskService;
+import domain.tasks_models.util.TasksStorageService;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -20,6 +22,9 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class TasksMainFrame extends JFrame implements ActionListener, ItemListener {
+	
+	private static final String FILENAME = "D:\\ToDo-List-project\\src\\main\\java\\resources\\tasks.txt";
+	private static final iTasksStorageService iTasksStorageService = new TasksStorageService();
 	
 	private JTextField taskDescriptionTF;
 	private JComboBox<Priority> priorityJComboBox;
@@ -226,6 +231,7 @@ public class TasksMainFrame extends JFrame implements ActionListener, ItemListen
 					TaskService.addTask(newOneTimeTask);
 					JOptionPane.showMessageDialog(null, "New one-time task created");
 				}
+				iTasksStorageService.writeTasks(TaskService.getTasks());
 			}
 			catch (TasksExceptions tasksExceptions) {
 				
@@ -237,7 +243,9 @@ public class TasksMainFrame extends JFrame implements ActionListener, ItemListen
 				}
 			}
 		} else if (actionEvent.getActionCommand().equals("Show all tasks")) {
-			TaskService.printTasksList();
+			
+			//TaskService.printTasksList();
+			iTasksStorageService.readTasks();
 		}
 	}
 	

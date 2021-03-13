@@ -7,6 +7,7 @@ import java.util.List;
 
 public class TasksStorageService implements iTasksStorageService {
 	
+	private static int numOfTasks = 1;
 	private static final String STORAGE_FILENAME = "D:\\ToDo-List-project\\src\\main\\java\\resources\\tasks.txt";
 	
 	@Override
@@ -21,11 +22,11 @@ public class TasksStorageService implements iTasksStorageService {
 		
 		List<TaskItem> deserialized = (List<TaskItem>) SerializationTaskService.deserialize(STORAGE_FILENAME);
 		
-		System.out.println(deserialized.toString()
-				.replace("[", "")
-				.replace("]", "")
-				.replace(",", ""));
-		System.out.println("Tasks are loaded.");
+		deserialized.forEach((t) -> {
+			int currentTaskNum = numOfTasks++;
+			System.out.println("Task " + currentTaskNum + "." + t );
+		});
+		
 		return deserialized;
 	}
 }
