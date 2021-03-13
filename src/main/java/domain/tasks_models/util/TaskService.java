@@ -22,9 +22,7 @@ public class TaskService {
 	// create one-time task
 	public static void createOneTimeTask() {
 		
-		OneTimeTask oneTimeTask = new OneTimeTask(
-		
-		);
+		OneTimeTask oneTimeTask = new OneTimeTask();
 	}
 	
 	

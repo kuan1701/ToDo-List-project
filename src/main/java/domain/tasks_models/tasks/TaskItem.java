@@ -3,7 +3,7 @@ package domain.tasks_models.tasks;
 import domain.tasks_models.enums.Categories;
 import domain.tasks_models.enums.Priority;
 import domain.tasks_models.enums.Types;
-import domain.tasks_models.exceptions.DateException;
+import domain.tasks_models.exceptions.TasksExceptions;
 import domain.tasks_models.interfaces.iTaskService;
 
 import java.io.Serializable;
@@ -44,7 +44,17 @@ abstract public class TaskItem implements iTaskService, Serializable {
 	 * @param complete             TaskItem complete
 	 * @param expirationDateOfTask TaskItem expirationDate
 	 */
-	public TaskItem(String description, Categories categories, Types types, Priority priority, boolean complete, LocalDate expirationDateOfTask) {
+	public TaskItem(String description, Categories categories, Types types, Priority priority, boolean complete, LocalDate expirationDateOfTask) throws TasksExceptions {
+		
+		daysLeft = ChronoUnit.DAYS.between(currentDate, expirationDateOfTask);
+		
+		if (description.length() == 0) {
+			throw new TasksExceptions(TasksExceptions.NO_DESCRIPTION);
+		} else if (daysLeft >= 0){
+			expirationDateOfTask.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
+		} else {
+			throw new TasksExceptions(TasksExceptions.DATE_EXPIRED);
+		}
 		
 		this.description = description;
 		this.categories = categories;
@@ -142,11 +152,7 @@ abstract public class TaskItem implements iTaskService, Serializable {
 		sb.append("Description: ").append(getDescription()).append(".\n");
 		sb.append("Priority: ").append(getPriority()).append(".\n");
 		sb.append("Category: ").append(getCategories()).append(".\n");
-		try {
-			sb.append("Expiration date: ").append(getExpirationDate()).append(".\n");
-		} catch (DateException e) {
-			sb.append(setExpirationDate("expired date")).append(".\n");
-		}
+		sb.append("Expiration date: ").append(getExpirationDate()).append(".\n");
 		sb.append("Days left: ").append(getDaysLeft()).append(" days.\n");
 		sb.append("Complete: ").append(isComplete()).append(".\n");
 		return sb.toString();
@@ -178,15 +184,9 @@ abstract public class TaskItem implements iTaskService, Serializable {
 	 * @return TaskItem expirationDate
 	 */
 	
-	public String getExpirationDate() throws DateException{
+	public String getExpirationDate() {
 		
-		daysLeft = ChronoUnit.DAYS.between(currentDate, expirationDateOfTask);
-		
-		if (daysLeft >= 0){
-			return expirationDateOfTask.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
-		} else {
-			throw new DateException("expired date");
-		}
+		return expirationDateOfTask.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
 	}
 	
 	public String setExpirationDate(String expirationDate) {

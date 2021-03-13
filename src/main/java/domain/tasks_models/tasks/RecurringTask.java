@@ -1,10 +1,10 @@
 package domain.tasks_models.tasks;
 
 import domain.tasks_models.enums.Types;
-import domain.tasks_models.exceptions.DateException;
 import domain.tasks_models.enums.Priority;
 import domain.tasks_models.enums.Repeats;
 import domain.tasks_models.enums.Categories;
+import domain.tasks_models.exceptions.TasksExceptions;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -35,7 +35,7 @@ public class RecurringTask extends TaskItem implements Serializable {
 	 */
 	
 	// Constructor
-	public RecurringTask(String description, Categories categories, Types types, Priority priority, boolean complete, LocalDate expirationDate, Repeats repeats) {
+	public RecurringTask(String description, Categories categories, Types types, Priority priority, boolean complete, LocalDate expirationDate, Repeats repeats) throws TasksExceptions {
 		
 		super(description, categories, types, priority, complete, expirationDate);
 		this.repeats = repeats;
@@ -64,11 +64,7 @@ public class RecurringTask extends TaskItem implements Serializable {
 		sb.append("Repeat: ").append(getRepeat()).append(".\n");
 		sb.append("Priority: ").append(getPriority()).append(".\n");
 		sb.append("Category: ").append(getCategories()).append(".\n");
-		try {
-			sb.append("Expiration date: ").append(getExpirationDate()).append(".\n");
-		} catch (DateException e) {
-			sb.append(setExpirationDate("expired date")).append(".\n");
-		}
+		sb.append("Expiration date: ").append(getExpirationDate()).append(".\n");
 		sb.append("Days left: ").append(getDaysLeft()).append(" days.\n");
 		sb.append("Complete: ").append(isComplete()).append(".\n");
 		return sb.toString();

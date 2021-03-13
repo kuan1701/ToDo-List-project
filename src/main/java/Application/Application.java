@@ -4,6 +4,7 @@ import domain.tasks_models.enums.Categories;
 import domain.tasks_models.enums.Priority;
 import domain.tasks_models.enums.Repeats;
 import domain.tasks_models.enums.Types;
+import domain.tasks_models.exceptions.TasksExceptions;
 import domain.tasks_models.interfaces.iTasksStorageService;
 import domain.tasks_models.tasks.OneTimeTask;
 import domain.tasks_models.tasks.RecurringTask;
@@ -19,7 +20,7 @@ public class Application {
 	private static final String FILENAME = "D:\\ToDo-List-project\\src\\main\\java\\resources\\tasks.txt";
 	private static final iTasksStorageService iTasksStorageService = new TasksStorageService();
 	
-	public static void main(String[] args) throws IOException{
+	public static void main(String[] args) throws IOException, TasksExceptions {
 		
 		OneTimeTask oneTimeTask1 = new OneTimeTask(
 				"1buy",

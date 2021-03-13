@@ -4,6 +4,10 @@ import domain.tasks_models.enums.Categories;
 import domain.tasks_models.enums.Priority;
 import domain.tasks_models.enums.Repeats;
 import domain.tasks_models.enums.Types;
+import domain.tasks_models.exceptions.TasksExceptions;
+import domain.tasks_models.tasks.OneTimeTask;
+import domain.tasks_models.tasks.RecurringTask;
+import domain.tasks_models.util.TaskService;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -12,6 +16,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.time.LocalDate;
+import java.util.Objects;
 
 public class TasksMainFrame extends JFrame implements ActionListener, ItemListener {
 	
@@ -26,7 +32,7 @@ public class TasksMainFrame extends JFrame implements ActionListener, ItemListen
 	private static JPanel addRepeatJComboBox;
 	private static JPanel addLabelRepeatJComboBox;
 	
-	
+	// create Main Frame
 	public TasksMainFrame() {
 		super("ToDo List Application");
 		setBounds(350, 175, 650, 500);
@@ -57,10 +63,12 @@ public class TasksMainFrame extends JFrame implements ActionListener, ItemListen
 		JLabel taskCategoryL = new JLabel("Category: ");
 		categoriesJComboBox = new JComboBox<Categories>(Categories.values());
 		
+		
 		//create type combobox
 		JLabel taskTypeL = new JLabel("Type: ");
 		typesJComboBox = new JComboBox<Types>(Types.values());
 		typesJComboBox.addItemListener(this);
+		typesJComboBox.addActionListener(this);
 		
 		// create repeat combobox
 		JLabel taskRepeatL = new JLabel("Repeat: ");
@@ -76,10 +84,12 @@ public class TasksMainFrame extends JFrame implements ActionListener, ItemListen
 		}
 		// create month combobox for expiration date combobox
 		String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+		
 		monthCB = new JComboBox<>();
-		for (int i = 0; i < 12; i++) {
-			monthCB.addItem(months[i]);
+		for (String month : months) {
+			monthCB.addItem(month);
 		}
+		
 		// create year combobox for expiration date combobox
 		yearCB = new JComboBox<>();
 		for (int i = 2020; i < 2100; i++) {
@@ -94,7 +104,7 @@ public class TasksMainFrame extends JFrame implements ActionListener, ItemListen
 		taskRepeatL.setHorizontalAlignment(SwingConstants.RIGHT);
 		expDateL.setHorizontalAlignment(SwingConstants.RIGHT);
 		
-		// sizing comboboxes
+		// sizing combo boxes
 		taskDescriptionTF.setPreferredSize(new Dimension(200, 25));
 		priorityJComboBox.setPreferredSize(new Dimension(110, 25));
 		categoriesJComboBox.setPreferredSize(new Dimension(110, 25));
@@ -179,15 +189,59 @@ public class TasksMainFrame extends JFrame implements ActionListener, ItemListen
 		
 		add(buttonsPart, BorderLayout.SOUTH);
 		
+		create.addActionListener(this);
+		show.addActionListener(this);
+		
 	}
 	
-	
+	// method Action Performed
 	@Override
 	public void actionPerformed(ActionEvent actionEvent) {
-	
-	
+		
+		String description = taskDescriptionTF.getText();
+		Priority priority = (Priority) priorityJComboBox.getSelectedItem();
+		Categories categories = (Categories) categoriesJComboBox.getSelectedItem();
+		Types type = (Types) typesJComboBox.getSelectedItem();
+		Repeats repeats = (Repeats) repeatsJComboBox.getSelectedItem();
+		boolean complete = false;
+		
+		int year = (int) yearCB.getSelectedItem();
+		int month = monthCB.getSelectedIndex() + 1;
+		int day = (int) dayCB.getSelectedItem();
+		LocalDate expiredDate = LocalDate.of(year, month, day);
+		
+		if (actionEvent.getActionCommand().equals("Create new task")) {
+			
+			try {
+				
+				if (Objects.equals(Objects.requireNonNull(typesJComboBox.getSelectedItem()).toString(), "Reusable")) {
+					
+					RecurringTask newRecurringTask = new RecurringTask(description, categories, type, priority, complete, expiredDate, repeats);
+					TaskService.addTask(newRecurringTask);
+					JOptionPane.showMessageDialog(null, "New recurring task created");
+				}
+				else if (Objects.equals(typesJComboBox.getSelectedItem().toString(), "Disposable")) {
+					
+					OneTimeTask newOneTimeTask = new OneTimeTask(description, categories, type, priority, complete, LocalDate.of(year, month, day));
+					TaskService.addTask(newOneTimeTask);
+					JOptionPane.showMessageDialog(null, "New one-time task created");
+				}
+			}
+			catch (TasksExceptions tasksExceptions) {
+				
+				if (tasksExceptions.getCode() == TasksExceptions.NO_DESCRIPTION) {
+					showError("You didn't enter a description!!!");
+				}
+				else if (tasksExceptions.getCode() == TasksExceptions.DATE_EXPIRED) {
+					showError("The entered date is overdue!!!");
+				}
+			}
+		} else if (actionEvent.getActionCommand().equals("Show all tasks")) {
+			TaskService.printTasksList();
+		}
 	}
 	
+	// method Item State Changed
 	@Override
 	public void itemStateChanged(ItemEvent itemEvent) {
 		
@@ -197,5 +251,9 @@ public class TasksMainFrame extends JFrame implements ActionListener, ItemListen
 		CardLayout layoutLabelRepeats = (CardLayout) (addLabelRepeatJComboBox.getLayout());
 		layoutLabelRepeats.show(addLabelRepeatJComboBox, String.valueOf((Types) itemEvent.getItem()));
 		
+	}
+	
+	private void showError(String textError) {
+		JOptionPane.showMessageDialog(this, textError, "Error", JOptionPane.ERROR_MESSAGE);
 	}
 }

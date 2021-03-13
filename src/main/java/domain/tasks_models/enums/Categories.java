@@ -27,7 +27,6 @@ public enum Categories {
 	@Override
 	public String toString()
 	{
-		
 		return category;
 	}
 	

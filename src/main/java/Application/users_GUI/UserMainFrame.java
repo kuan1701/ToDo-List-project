@@ -115,7 +115,6 @@ public class UserMainFrame<T> extends JFrame implements ActionListener {
 		
 		if (e.getActionCommand().equals("Create new user")) {
 			
-			//JOptionPane.showMessageDialog(null, "New user created");
 			String firstName = userFirstNameTF.getText();
 			String lastName = userLastNameTF.getText();
 			String username = usernameTF.getText();
@@ -131,12 +130,12 @@ public class UserMainFrame<T> extends JFrame implements ActionListener {
 						.withPassword(password)
 						.withID(id)
 						.build();
-				
 				UserDataBase.addUser(user);
-
 
 				// Save tasks
 				iUsersStorageService.writeUsers(UserDataBase.getUsers());
+				
+				JOptionPane.showMessageDialog(null, "New user created");
 			
 			} catch (UserException userException) {
 				

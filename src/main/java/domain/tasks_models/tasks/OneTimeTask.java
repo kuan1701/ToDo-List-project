@@ -3,6 +3,7 @@ package domain.tasks_models.tasks;
 import domain.tasks_models.enums.Categories;
 import domain.tasks_models.enums.Priority;
 import domain.tasks_models.enums.Types;
+import domain.tasks_models.exceptions.TasksExceptions;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -28,7 +29,7 @@ public class OneTimeTask extends TaskItem implements Serializable {
 	 * @param complete       OneTimeTask complete
 	 * @param expirationDate OneTimeTask expirationDate
 	 */
-	public OneTimeTask(String description, Categories categories, Types types, Priority priority, boolean complete, LocalDate expirationDate) {
+	public OneTimeTask(String description, Categories categories, Types types, Priority priority, boolean complete, LocalDate expirationDate) throws TasksExceptions {
 		
 		super(description, categories, types, priority, complete, expirationDate);
 	}
