@@ -3,7 +3,6 @@ package domain.tasks_models.tasks;
 import domain.tasks_models.enums.Categories;
 import domain.tasks_models.enums.Priority;
 import domain.tasks_models.enums.Types;
-import domain.tasks_models.exceptions.TasksExceptions;
 import domain.tasks_models.interfaces.iTaskService;
 
 import java.io.Serializable;
@@ -46,17 +45,7 @@ abstract public class TaskItem implements iTaskService, Serializable {
 	 * @param complete             TaskItem complete
 	 * @param expirationDateOfTask TaskItem expirationDate
 	 */
-	public TaskItem(String description, Categories categories, Types types, Priority priority, boolean complete, LocalDate expirationDateOfTask) throws TasksExceptions {
-		
-		daysLeft = ChronoUnit.DAYS.between(currentDate, expirationDateOfTask);
-		
-		if (description.length() == 0) {
-			throw new TasksExceptions(TasksExceptions.NO_DESCRIPTION);
-		} else if (daysLeft >= 0){
-			expirationDateOfTask.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
-		} else {
-			throw new TasksExceptions(TasksExceptions.DATE_EXPIRED);
-		}
+	public TaskItem(String description, Categories categories, Types types, Priority priority, boolean complete, LocalDate expirationDateOfTask) {
 		
 		this.description = description;
 		this.categories = categories;
@@ -202,6 +191,10 @@ abstract public class TaskItem implements iTaskService, Serializable {
 	public void setCurrent(LocalDate currentDate) {
 		
 		this.currentDate = currentDate;
+	}
+	
+	public LocalDate getExpirationDateOfTask() {
+		return expirationDateOfTask;
 	}
 	
 	public void setExpirationDateOfTask(LocalDate expirationDateOfTask) {

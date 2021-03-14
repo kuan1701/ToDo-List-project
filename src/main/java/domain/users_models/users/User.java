@@ -18,6 +18,8 @@ public class User<T> implements iUserService, Comparable<User>, Serializable {
 	private String password;
 	private T id;
 	
+	private static int countUser = 0;
+	
 	/**
 	 * Constructs an User of a given firstName, lastName, username, password, id
 	 *
@@ -44,10 +46,13 @@ public class User<T> implements iUserService, Comparable<User>, Serializable {
 	//Using "Builder Pattern"
 	public static class Builder<T> extends User<Object> {
 		private final User<T> newUser;
+		private final int userNum;
 		
 		public Builder() {
 			
 			newUser = new User<>();
+			countUser++;
+			this.userNum = countUser;
 		}
 		
 		//Methods
@@ -115,7 +120,8 @@ public class User<T> implements iUserService, Comparable<User>, Serializable {
 	@Override
 	public void showInfo() {
 		
-		System.out.println("Username: " + getUsername() + ".\n" +
+		System.out.println("User " + countUser +
+				"Username: " + getUsername() + ".\n" +
 				"First name: " + getFirstName() + ".\n" +
 				"Last name: " + getLastName() + ".\n" +
 				"Password: " + getPassword() + ".\n" +

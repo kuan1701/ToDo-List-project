@@ -7,6 +7,9 @@ import domain.tasks_models.enums.Types;
 import domain.tasks_models.tasks.OneTimeTask;
 import domain.tasks_models.tasks.TaskItem;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,7 +30,17 @@ public class TaskService {
 	
 	
 	// add task
-	public static void addTask(TaskItem taskItem) {
+	public static void addTask(TaskItem taskItem) throws TasksExceptions{
+		
+		long daysLeft = ChronoUnit.DAYS.between(LocalDate.now(), taskItem.getExpirationDateOfTask());
+		
+		if (taskItem.getDescription().length() == 0) {
+			throw new TasksExceptions(TasksExceptions.NO_DESCRIPTION);
+		} else if (daysLeft >= 0){
+			taskItem.getExpirationDateOfTask().format(DateTimeFormatter.ofPattern("d MMM yyyy"));
+		} else {
+			throw new TasksExceptions(TasksExceptions.DATE_EXPIRED);
+		}
 		
 		boolean taskExists = tasksList.stream()
 				.anyMatch(task -> task.getDescription().equals(taskItem.getDescription()) &&
