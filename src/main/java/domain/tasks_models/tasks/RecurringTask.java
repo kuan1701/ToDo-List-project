@@ -59,7 +59,7 @@ public class RecurringTask extends TaskItem implements Serializable {
 	public String toString() {
 		
 		
-		final StringBuffer sb = new StringBuffer("\n");
+		final StringBuffer sb = new StringBuffer("Task: ").append(getId()).append(".\n");
 		sb.append("Description: ").append(getDescription()).append(".\n");
 		sb.append("Repeat: ").append(getRepeat()).append(".\n");
 		sb.append("Priority: ").append(getPriority()).append(".\n");

@@ -21,6 +21,8 @@ abstract public class TaskItem implements iTaskService, Serializable {
 	private Types types;
 	private Priority priority;
 	private boolean complete = true;
+	private int id;
+	private static int countId = 0;
 	
 	private LocalDate currentDate = LocalDate.now();
 	private LocalDate expirationDateOfTask;
@@ -62,6 +64,9 @@ abstract public class TaskItem implements iTaskService, Serializable {
 		this.priority = priority;
 		this.complete = complete;
 		this.expirationDateOfTask = expirationDateOfTask;
+		
+		countId++;
+		this.id = countId;
 	}
 	
 	// METHODS
@@ -148,7 +153,7 @@ abstract public class TaskItem implements iTaskService, Serializable {
 	@Override
 	public String toString() {
 		
-		final StringBuffer sb = new StringBuffer("\n");
+		final StringBuffer sb = new StringBuffer("Task ").append(getId()).append(".\n");
 		sb.append("Description: ").append(getDescription()).append(".\n");
 		sb.append("Priority: ").append(getPriority()).append(".\n");
 		sb.append("Category: ").append(getCategories()).append(".\n");
@@ -271,5 +276,16 @@ abstract public class TaskItem implements iTaskService, Serializable {
 	public void setDaysLeft(long daysLeft) {
 		
 		this.daysLeft = daysLeft;
+	}
+	
+	/**
+	 * @return TaskItem id
+	 */
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
 	}
 }

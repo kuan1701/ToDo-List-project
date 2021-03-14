@@ -58,32 +58,24 @@ public class TaskService {
 	}
 	
 	// Print task list
-	private static int id = 1;
-	
 	public static void printTasksList() {
 		
 		tasksList.removeIf(TaskItem :: isComplete);
 		
 		tasksList.forEach((t) -> {
-			
-			int idOfTasks = id++;
 			noDescriptionException(t);
 			finishedTask(t);
-			System.out.println("Task " + idOfTasks + "." + t);
+			System.out.println(t);
 		});
 	}
 	
 	// Print list of all tasks
-	private static int idAllTasks = 1;
-	
 	public static void printListOfAllTasks() {
 		
 		tasksList.forEach((t) -> {
-			
-			int idOfTasks = idAllTasks++;
 			noDescriptionException(t);
 			finishedTask(t);
-			System.out.println("Task " + idOfTasks + "." + t);
+			System.out.println(t);
 		});
 	}
 	
@@ -158,10 +150,8 @@ public class TaskService {
 	public static void showDescriptionOfTasks() {
 		
 		tasksList.forEach((t) -> {
-			
-			int count = numOfTaskDescription++;
 			Optional<String> descriptionOfTasks = Optional.of(t.getDescription());
-			System.out.println(descriptionOfTasks.map(s -> ("Task " + count + ": " + s + ".")).toString()
+			System.out.println(descriptionOfTasks.toString()
 					.replace("[", "")
 					.replace("]", "")
 					.replace("Optional", "")
@@ -170,16 +160,12 @@ public class TaskService {
 	}
 	
 	// Method for checking the length of the task name
-	public static int numOfTaskLength = 1;
-	
 	public static void taskNameLength() {
 		
 		tasksList.forEach((t) -> {
-			
-			int count = numOfTaskLength++;
 			boolean allMatch = tasksList.stream()
 					.allMatch(word -> (t.getDescription()).length() > 5);
-			System.out.println(" Task " + count + ": " + allMatch + ".");
+			System.out.println(allMatch);
 		});
 	}
 	
