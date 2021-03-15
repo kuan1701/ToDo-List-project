@@ -18,6 +18,7 @@ public class User<T> implements iUserService, Comparable<User>, Serializable {
 	private String password;
 	private T id;
 	
+	private int userNum;
 	private static int countUser = 0;
 	
 	/**
@@ -46,13 +47,12 @@ public class User<T> implements iUserService, Comparable<User>, Serializable {
 	//Using "Builder Pattern"
 	public static class Builder<T> extends User<Object> {
 		private final User<T> newUser;
-		private final int userNum;
 		
 		public Builder() {
-			
 			newUser = new User<>();
+			
 			countUser++;
-			this.userNum = countUser;
+			newUser.userNum = countUser;
 		}
 		
 		//Methods
@@ -64,7 +64,7 @@ public class User<T> implements iUserService, Comparable<User>, Serializable {
 			return this;
 		}
 		
-		public Builder<T> withLastName(String lastName) throws UserException{
+		public Builder<T> withLastName(String lastName) throws UserException {
 			if (lastName.length() == 0) {
 				throw new UserException(UserException.NO_LAST_NAME);
 			}
@@ -72,23 +72,21 @@ public class User<T> implements iUserService, Comparable<User>, Serializable {
 			return this;
 		}
 		
-		public Builder<T> withUsername(String username) throws UserException{
+		public Builder<T> withUsername(String username) throws UserException {
 			
 			if (username.length() == 0) {
 				throw new UserException(UserException.NO_USERNAME);
-			}
-			else if (username.length() < 4) {
-				throw  new UserException(UserException.SHORT_USERNAME);
-			}
-			else if (UserDataBase.getUsers().stream()
-					.anyMatch(userDB -> userDB.getUsername().equals(username))){
+			} else if (username.length() < 4) {
+				throw new UserException(UserException.SHORT_USERNAME);
+			} else if (UserDataBase.getUsers().stream()
+					.anyMatch(userDB -> userDB.getUsername().equals(username))) {
 				throw new UserException(UserException.BUSY_USERNAME);
 			}
 			newUser.username = username;
 			return this;
 		}
 		
-		public Builder<T> withPassword(String password) throws UserException{
+		public Builder<T> withPassword(String password) throws UserException {
 			if (password.length() == 0) {
 				throw new UserException(UserException.NO_PASSWORD);
 			}
@@ -120,7 +118,7 @@ public class User<T> implements iUserService, Comparable<User>, Serializable {
 	@Override
 	public void showInfo() {
 		
-		System.out.println("User " + countUser +
+		System.out.println("User " + getUserNum() + ".\n" +
 				"Username: " + getUsername() + ".\n" +
 				"First name: " + getFirstName() + ".\n" +
 				"Last name: " + getLastName() + ".\n" +
@@ -131,7 +129,6 @@ public class User<T> implements iUserService, Comparable<User>, Serializable {
 	// compareTo method
 	@Override
 	public int compareTo(User user) {
-		
 		return this.username.compareTo(user.getUsername());
 	}
 	
@@ -149,7 +146,8 @@ public class User<T> implements iUserService, Comparable<User>, Serializable {
 	@Override
 	public String toString() {
 		
-		return  "Username: " + getUsername() + ".\n" +
+		return "User " + getUserNum() + ".\n" +
+				"Username: " + getUsername() + ".\n" +
 				"First name: " + getFirstName() + ".\n" +
 				"Last name: " + getLastName() + ".\n" +
 				"Password: " + getPassword() + ".\n" +
@@ -159,6 +157,7 @@ public class User<T> implements iUserService, Comparable<User>, Serializable {
 	// Equals method
 	@Override
 	public boolean equals(Object obj) {
+		
 		if (this == obj) return true;
 		if (!(obj instanceof User)) return false;
 		User<?> user = (User<?>) obj;
@@ -243,5 +242,18 @@ public class User<T> implements iUserService, Comparable<User>, Serializable {
 	public void setId(T id) {
 		
 		this.id = id;
+	}
+	
+	/**
+	 * @return User number of user
+	 */
+	public int getUserNum() {
+		
+		return userNum;
+	}
+	
+	public void setUserNum(int userNum) {
+		
+		this.userNum = userNum;
 	}
 }

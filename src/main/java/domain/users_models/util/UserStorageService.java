@@ -6,8 +6,7 @@ import domain.users_models.users.User;
 import java.util.List;
 
 public class UserStorageService implements iUsersStorageService {
-	
-	private static int numOfUsers = 1;
+
 	private static final String STORAGE_FILENAME = "D:\\ToDo-List-project\\src\\main\\java\\resources\\users.txt";
 	
 	@Override
@@ -22,11 +21,7 @@ public class UserStorageService implements iUsersStorageService {
 		
 		List<User<?>> deserialized = (List<User<?>>) UserSerializationService.deserialize(STORAGE_FILENAME);
 		
-		deserialized.forEach((t) -> {
-			int currentUserNum = numOfUsers++;
-			System.out.println("User " + currentUserNum + ".\n" + t + "\n");
-		});
-		
+		deserialized.forEach(System.out::println);
 		return deserialized;
 	}
 }

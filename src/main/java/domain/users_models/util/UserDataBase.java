@@ -8,8 +8,6 @@ import java.util.List;
 
 public class UserDataBase {
 	
-	private static int numOfUsers = 1;
-	
 	private static List<User<?>> usersList = new LinkedList<User<?>>();
 	
 	private UserDataBase() {
@@ -31,25 +29,18 @@ public class UserDataBase {
 	}
 	
 	public static void printListOfUsers() {
-		
-		for (User<?> user : usersList) {
-			int currentUserNum = numOfUsers++;
-			System.out.println("User " + currentUserNum + ".\n" + user + "\n");
-		}
+		usersList.forEach(System.out::println);
 	}
 	
 	public static void sort() {
-		
 		Collections.sort(usersList);
 	}
 	
 	public static List<User<?>> getUsers() {
-		
 		return usersList;
 	}
 	
 	public static void setUsers(List<User<?>> usersList) {
-		
 		UserDataBase.usersList = usersList;
 	}
 }

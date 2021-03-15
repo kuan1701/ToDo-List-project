@@ -194,10 +194,12 @@ abstract public class TaskItem implements iTaskService, Serializable {
 	}
 	
 	public LocalDate getExpirationDateOfTask() {
+		
 		return expirationDateOfTask;
 	}
 	
 	public void setExpirationDateOfTask(LocalDate expirationDateOfTask) {
+		
 		this.expirationDateOfTask = expirationDateOfTask;
 	}
 	
@@ -275,10 +277,12 @@ abstract public class TaskItem implements iTaskService, Serializable {
 	 * @return TaskItem id
 	 */
 	public int getId() {
+		
 		return id;
 	}
 	
 	public void setId(int id) {
+		
 		this.id = id;
 	}
 }

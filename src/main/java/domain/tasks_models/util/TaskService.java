@@ -1,10 +1,9 @@
 package domain.tasks_models.util;
 
-import domain.tasks_models.exceptions.TasksExceptions;
-import domain.tasks_models.enums.Priority;
 import domain.tasks_models.enums.Categories;
+import domain.tasks_models.enums.Priority;
 import domain.tasks_models.enums.Types;
-import domain.tasks_models.tasks.OneTimeTask;
+import domain.tasks_models.exceptions.TasksExceptions;
 import domain.tasks_models.tasks.TaskItem;
 
 import java.time.LocalDate;
@@ -22,21 +21,14 @@ public class TaskService {
 	public TaskService() {
 	}
 	
-	// create one-time task
-	public static void createOneTimeTask() {
-		
-		OneTimeTask oneTimeTask = new OneTimeTask();
-	}
-	
-	
 	// add task
-	public static void addTask(TaskItem taskItem) throws TasksExceptions{
+	public static void addTask(TaskItem taskItem) throws TasksExceptions {
 		
 		long daysLeft = ChronoUnit.DAYS.between(LocalDate.now(), taskItem.getExpirationDateOfTask());
 		
 		if (taskItem.getDescription().length() == 0) {
 			throw new TasksExceptions(TasksExceptions.NO_DESCRIPTION);
-		} else if (daysLeft >= 0){
+		} else if (daysLeft >= 0) {
 			taskItem.getExpirationDateOfTask().format(DateTimeFormatter.ofPattern("d MMM yyyy"));
 		} else {
 			throw new TasksExceptions(TasksExceptions.DATE_EXPIRED);
@@ -60,10 +52,10 @@ public class TaskService {
 				.ifPresent(tasksList :: remove);
 	}
 	
-	// Print task list
+	// Print task
 	public static void printTask(TaskItem taskItem) throws TasksExceptions {
 		
-		if (taskItem.getDescription().equals("")) {
+		if (taskItem.getDescription().length() > 0) {
 			System.out.println(taskItem);
 		} else {
 			throw new TasksExceptions(TasksExceptions.NO_DESCRIPTION);
@@ -94,6 +86,7 @@ public class TaskService {
 	
 	//finished task
 	private static void finishedTask(TaskItem t) {
+		
 		if (t.isComplete()) {
 			t.setCategories(Categories.FINISHED);
 		}
@@ -158,8 +151,6 @@ public class TaskService {
 	}
 	
 	// Method for displaying task description
-	public static int numOfTaskDescription = 1;
-	
 	public static void showDescriptionOfTasks() {
 		
 		tasksList.forEach((t) -> {
@@ -184,6 +175,7 @@ public class TaskService {
 	
 	// longException(t)
 	private static void noDescriptionException(TaskItem t) {
+		
 		if (t.getDescription().equals("")) {
 			try {
 				throw new TasksExceptions(TasksExceptions.NO_DESCRIPTION);
