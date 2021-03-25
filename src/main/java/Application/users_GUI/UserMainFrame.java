@@ -18,10 +18,10 @@ public class UserMainFrame<T> extends JFrame implements ActionListener {
 	private static final String FILENAME = "D:\\ToDo-List-project\\src\\main\\java\\resources\\users.txt";
 	private static final iUsersStorageService iUsersStorageService = new UserStorageService();
 	
-	private JTextField userFirstNameTF;
-	private JTextField userLastNameTF;
-	private JTextField usernameTF;
-	private JTextField passwordTF;
+	private final JTextField userFirstNameTF;
+	private final JTextField userLastNameTF;
+	private final JTextField usernameTF;
+	private final JTextField passwordTF;
 	
 	public UserMainFrame() {
 		

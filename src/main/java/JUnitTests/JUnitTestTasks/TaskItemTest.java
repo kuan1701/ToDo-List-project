@@ -1,4 +1,4 @@
-package domain.tasks_models.util.JUnitTestTasks;
+package JUnitTests.JUnitTestTasks;
 
 import domain.tasks_models.enums.Categories;
 import domain.tasks_models.enums.Priority;
@@ -10,42 +10,35 @@ import domain.tasks_models.tasks.RecurringTask;
 import domain.tasks_models.tasks.TaskItem;
 import domain.tasks_models.util.TaskService;
 import org.junit.Assert;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
-class TaskItemTest {
+public class TaskItemTest {
 	
-	TaskItem task1;
-	TaskItem task2;
-	TaskItem task3;
-	TaskItem task4;
+	TaskItem task1 = new OneTimeTask("do homework", Categories.PERSONAL, Types.DISPOSABLE, Priority.IMPORTANT, false, LocalDate.of(2022, 3, 15));
 	
-	@BeforeEach
-	void setUp() throws TasksExceptions {
-		
-		task1 = new OneTimeTask("do homework", Categories.PERSONAL, Types.DISPOSABLE, Priority.IMPORTANT, false, LocalDate.of(2022, 3, 15));
-		
-		task2 = new OneTimeTask("pay for the fine", Categories.PERSONAL, Types.DISPOSABLE, Priority.URGENTLY, false, LocalDate.of(2021, 3, 15));
-		
-		task3 = new RecurringTask("pay for service", Categories.HOUSEWORK, Types.REUSABLE, Priority.URGENTLY, false, LocalDate.of(2021, 3, 15), Repeats.ONCE_A_MONTH);
-		
-		task4 = new RecurringTask("learn english", Categories.PERSONAL, Types.DISPOSABLE, Priority.URGENTLY, false, LocalDate.of(2021, 3, 15), Repeats.ONCE_A_WEEK);
+	TaskItem task2 = new OneTimeTask("pay for the fine", Categories.PERSONAL, Types.DISPOSABLE, Priority.URGENTLY, false, LocalDate.of(2022, 3, 15));
+	
+	TaskItem task3 = new RecurringTask("pay for service", Categories.HOUSEWORK, Types.REUSABLE, Priority.URGENTLY, false, LocalDate.of(2023, 3, 15), Repeats.ONCE_A_MONTH);
+	
+	TaskItem task4 = new RecurringTask("learn english", Categories.PERSONAL, Types.DISPOSABLE, Priority.URGENTLY, false, LocalDate.of(2022, 3, 15), Repeats.ONCE_A_WEEK);
+	
+	public TaskItemTest() throws TasksExceptions {
 	}
 	
 	@Test
-	void getDescription() {
+	public void getDescription() {
 		String expected = task1.getDescription();
 		String actual = "do homework";
 		Assert.assertEquals(expected, actual);
 	}
 	
 	@Test
-	void getTasks() throws TasksExceptions {
+	public void getTasks() throws TasksExceptions {
 		
 		TaskService.addTask(task1);
 		TaskService.addTask(task2);
@@ -68,33 +61,33 @@ class TaskItemTest {
 	}
 	
 	@Test
-	void getPriority() {
+	public void getPriority() {
 		String expected = task1.getPriority().toString();
 		String actual = "Important";
 		Assert.assertEquals(expected, actual);
 	}
 	
 	@Test
-	void getPriority_NO_NULL() {
+	public void getPriority_NO_NULL() {
 		String expected;
-		for (TaskItem taskItem:
-		     TaskService.getTasks()) {
+		for (TaskItem taskItem :
+				TaskService.getTasks()) {
 			expected = taskItem.getPriority().toString();
 			Assert.assertNotNull(expected);
 		}
 	}
 	
 	@Test
-	void getCategory() {
+	public void getCategory() {
 		String expected = task1.getCategories().toString();
 		String actual = "Personal";
 		Assert.assertEquals(expected, actual);
 	}
 	
 	@Test
-	void getCategories_NO_NULL() {
+	public void getCategories_NO_NULL() {
 		String expected;
-		for (TaskItem taskItem:
+		for (TaskItem taskItem :
 				TaskService.getTasks()) {
 			expected = taskItem.getCategories().toString();
 			Assert.assertNotNull(expected);
@@ -102,16 +95,16 @@ class TaskItemTest {
 	}
 	
 	@Test
-	void getTypes() {
+	public void getTypes() {
 		String expected = task1.getTypes().toString();
 		String actual = "Disposable";
 		Assert.assertEquals(expected, actual);
 	}
 	
 	@Test
-	void getTypes_NO_NULL() {
+	public void getTypes_NO_NULL() {
 		String expected;
-		for (TaskItem taskItem:
+		for (TaskItem taskItem :
 				TaskService.getTasks()) {
 			expected = taskItem.getTypes().toString();
 			Assert.assertNotNull(expected);
@@ -119,7 +112,7 @@ class TaskItemTest {
 	}
 	
 	@Test
-	void getDaysLeft(){
+	public void getDaysLeft() {
 		
 		long expected = task1.getDaysLeft();
 		long actual = ChronoUnit.DAYS.between(LocalDate.now(), task1.getExpirationDateOfTask());

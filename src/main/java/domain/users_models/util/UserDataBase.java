@@ -33,10 +33,12 @@ public class UserDataBase {
 	}
 	
 	public static void sort() {
+		
 		Collections.sort(usersList);
 	}
 	
 	public static List<User<?>> getUsers() {
+		
 		return usersList;
 	}
 	

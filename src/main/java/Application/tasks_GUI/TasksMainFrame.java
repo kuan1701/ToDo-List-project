@@ -19,6 +19,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class TasksMainFrame extends JFrame implements ActionListener, ItemListener {
@@ -89,6 +90,20 @@ public class TasksMainFrame extends JFrame implements ActionListener, ItemListen
 		}
 		// create month combobox for expiration date combobox
 		String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+		
+		HashMap<Integer, String> months1 = new HashMap<>();
+		months1.put(1, "January");
+		months1.put(2, "February");
+		months1.put(3, "March");
+		months1.put(4, "April");
+		months1.put(5, "May");
+		months1.put(6, "June");
+		months1.put(7, "July");
+		months1.put(8, "August");
+		months1.put(9, "September");
+		months1.put(10, "October");
+		months1.put(11, "November");
+		months1.put(12, "December");
 		
 		monthCB = new JComboBox<>();
 		for (String month : months) {
@@ -210,10 +225,10 @@ public class TasksMainFrame extends JFrame implements ActionListener, ItemListen
 		Repeats repeats = (Repeats) repeatsJComboBox.getSelectedItem();
 		boolean complete = false;
 		
-		int year = (int) yearCB.getSelectedItem();
-		int month = monthCB.getSelectedIndex() + 1;
-		int day = (int) dayCB.getSelectedItem();
-		LocalDate expiredDate = LocalDate.of(year, month, day);
+		final int YEAR = (int) yearCB.getSelectedItem();
+		final int MONTH = monthCB.getSelectedIndex() + 1;
+		final int DAY = (int) dayCB.getSelectedItem();
+		LocalDate expiredDate = LocalDate.of(YEAR, MONTH, DAY);
 		
 		if (actionEvent.getActionCommand().equals("Create new task")) {
 			
@@ -227,7 +242,7 @@ public class TasksMainFrame extends JFrame implements ActionListener, ItemListen
 				}
 				else if (Objects.equals(typesJComboBox.getSelectedItem().toString(), "Disposable")) {
 					
-					OneTimeTask newOneTimeTask = new OneTimeTask(description, categories, type, priority, complete, LocalDate.of(year, month, day));
+					OneTimeTask newOneTimeTask = new OneTimeTask(description, categories, type, priority, complete, LocalDate.of(YEAR, MONTH, DAY));
 					TaskService.addTask(newOneTimeTask);
 					JOptionPane.showMessageDialog(null, "New one-time task created");
 				}

@@ -79,7 +79,7 @@ public class User<T> implements iUserService, Comparable<User>, Serializable {
 			} else if (username.length() < 4) {
 				throw new UserException(UserException.SHORT_USERNAME);
 			} else if (UserDataBase.getUsers().stream()
-					.anyMatch(userDB -> userDB.getUsername().equals(username))) {
+					.anyMatch(userDB -> userDB.getUsername().equals(getUsername()))) {
 				throw new UserException(UserException.BUSY_USERNAME);
 			}
 			newUser.username = username;
